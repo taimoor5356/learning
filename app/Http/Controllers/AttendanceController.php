@@ -14,18 +14,6 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function myAttendance(Request $request)
-    // {
-    //     //
-    //     $data['classes'] = SchoolClass::getClasses()->get();
-    //     if (!empty($request->get('class_id')) && $request->get('attendance_date')) {
-    //         $data['students'] = User::getStudentClass($request->get('class_id'))->paginate(10);
-    //     } else {
-    //         $data['students'] = User::getStudentClass(0)->paginate(10);
-    //     }
-    //     $data['header_title'] = 'Student Attendance';
-    //     return view('student.attendance.student', $data);
-    // }
 
     public function myAttendanceReport(Request $request) 
     {
