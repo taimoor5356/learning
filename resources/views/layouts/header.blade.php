@@ -12,8 +12,8 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link p-0" data-toggle="dropdown" href="#">
-                <div class="rounded-circle border border-secondary d-flex justify-content-center align-items-center" style="width: 36px; height: 36px;">
-                    <i class="far fa-user text-secondary"></i>
+                <div class="rounded-circle border border-primary bg-primary d-flex justify-content-center align-items-center" style="width: 36px; height: 36px;">
+                    <i class="far fa-user text-white"></i>
                 </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
