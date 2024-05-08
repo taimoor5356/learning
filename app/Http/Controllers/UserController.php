@@ -108,7 +108,7 @@ class UserController extends Controller
             $user->mobile_number = trim($request->mobile_number);
             $user->current_address = trim($request->current_address);
             $user->permanent_address = trim($request->permanent_address);
-            $user->qualification = json_encode([$request->qualification]);
+            $user->qualification = json_encode($request->qualification);
             $user->work_experience = trim($request->work_experience);
             $user->marital_status = trim($request->marital_status);
             $user->blood_group = trim($request->blood_group);
@@ -149,7 +149,7 @@ class UserController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->qualification = json_encode([$request->qualification]);
+            $user->qualification = json_encode($request->qualification);
             $user->save();
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {

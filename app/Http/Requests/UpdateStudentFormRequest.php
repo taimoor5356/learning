@@ -36,35 +36,11 @@ class UpdateStudentFormRequest extends FormRequest
             $id = Auth::user()->id;
         }
         $rules = [
-            'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users,email,'.$id,
+            'name' => ['sometimes', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
+            'email' => 'sometimes|email|unique:users,email,'.$id,
             'password' => 'sometimes',
-            'father_name' => 'required',
-            'father_occupation' => 'required',
-            'cnic' => 'required',
-            'whatsapp_number' => 'required|min_digits:10|max_digits:15',
-            'emergency_contact_number' => 'required|min_digits:10|max_digits:15',
-            'marital_status' => 'required',
-            'address' => 'sometimes',
-            'gender' => 'required',
-            'date_of_birth' => 'required',
-            'caste' => 'sometimes',
-            'religion' => 'sometimes',
-            'mobile_number' => 'required|min_digits:10|max_digits:15',
-            'blood_group' => ['sometimes', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])],
-            'height' => 'sometimes|regex:/^\d+(\.\d+)?$/|min:0|max:7',
-            'weight' => 'sometimes|regex:/^\d+(\.\d+)?$/|min:0|max:100',
-            'marital_status' => 'sometimes',
-            'current_address' => 'sometimes',
-            'permanent_address' => 'sometimes',
-            'work_experience' => 'sometimes',
-            'note' => 'sometimes',
-            'domicile' => 'sometimes',
-            'discounted_amount' => 'sometimes',
-            'discount_reason' => 'sometimes',
-            'freeze_date' => 'sometimes',
-            'left_date' => 'sometimes',
         ];
+        $rules['note'] = 'sometimes';
         $userType = Auth::user()->user_type;
         if ($userType == 1) {
             $rules['admission_number'] = 'required';
@@ -79,6 +55,31 @@ class UpdateStudentFormRequest extends FormRequest
             $rules['interview_type'] = 'required';
             $rules['user_type'] = 'sometimes';
             $rules['status'] = 'required';
+            $rules['discounted_amount'] = 'nullable';
+            $rules['discount_reason'] = 'nullable';
+            $rules['freeze_date'] = 'nullable';
+            $rules['left_date'] = 'nullable';
+        } else {
+            $rules['father_name'] = 'required';
+            $rules['father_occupation'] = 'required';
+            $rules['cnic'] = 'required';
+            $rules['emergency_contact_number'] = 'required';
+            $rules['marital_status'] = 'required';
+            $rules['address'] = 'nullable';
+            $rules['gender'] = 'required';
+            $rules['date_of_birth'] = 'required';
+            $rules['religion'] = 'nullable';
+            $rules['mobile_number'] = 'required|min_digits:10|max_digits:15';
+            $rules['whatsapp_number'] = 'sometimes|min_digits:10|max_digits:15';
+            $rules['emergency_contact_number'] = 'sometimes|min_digits:10|max_digits:15';
+            $rules['blood_group'] = ['nullable', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])];
+            $rules['height'] = 'nullable|regex:/^\d+(\.\d+)?$/|min:0|max:7';
+            $rules['weight'] = 'nullable|regex:/^\d+(\.\d+)?$/|min:0|max:100';
+            $rules['marital_status'] = 'nullable';
+            $rules['current_address'] = 'required';
+            $rules['permanent_address'] = 'nullable';
+            $rules['work_experience'] = 'nullable';
+            $rules['domicile'] = 'required';
         }
         return $rules;
     }

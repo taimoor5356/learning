@@ -55,7 +55,7 @@ class StudentDetailController extends Controller
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
-        $user->qualification = json_encode([$request->qualification]);
+        $user->qualification = json_encode($request->qualification);
         $user->user_type = 3;
         $user->status = 1;
         $user->save();
@@ -65,13 +65,13 @@ class StudentDetailController extends Controller
     public function storeVisitor(Request $request)
     {
         request()->validate([
-            'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
             'class_type' => ['required', Rule::in(['on_campus', 'online'])],
             'class_program' => ['required', Rule::in(['css', 'pms', 'examination', 'interview', 'others'])],
-            'domicile' => ['required', Rule::in(['isb', 'punjab', 'sindh', 'balochistan', 'kpk'])],
-            'qualification' => 'required',
-            'gender' => ['required', Rule::in(['male', 'female'])],
+            'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
             'mobile_number' => 'required|min_digits:10|max_digits:15',
+            'gender' => ['required', Rule::in(['male', 'female'])],
+            'qualification' => 'required',
+            'domicile' => ['required', Rule::in(['isb', 'punjab', 'sindh', 'balochistan', 'kpk'])],
         ]);
         $user = User::getSingleUser(Auth::user()->id)->first();
         if (isset($user)) {
@@ -79,46 +79,13 @@ class StudentDetailController extends Controller
         } else {
             $user = new User();
         }
-        $user->name = trim($request->name);
-        $user->email = trim($request->email);
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->status = trim($request->status);
-        $user->gender = trim($request->gender);
-        $user->date_of_birth = trim($request->date_of_birth);
-        $user->caste = trim($request->caste);
-        $user->religion = trim($request->religion);
-        $user->mobile_number = trim($request->mobile_number);
-        if (!empty($request->file('profile_pic'))) {
-            if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
-                unlink('public/images/profile/' . $user->profile_pic);
-            }
-            $ext = $request->file('profile_pic')->getClientOriginalExtension();
-            $file = $request->file('profile_pic');
-            $randomStr = Str::random(10);
-            $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
-            $file->move('public/images/profile/', $fileName);
-            $user->profile_pic = $fileName;
-        }
-        $user->blood_group = trim($request->blood_group);
-        $user->height = trim($request->height);
-        $user->weight = trim($request->weight);
-        $user->address = trim($request->address);
-        $user->admission_date = trim($request->admission_date);
-        $user->admission_number = trim($request->admission_number);
-        $user->roll_number = trim($request->roll_number);
-        $user->class_id = trim($request->class_id);
-        $user->batch_starting_date = trim($request->batch_starting_date);
         $user->class_type = trim($request->class_type);
         $user->class_program = trim($request->class_program);
-        $user->batch_number = trim($request->batch_number);
-        $user->interview_type = trim($request->interview_type);
-        $user->exam_id = trim($request->exam_id);
-        $user->discounted_amount = trim($request->discounted_amount);
-        $user->discount_reason = trim($request->discount_reason);
-        $user->freeze_date = trim($request->freeze_date);
-        $user->left_date = trim($request->left_date);
+        $user->name = trim($request->name);
+        $user->mobile_number = trim($request->mobile_number);
+        $user->gender = trim($request->gender);
+        $user->qualification = json_encode(trim($request->qualification));
+        $user->domicile = trim($request->domicile);
         $user->save();
 
         return redirect('')->with('success', 'Updated successfully');
@@ -165,7 +132,7 @@ class StudentDetailController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->qualification = json_encode([$request->qualification]);
+            $user->qualification = json_encode($request->qualification);
             $user->save();
             return redirect('admin/student/list')->with('success', 'Student details updated successfully');
         } else {

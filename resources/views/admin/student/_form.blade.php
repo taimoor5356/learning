@@ -1,7 +1,7 @@
 @if(Auth::user()->user_type == 1)
 <div class="card-body">
     <div class="row">
-        <div class="form-group col-4">
+        <!-- <div class="form-group col-4">
             <label for="InputProfilePicture">Profile Picture <span class="text-danger">*</span></label>
             <input type="file" value="{{ old('profile_pic') ?? (isset($record) ? $record->profile_pic : '') }}" name="profile_pic" class="form-control" id="InputProfilePicture">
             <span class="text-danger">{{$errors->first('profile_pic')}}</span>
@@ -20,7 +20,7 @@
                     <img src="@isset($record){{$record->getProfilePic()}}@else{{url('public/images/avatar.png')}}@endisset" class="border rounded" width="100px" height="100px" alt="">
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-group col-4">
             <label for="InputBatchStartingDate">Batch starting date <span class="text-danger">*</span></label>
             <input type="date" value="{{ old('batch_starting_date') ?? (isset($record) ? $record->batch_starting_date : '') }}" name="batch_starting_date" class="form-control" id="InputBatchStartingDate" required>
@@ -43,7 +43,7 @@
             <input type="password" value="{{ old('password') }}" name="password" class="form-control" id="InputPassword" placeholder="Enter password">
             <span class="text-danger">{{$errors->first('password')}}</span>
         </div>
-        <div class="form-group col-4">
+        <!-- <div class="form-group col-4">
             <label for="InputFatherName">Father Name <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('father_name') ?? (isset($record) ? $record->father_name : '') }}" name="father_name" class="form-control" id="InputFatherName" placeholder="Enter father name" required>
             <span class="text-danger">{{$errors->first('father_name')}}</span>
@@ -72,7 +72,7 @@
             <label for="InputContactNumber">Emergency Contact Number <span class="text-danger">*</span></label>
             <input type="number" value="{{ old('emergency_contact_number') ?? (isset($record) ? $record->emergency_contact_number : '') }}" name="emergency_contact_number" class="form-control" id="InputContactNumber" placeholder="Enter emergency contact number" required>
             <span class="text-danger">{{$errors->first('emergency_contact_number')}}</span>
-        </div>
+        </div> -->
         <div class="form-group col-4">
             <label for="InputUserType">User Type <span class="text-danger">*</span></label>
             <select name="user_type" class="form-control" id="InputUserType">
@@ -92,7 +92,7 @@
             </select>
             <span class="text-danger">{{$errors->first('status')}}</span>
         </div>
-        <div class="form-group col-4">
+        <!-- <div class="form-group col-4">
             <label for="InputGender">Gender <span class="text-danger">*</span></label>
             <select name="gender" id="InputGender" class="form-control" required>
                 <option value="">Select Gender</option>
@@ -117,8 +117,8 @@
                 <option value="kpk" {{ isset($record) ? ($record->domicile == 'kpk' ? 'selected' : '') : (old('domicile') == 'kpk' ? 'selected' : '') }}>KPK</option>
             </select>
             <span class="text-danger">{{$errors->first('class_program')}}</span>
-        </div>
-        <div class="form-group col-4">
+        </div> -->
+        <!-- <div class="form-group col-4">
             <label for="InputCaste">Caste <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('caste') ?? (isset($record) ? $record->caste : '') }}" name="caste" class="form-control" id="InputCaste" placeholder="Enter caste">
             <span class="text-danger">{{$errors->first('caste')}}</span>
@@ -152,9 +152,9 @@
             <label for="InputWeight">Weight <span class="text-danger">*</span></label>
             <input type="number" value="{{ old('weight') ?? (isset($record) ? $record->weight : '') }}" name="weight" class="form-control" id="InputWeight" placeholder="Enter weight">
             <span class="text-danger">{{$errors->first('weight')}}</span>
-        </div>
+        </div> -->
 
-        <div class="form-group col-4">
+        <!-- <div class="form-group col-4">
             <label for="InputMaritalStatus">Select Marital Status <span class="text-danger">*</span></label>
             <select class="form-control" id="InputMaritalStatus" name="marital_status" required>
                 <option value="">Select Marital Status</option>
@@ -177,7 +177,7 @@
             <label for="InputWorkExperience">Work Experience <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('work_experience') ?? (isset($record) ? $record->work_experience : '') }}" name="work_experience" class="form-control" id="InputWorkExperience" placeholder="Enter work experience" required>
             <span class="text-danger">{{$errors->first('work_experience')}}</span>
-        </div>
+        </div> -->
         <div class="form-group col-4">
             <label for="InputShortNote">Short Note <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('note') ?? (isset($record) ? $record->note : '') }}" name="note" class="form-control" id="InputShortNote" placeholder="Enter short note" required>
