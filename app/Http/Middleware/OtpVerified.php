@@ -16,8 +16,14 @@ class OtpVerified
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user() && Auth::user()->otp_verified == 1) {
-            return $next($request);
+        if (Auth::user()) {
+            if (!empty(Auth::user()->otp) && (Auth::user()->otp_verified == 1)) {
+                return $next($request);
+            } else if (empty(Auth::user()->otp)) {
+                return $next($request);
+            } else {
+                return redirect('logout');
+            }
         }
         return redirect('logout');
     }
