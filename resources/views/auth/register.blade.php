@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>LMS | SignUp</title>
+    <title>{{systemSettings()->school_logo_name}} | SignUp</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,7 +23,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>Learning</b> MS</a>
+            <a href="#"><b>{{systemSettings()->school_logo_name}}</b></a>
         </div>
         <div class="card card-outline card-primary">
             <div class="card-body login-card-body">
@@ -58,7 +58,7 @@
                 </form>
 
                 <p class="mt-4 d-flex justify-content-between">
-                    <a href="{{url('login')}}">Sign In</a>
+                    <a href="{{url('')}}">Sign In</a>
                 </p>
             </div>
         </div>

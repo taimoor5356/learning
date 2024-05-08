@@ -36,6 +36,10 @@ class DashboardController extends Controller
             $data['totalCollectedFees'] = SubmittedFee::getTotalStudentCollectedFees(Auth::user()->id);
             $data['totalSubjects'] = ClassSubject::getSingleStudentClassSubjectsCount(Auth::user()->class_id)->count();
             $data['totalNoticesCount'] = NoticeBoard::getStudentNoticeCount(Auth::user()->id);
+            if (Auth::user()->status == 0) {
+                $data['record'] = User::getSingleUser(Auth::user()->id)->first();
+                return view('student.visitor', $data);
+            }
             return view('student.dashboard', $data);
         } else if ($userType == 4) {
             return view('parent.dashboard', $data);

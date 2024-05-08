@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
+    <title>{{systemSettings()->school_logo_name}} | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,7 +23,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>Learning</b> MS</a>
+            <a href="#"><b>{{systemSettings()->school_logo_name}}</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
@@ -64,17 +64,6 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
-                <!-- <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div> -->
-                <!-- /.social-auth-links -->
 
                 <p class="mt-4 d-flex justify-content-between">
                     <a href="{{url('forgot-password')}}">I forgot my password</a>

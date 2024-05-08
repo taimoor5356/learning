@@ -69,4 +69,10 @@ class Kernel extends HttpKernel
         'student' => \App\Http\Middleware\StudentMiddleware::class,
         'parent' => \App\Http\Middleware\ParentMiddleware::class,
     ];
+
+    protected $routeMiddleware = [
+        // Other middleware entries...
+        'is_active' => \App\Http\Middleware\UserStatusCheck::class,
+        'student_is_active' => \App\Http\Middleware\StudentStatusCheck::class,
+    ];
 }

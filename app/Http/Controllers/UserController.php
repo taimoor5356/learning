@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateStudentFormRequest;
+use App\Models\Examination;
 use App\Models\SchoolClass;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,11 +14,13 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function editPassword() {
+    public function editPassword()
+    {
         $data['header_title'] = 'Edit Account Password';
         return view('profile.edit_password', $data);
     }
-    public function updatePassword(Request $request) {
+    public function updatePassword(Request $request)
+    {
         request()->validate([
             'old_password' => 'required',
             'new_password' => 'required',
@@ -35,10 +39,12 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Old password does not match');
         }
     }
-    public function myAccount() {
+    public function myAccount()
+    {
         $data['header_title'] = 'My Account';
         $data['record'] = User::getSingleUser(Auth::user()->id)->first();
         $data['classes'] = SchoolClass::getClasses()->get();
+        $data['exams'] = Examination::getExams()->get();
         if (Auth::user()->user_type == 1) {
             return view('admin.my_account', $data);
         } else if (Auth::user()->user_type == 2) {
@@ -49,27 +55,25 @@ class UserController extends Controller
             return view('parent.my_account', $data);
         }
     }
-    public function updateMyAdminAccount(Request $request) {
+    public function updateMyAdminAccount(Request $request)
+    {
         $id = Auth::user()->id;
         request()->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,'.$id
+            'email' => 'required|email|unique:users,email,' . $id
         ]);
         $user = User::getSingleUser($id)->first();
         if (isset($user)) {
             $user->name = trim($request->name);
             $user->email = trim($request->email);
             if (!empty($request->file('profile_pic'))) {
-                if (!empty($user->getProfilePic())) {
-                    if (file_exists('public/images/profile/'.$user->profile_pic)) {
-                        unlink('public/images/profile/'.$user->profile_pic);
-                    }
-                    unlink('public/images/profile/'.$user->profile_pic);
+                if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
+                    unlink('public/images/profile/' . $user->profile_pic);
                 }
                 $ext = $request->file('profile_pic')->getClientOriginalExtension();
                 $file = $request->file('profile_pic');
                 $randomStr = Str::random(10);
-                $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
+                $fileName = 'adm' . strtolower($randomStr) . '.' . $ext;
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
@@ -79,11 +83,12 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'User data not found');
         }
     }
-    public function updateMyTeacherAccount(Request $request) {
+    public function updateMyTeacherAccount(Request $request)
+    {
         $id = Auth::user()->id;
         request()->validate([
             'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'gender' => ['required', Rule::in(['male', 'female'])],
             'date_of_birth' => 'required',
             'current_address' => 'required',
@@ -103,60 +108,39 @@ class UserController extends Controller
             $user->mobile_number = trim($request->mobile_number);
             $user->current_address = trim($request->current_address);
             $user->permanent_address = trim($request->permanent_address);
-            $user->qualification = trim($request->qualification);
+            $user->qualification = json_encode([$request->qualification]);
             $user->work_experience = trim($request->work_experience);
             $user->marital_status = trim($request->marital_status);
             $user->blood_group = trim($request->blood_group);
             if (!empty($request->file('profile_pic'))) {
                 if (!empty($user->getProfilePic())) {
-                    if (file_exists('public/images/profile/'.$user->profile_pic)) {
-                        unlink('public/images/profile/'.$user->profile_pic);
+                    if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
+                        unlink('public/images/profile/' . $user->profile_pic);
                     }
-                    unlink('public/images/profile/'.$user->profile_pic);
                 }
                 $ext = $request->file('profile_pic')->getClientOriginalExtension();
                 $file = $request->file('profile_pic');
                 $randomStr = Str::random(10);
-                $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
+                $fileName = 'tch' . strtolower($randomStr) . '.' . $ext;
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
             $user->save();
-    
+
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
             return redirect()->back()->with('error', 'User data not found');
         }
     }
-    public function updateMyStudentAccount(Request $request) {
+    public function updateMyStudentAccount(UpdateStudentFormRequest $request)
+    {
         $id = Auth::user()->id;
-        request()->validate([
-            'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users,email,'.$id,
-            'gender' => ['required', Rule::in(['male', 'female'])],
-            'date_of_birth' => 'required',
-            'caste' => 'required',
-            'religion' => 'required',
-            'mobile_number' => 'required|min_digits:10|max_digits:15',
-            'height' => 'required|regex:/^\d+(\.\d+)?$/|min:0|max:7',
-            'weight' => 'required|integer|max:100',
-            'blood_group' => ['required', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])],
-        ]);
         $user = User::getSingleUser($id)->first();
         if (isset($user)) {
-            $user->name = trim($request->name);
-            $user->email = trim($request->email);
-            $user->gender = trim($request->gender);
-            $user->date_of_birth = trim($request->date_of_birth);
-            $user->caste = trim($request->caste);
-            $user->religion = trim($request->religion);
-            $user->mobile_number = trim($request->mobile_number);
+            $user->update($request->validated());
             if (!empty($request->file('profile_pic'))) {
-                if (!empty($user->getProfilePic())) {
-                    if (file_exists('public/images/profile/'.$user->profile_pic)) {
-                        unlink('public/images/profile/'.$user->profile_pic);
-                    }
-                    unlink('public/images/profile/'.$user->profile_pic);
+                if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
+                    unlink('public/images/profile/' . $user->profile_pic);
                 }
                 $ext = $request->file('profile_pic')->getClientOriginalExtension();
                 $file = $request->file('profile_pic');
@@ -165,11 +149,8 @@ class UserController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->blood_group = trim($request->blood_group);
-            $user->height = trim($request->height);
-            $user->weight = trim($request->weight);
+            $user->qualification = json_encode([$request->qualification]);
             $user->save();
-    
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
             return redirect()->back()->with('error', 'User data not found');

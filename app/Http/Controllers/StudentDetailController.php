@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateStudentFormRequest;
+use App\Http\Requests\UpdateStudentFormRequest;
+use App\Models\Examination;
 use App\Models\SchoolClass;
 use App\Models\StudentDetail;
 use App\Models\User;
@@ -20,7 +23,7 @@ class StudentDetailController extends Controller
     {
         //
         $data['header_title'] = 'Students list';
-        $data['records'] = User::getStudents()->paginate(3);
+        $data['records'] = User::getStudents()->paginate(25);
         $data['classes'] = SchoolClass::getClasses()->get();
         return view('admin.student.index', $data);
     }
@@ -33,38 +36,54 @@ class StudentDetailController extends Controller
         //
         $data['header_title'] = 'Add New Student';
         $data['classes'] = SchoolClass::getClasses()->get();
+        $data['exams'] = Examination::getExams()->get();
         return view('admin.student.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateStudentFormRequest $request)
     {
         //
+        $user = User::create($request->validated());
+        if (!empty($request->file('profile_pic'))) {
+            $ext = $request->file('profile_pic')->getClientOriginalExtension();
+            $file = $request->file('profile_pic');
+            $randomStr = Str::random(10);
+            $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
+            $file->move('public/images/profile/', $fileName);
+            $user->profile_pic = $fileName;
+        }
+        $user->qualification = json_encode([$request->qualification]);
+        $user->user_type = 3;
+        $user->status = 1;
+        $user->save();
+        return redirect('admin/student/list')->with('success', 'Student added successfully');
+    }
+
+    public function storeVisitor(Request $request)
+    {
         request()->validate([
             'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'admission_number' => 'required|max:50|unique:users',
-            'roll_number' => 'required|max:50|unique:users',
-            'class_id' => 'required|integer',
+            'class_type' => ['required', Rule::in(['on_campus', 'online'])],
+            'class_program' => ['required', Rule::in(['css', 'pms', 'examination', 'interview', 'others'])],
+            'domicile' => ['required', Rule::in(['isb', 'punjab', 'sindh', 'balochistan', 'kpk'])],
+            'qualification' => 'required',
             'gender' => ['required', Rule::in(['male', 'female'])],
-            'date_of_birth' => 'required',
-            'caste' => 'required',
-            'religion' => 'required',
             'mobile_number' => 'required|min_digits:10|max_digits:15',
-            'admission_date' => 'required',
-            'profile_pic' => 'required|file',
-            'status' => ['required', Rule::in([0, 1])],
-            'height' => 'required|regex:/^\d+(\.\d+)?$/|min:0|max:7',
-            'weight' => 'required|integer|max:100',
-            'blood_group' => ['required', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])],
         ]);
-        $user = new User();
+        $user = User::getSingleUser(Auth::user()->id)->first();
+        if (isset($user)) {
+            $user = $user;
+        } else {
+            $user = new User();
+        }
         $user->name = trim($request->name);
         $user->email = trim($request->email);
-        $user->password = Hash::make($request->password);
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
         $user->status = trim($request->status);
         $user->gender = trim($request->gender);
         $user->date_of_birth = trim($request->date_of_birth);
@@ -72,6 +91,9 @@ class StudentDetailController extends Controller
         $user->religion = trim($request->religion);
         $user->mobile_number = trim($request->mobile_number);
         if (!empty($request->file('profile_pic'))) {
+            if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
+                unlink('public/images/profile/' . $user->profile_pic);
+            }
             $ext = $request->file('profile_pic')->getClientOriginalExtension();
             $file = $request->file('profile_pic');
             $randomStr = Str::random(10);
@@ -82,14 +104,24 @@ class StudentDetailController extends Controller
         $user->blood_group = trim($request->blood_group);
         $user->height = trim($request->height);
         $user->weight = trim($request->weight);
-        $user->user_type = 3;
+        $user->address = trim($request->address);
+        $user->admission_date = trim($request->admission_date);
         $user->admission_number = trim($request->admission_number);
         $user->roll_number = trim($request->roll_number);
         $user->class_id = trim($request->class_id);
-        $user->admission_date = trim($request->admission_date);
+        $user->batch_starting_date = trim($request->batch_starting_date);
+        $user->class_type = trim($request->class_type);
+        $user->class_program = trim($request->class_program);
+        $user->batch_number = trim($request->batch_number);
+        $user->interview_type = trim($request->interview_type);
+        $user->exam_id = trim($request->exam_id);
+        $user->discounted_amount = trim($request->discounted_amount);
+        $user->discount_reason = trim($request->discount_reason);
+        $user->freeze_date = trim($request->freeze_date);
+        $user->left_date = trim($request->left_date);
         $user->save();
 
-        return redirect('admin/student/list')->with('success', 'Student added successfully');
+        return redirect('')->with('success', 'Updated successfully');
     }
 
     /**
@@ -109,65 +141,36 @@ class StudentDetailController extends Controller
         $data['header_title'] = 'Edit Student Detail';
         $data['record'] = User::getSingleUser($id)->first();
         $data['classes'] = SchoolClass::getClasses()->get();
+        $data['exams'] = Examination::getExams()->get();
         return view('admin.student.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateStudentFormRequest $request, $id)
     {
         //
-        request()->validate([
-            'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users,email,'.$id,
-            'admission_number' => 'required|max:50|unique:users,admission_number,'.$id,
-            'roll_number' => 'required|max:50|unique:users,roll_number,'.$id,
-            'class_id' => 'required|integer',
-            'gender' => ['required', Rule::in(['male', 'female'])],
-            'date_of_birth' => 'required',
-            'caste' => 'required',
-            'religion' => 'required',
-            'mobile_number' => 'required|min_digits:10|max_digits:15',
-            'admission_date' => 'required',
-            'status' => ['required', Rule::in([0, 1])],
-            'height' => 'required|regex:/^\d+(\.\d+)?$/|min:0|max:7',
-            'weight' => 'required|integer|max:100',
-            'blood_group' => ['required', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])],
-        ]);
         $user = User::getSingleUser($id)->first();
-        $user->name = trim($request->name);
-        $user->email = trim($request->email);
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->status = trim($request->status);
-        $user->gender = trim($request->gender);
-        $user->date_of_birth = trim($request->date_of_birth);
-        $user->caste = trim($request->caste);
-        $user->religion = trim($request->religion);
-        $user->mobile_number = trim($request->mobile_number);
-        if (!empty($request->file('profile_pic'))) {
-            if (file_exists('public/images/profile/'.$user->profile_pic)) {
-                unlink('public/images/profile/'.$user->profile_pic);
+        if (isset($user)) {
+            $user->update($request->validated());
+            if (!empty($request->file('profile_pic'))) {
+                if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
+                    unlink('public/images/profile/' . $user->profile_pic);
+                }
+                $ext = $request->file('profile_pic')->getClientOriginalExtension();
+                $file = $request->file('profile_pic');
+                $randomStr = Str::random(10);
+                $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
+                $file->move('public/images/profile/', $fileName);
+                $user->profile_pic = $fileName;
             }
-            $ext = $request->file('profile_pic')->getClientOriginalExtension();
-            $file = $request->file('profile_pic');
-            $randomStr = Str::random(10);
-            $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
-            $file->move('public/images/profile/', $fileName);
-            $user->profile_pic = $fileName;
+            $user->qualification = json_encode([$request->qualification]);
+            $user->save();
+            return redirect('admin/student/list')->with('success', 'Student details updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'User not found');
         }
-        $user->blood_group = trim($request->blood_group);
-        $user->height = trim($request->height);
-        $user->weight = trim($request->weight);
-        $user->admission_number = trim($request->admission_number);
-        $user->roll_number = trim($request->roll_number);
-        $user->class_id = trim($request->class_id);
-        $user->admission_date = trim($request->admission_date);
-        $user->save();
-
-        return redirect('admin/student/list')->with('success', 'Student details updated successfully');
     }
 
     /**

@@ -36,12 +36,22 @@ return new class extends Migration
             $table->string('marital_status')->nullable();
             $table->string('current_address')->nullable();
             $table->string('permanent_address')->nullable();
-            $table->string('qualification')->nullable();
             $table->string('work_experience')->nullable();
             $table->string('note')->nullable();
             $table->string('otp')->nullable();
             $table->integer('otp_verified')->default(0);
             $table->longText('otp_token')->nullable();
+            $table->string('class_type')->nullable();
+            $table->string('class_program')->nullable();
+            $table->string('domicile')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('fee_slip')->nullable();
+            $table->string('cnic')->nullable();
+            $table->string('father_occupation')->nullable();
+            $table->json('qualification')->nullable();
+            $table->integer('whatsapp_number')->nullable();
+            $table->integer('emergency_contact_number')->nullable();
+            $table->json('optional_subjects')->nullable();
 
             $table->string('deleted_at')->nullable();
             $table->timestamps();

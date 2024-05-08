@@ -14,6 +14,7 @@ use App\Http\Controllers\FeeCollectionController;
 use App\Http\Controllers\HomeWorkController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentDetailController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -50,7 +51,7 @@ Route::group(['prefix' => '/'], function () {
     Route::post('reset/{token}', [AuthController::class, 'postResetPassword'])->name('postresetPassword');
     Route::post('/update-password', [UserController::class, 'updatePassword']);
 });
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], function () {
 
     // Admin User URLs
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
@@ -158,7 +159,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::post('/update-single/{id}', [ClassTimetableController::class, 'updateSingle']);
         Route::get('/delete/{id}', [ClassTimetableController::class, 'destroy']);
         Route::get('/trashed', [ClassTimetableController::class, 'trashed']);
-        
+
         Route::post('/subjects', [ClassTimetableController::class, 'getClassSubjects']);
         Route::post('/add', [ClassTimetableController::class, 'insertOrUpdate']);
     });
@@ -241,6 +242,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/submitted/{id}', [HomeWorkController::class, 'submittedHomeWork']);
         Route::get('/get-class-subjects', [HomeWorkController::class, 'getClassSubjects']);
     });
+
+    // Homework
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('', [SettingController::class, 'index']);
+        Route::post('/update/{id}', [SettingController::class, 'update']);
+    });
 });
 Route::group(['prefix' => 'teacher', 'middleware' => 'teacher'], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
@@ -311,68 +318,70 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'teacher'], function () {
 });
 Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
-    Route::get('/account', [UserController::class, 'myAccount']);
-    Route::post('/update-account', [UserController::class, 'updateMyStudentAccount']);
-
-    // My Subject
-    Route::group(['prefix' => 'subject'], function () {
-        Route::get('/list', [SubjectController::class, 'myStudentSubjects']);
-    });
-
-    // My Timetable
-    Route::group(['prefix' => 'class-timetable'], function () {
-        Route::get('/list', [ClassTimetableController::class, 'myStudentTimetable']);
-    });
-
-    // Fee Collection
-    Route::group(['prefix' => 'fee-collection'], function () {
-        Route::get('/list', [FeeCollectionController::class, 'studentFeesCollection']);
-    });
-
-    // Update password
-    Route::group(['prefix' => 'password'], function () {
-        Route::get('/edit', [UserController::class, 'editPassword']);
-    });
-
-    // Examinations
-    Route::group(['prefix' => 'examinations'], function () {
-        Route::get('/scheduled-exams', [ExaminationController::class, 'studentExamSchedule']);
-
-        // Marks Registeration
-        Route::get('/print', [ExaminationController::class, 'studentPrintExamResult']);
-        Route::get('/subject-marks', [ExaminationController::class, 'studentSubjectMarks']);
-        Route::post('/subject-marks', [ExaminationController::class, 'studentStoreSubjectMarks']);
-        Route::post('/store-single-subject-marks', [ExaminationController::class, 'studentStoreSingleSubjectMarks']);
-    });
-
-    // Calendar
-    Route::group(['prefix' => 'calendar'], function () {
-        Route::get('/show', [CalendarController::class, 'studentCalendar']);
-    });
-
-    // Attendance
-    Route::group(['prefix' => 'attendance'], function () {
-        Route::get('/student-attendance', [AttendanceController::class, 'myAttendanceReport']);
-        // Route::get('/student-attendance-report', [AttendanceController::class, 'myAttendanceReport']);
-    });
-
-    // Communicate
-    Route::group(['prefix' => 'communicate'], function () {
-        Route::group(['prefix' => 'notice-board'], function () {
-            Route::get('/list', [CommunicateController::class, 'studentNoticeBoard']);
+    Route::post('/visitor/store', [StudentDetailController::class, 'storeVisitor']);
+    Route::group(['middleware' => 'student_is_active'], function () {
+        // My Subject
+        Route::get('/account', [UserController::class, 'myAccount']);
+        Route::post('/update-account', [UserController::class, 'updateMyStudentAccount']);
+        Route::group(['prefix' => 'subject'], function () {
+            Route::get('/list', [SubjectController::class, 'myStudentSubjects']);
         });
-    });
 
-    // Homework
-    Route::group(['prefix' => 'home-work'], function () {
-        Route::get('/list', [HomeWorkController::class, 'studentHomeWork']);
-        Route::get('/submit-homework/{id}', [HomeWorkController::class, 'createStudentHomeWork']);
-        Route::post('/store/{id}', [HomeWorkController::class, 'storeStudentHomeWork']);
-        Route::get('/submitted', [HomeWorkController::class, 'submittedStudentHomeWork']);
-        // Route::post('/update/{id}', [HomeWorkController::class, 'updateStudentHomeWork']);
-        // Route::get('/delete/{id}', [HomeWorkController::class, 'destroyStudentHomeWork']);
-        // Route::get('/trashed', [HomeWorkController::class, 'trashed']);
-        Route::get('/get-class-subjects', [HomeWorkController::class, 'getClassSubjects']);
+        // My Timetable
+        Route::group(['prefix' => 'class-timetable'], function () {
+            Route::get('/list', [ClassTimetableController::class, 'myStudentTimetable']);
+        });
+
+        // Fee Collection
+        Route::group(['prefix' => 'fee-collection'], function () {
+            Route::get('/list', [FeeCollectionController::class, 'studentFeesCollection']);
+        });
+
+        // Update password
+        Route::group(['prefix' => 'password'], function () {
+            Route::get('/edit', [UserController::class, 'editPassword']);
+        });
+
+        // Examinations
+        Route::group(['prefix' => 'examinations'], function () {
+            Route::get('/scheduled-exams', [ExaminationController::class, 'studentExamSchedule']);
+
+            // Marks Registeration
+            Route::get('/print', [ExaminationController::class, 'studentPrintExamResult']);
+            Route::get('/subject-marks', [ExaminationController::class, 'studentSubjectMarks']);
+            Route::post('/subject-marks', [ExaminationController::class, 'studentStoreSubjectMarks']);
+            Route::post('/store-single-subject-marks', [ExaminationController::class, 'studentStoreSingleSubjectMarks']);
+        });
+
+        // Calendar
+        Route::group(['prefix' => 'calendar'], function () {
+            Route::get('/show', [CalendarController::class, 'studentCalendar']);
+        });
+
+        // Attendance
+        Route::group(['prefix' => 'attendance'], function () {
+            Route::get('/student-attendance', [AttendanceController::class, 'myAttendanceReport']);
+            // Route::get('/student-attendance-report', [AttendanceController::class, 'myAttendanceReport']);
+        });
+
+        // Communicate
+        Route::group(['prefix' => 'communicate'], function () {
+            Route::group(['prefix' => 'notice-board'], function () {
+                Route::get('/list', [CommunicateController::class, 'studentNoticeBoard']);
+            });
+        });
+
+        // Homework
+        Route::group(['prefix' => 'home-work'], function () {
+            Route::get('/list', [HomeWorkController::class, 'studentHomeWork']);
+            Route::get('/submit-homework/{id}', [HomeWorkController::class, 'createStudentHomeWork']);
+            Route::post('/store/{id}', [HomeWorkController::class, 'storeStudentHomeWork']);
+            Route::get('/submitted', [HomeWorkController::class, 'submittedStudentHomeWork']);
+            // Route::post('/update/{id}', [HomeWorkController::class, 'updateStudentHomeWork']);
+            // Route::get('/delete/{id}', [HomeWorkController::class, 'destroyStudentHomeWork']);
+            // Route::get('/trashed', [HomeWorkController::class, 'trashed']);
+            Route::get('/get-class-subjects', [HomeWorkController::class, 'getClassSubjects']);
+        });
     });
 });
 Route::group(['prefix' => 'parent', 'middleware' => 'parent'], function () {
