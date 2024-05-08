@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
@@ -37,20 +38,27 @@ class AuthController extends Controller
     }
     public function postSignup(Request $request)
     {
-        request()->validate([
-            'email' => 'required|email|unique:users'
-        ]);
-        $token = Str::random(40);
-        $user = new User();
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->otp = mt_rand(1000, 9999);
-        $user->otp_token = $token;
-        $user->status = 0;
-        $user->save();
-        Session::put('otp_token', $token);
-        Mail::to($user->email)->send(new OtpMail($user));
-        return redirect('otp')->with('success', 'OTP send to your email address');
+        DB::beginTransaction();
+        try {
+            request()->validate([
+                'email' => 'required|email|unique:users'
+            ]);
+            $token = Str::random(40);
+            $user = new User();
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->otp = mt_rand(1000, 9999);
+            $user->otp_token = $token;
+            $user->status = 0;
+            $user->save();
+            Session::put('otp_token', $token);
+            Mail::to($user->email)->send(new OtpMail($user));
+            DB::commit();
+            return redirect('otp')->with('success', 'OTP send to your email address');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e->getMessage();
+        }
     }
     public function login()
     {
