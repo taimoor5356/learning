@@ -6,6 +6,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
     </ul>
+    <span class="font-weight-bold px-3 rounded py-1">{{Auth::user()->name}}</span>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
