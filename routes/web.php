@@ -34,6 +34,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::group(['prefix' => '/'], function () {
     Route::get('', [AuthController::class, 'login'])->name('login');
