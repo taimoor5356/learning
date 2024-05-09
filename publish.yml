@@ -1,0 +1,44 @@
+name: Generate a build and push to another branch
+
+on:
+  push:
+    branches:
+      - main # The branch name your are commit the new changes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and Push
+    steps:
+      - name: git-checkout
+        uses: actions/checkout@v3
+
+      - name: Install all dependencies
+        run: composer install
+
+      - name: Clear configuration cache
+        run: php artisan config:cache
+
+      - name: Clear route cache
+        run: php artisan route:clear
+
+      - name: Clear view cache
+        run: php artisan view:clear
+
+      - name: Migrate database
+        run: php artisan migrate
+
+      - name: Permission Seeder
+        run: php artisan migrate
+
+      - name: Clear application cache
+        run: php artisan optimize:clear
+
+      - name: Push
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: build # The branch name where you want to push the assets
+          FOLDER: build # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "Build: ({sha}) {msg}" # The commit message

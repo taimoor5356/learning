@@ -13,6 +13,7 @@ use App\Http\Controllers\ExaminationController;
 use App\Http\Controllers\FeeCollectionController;
 use App\Http\Controllers\HomeWorkController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentDetailController;
@@ -51,12 +52,24 @@ Route::group(['prefix' => '/'], function () {
     Route::post('reset/{token}', [AuthController::class, 'postResetPassword'])->name('postresetPassword');
     Route::post('/update-password', [UserController::class, 'updatePassword']);
 });
-Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin', 'admin', 'is_active']], function () {
 
     // Admin User URLs
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
     Route::get('/account', [UserController::class, 'myAccount']);
     Route::post('/update-account', [UserController::class, 'updateMyAdminAccount']);
+
+    Route::group(['prefix' => 'acl'], function () {
+        Route::get('/roles', [RolePermissionController::class, 'roles']);
+        Route::get('/role/create', [RolePermissionController::class, 'createRole']);
+        Route::post('/role/store', [RolePermissionController::class, 'storeRole']);
+        Route::get('/role/edit/{id}', [RolePermissionController::class, 'editRole']);
+        Route::post('/role/update/{id}', [RolePermissionController::class, 'updateRole']);
+
+        Route::get('/permissions', [RolePermissionController::class, 'permissions']);
+        Route::get('/permission/create', [RolePermissionController::class, 'createPermission']);
+        Route::post('/permission/store', [RolePermissionController::class, 'storePermission']);
+    });
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/list', [AdminController::class, 'index']);

@@ -211,6 +211,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview @if(Request::segment(2) == 'home-work') menu-open @endif">
+                    <a href="#" class="nav-link @if(Request::segment(2) == 'home-work') active @endif">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>
+                            Roles & Permissions
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('admin/acl/roles')}}" class="nav-link @if(Request::url() == url('admin/acl/roles')) active @endif">
+                                <i class="fas fa-minus nav-icon"></i>
+                                <p>Roles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('admin/acl/permissions')}}" class="nav-link @if(Request::url() == url('admin/acl/permissions')) active @endif">
+                                <i class="fas fa-minus nav-icon"></i>
+                                <p>Permissions</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'fee-collection') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'fee-collection') active @endif">
                         <i class="nav-icon far fa-circle"></i>
