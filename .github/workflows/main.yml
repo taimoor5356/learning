@@ -28,10 +28,10 @@ jobs:
         run: php artisan view:clear
 
       - name: Migrate database
-        run: php artisan migrate
+        run: php artisan migrate --force
 
       - name: Permission Seeder
-        run: php artisan migrate
+        run: php artisan:db seed PermissionModuleSeeder
 
       - name: Clear application cache
         run: php artisan optimize:clear
