@@ -321,7 +321,7 @@ Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard']);
         Route::post('/visitor/store', [StudentDetailController::class, 'storeVisitor']);
     });
-    Route::group(['middleware' => 'student_is_active'], function () {
+    Route::group(['middleware' => 'is_active'], function () {
         // My Subject
         Route::get('/account', [UserController::class, 'myAccount']);
         Route::post('/update-account', [UserController::class, 'updateMyStudentAccount']);

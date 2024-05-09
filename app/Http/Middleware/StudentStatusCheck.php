@@ -16,10 +16,6 @@ class StudentStatusCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        if ($user && $user->status == 1) {
-            return $next($request);
-        }
-        return redirect('logout');
+        dd('student status check middleware');
     }
 }

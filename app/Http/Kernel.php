@@ -73,7 +73,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Other middleware entries...
         'is_active' => \App\Http\Middleware\UserStatusCheck::class,
-        'student_is_active' => \App\Http\Middleware\StudentStatusCheck::class,
+        // 'student_is_active' => \App\Http\Middleware\StudentStatusCheck::class,
         'otp_verified' => \App\Http\Middleware\OtpVerified::class,
     ];
 }
