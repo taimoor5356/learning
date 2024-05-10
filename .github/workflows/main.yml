@@ -27,9 +27,6 @@ jobs:
       - name: Clear view cache
         run: php artisan view:clear
 
-      - name: Migrate database
-        run: php artisan migrate --force
-
       - name: Permission Seeder
         run: php artisan:db seed PermissionModuleSeeder
 
