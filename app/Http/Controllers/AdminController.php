@@ -81,6 +81,7 @@ class AdminController extends Controller
         $data['record'] = User::getSingleUser($id)->first();
         if (isset($data['record'])) {
             $data['header_title'] = 'Edit Admin Details';
+            $data['roles'] = Role::get();
             return view('admin.admin.edit', $data);
         } else {
             abort(404);

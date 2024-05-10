@@ -18,7 +18,7 @@
         <select name="role_id" class="form-control" required>
             <option value="">Select Role</option>
             @foreach($roles as $role)
-                <option value="{{$role->id}}" {{old('email') ?? (isset($record) && $record->role_id == $role->id) ? selected : ''}}>{{$role->name}}</option>
+                <option value="{{$role->id}}" {{ old('email') ?? (isset($record) && $record->role_id == $role->id ? 'selected' : '') }}>{{$role->name}}</option>
             @endforeach
         </select>
     </div>
