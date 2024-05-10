@@ -145,10 +145,14 @@
                 success: function(response) {
                     $('.loader').addClass('d-none');
                     if (response.status == true) {
-                        $('#toast').html(response.message);
-                        $('#toast').css('background-color', 'green');
-                        $('#toast').fadeIn().delay(3000).fadeOut();
+                        alert(response.message);
+                        window.location.reload();
+                        // $('#toast').html(response.message);
+                        // $('#toast').css('background-color', 'green');
+                        // $('#toast').fadeIn().delay(3000).fadeOut();
                     } else {
+                        alert(response.message);
+                        return false;
                         $('#toast').html(response.message);
                         $('#toast').css('background-color', 'red');
                         $('#toast').fadeIn().delay(3000).fadeOut();
