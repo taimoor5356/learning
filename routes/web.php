@@ -82,15 +82,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => ['permission:user_view']], function () {
-        Route::get('/list', [StudentDetailController::class, 'index'])->middleware('permission:user_view');
-        Route::get('/create', [StudentDetailController::class, 'create'])->middleware('permission:user_create');
-        Route::post('/store', [StudentDetailController::class, 'store'])->middleware('permission:user_create');
-        Route::get('/edit/{id}', [StudentDetailController::class, 'edit'])->middleware('permission:user_update');
-        Route::get('/edit-single/{id}', [StudentDetailController::class, 'editSingle'])->middleware('permission:user_update');
-        Route::post('/update/{id}', [StudentDetailController::class, 'update'])->middleware('permission:user_update');
-        Route::post('/update-single/{id}', [StudentDetailController::class, 'updateSingle'])->middleware('permission:user_update');
-        Route::get('/delete/{id}', [StudentDetailController::class, 'destroy'])->middleware('permission:user_delete');
-        Route::get('/trashed', [StudentDetailController::class, 'trashed'])->middleware('permission:user_view');
+        Route::get('/list', [AdminController::class, 'index'])->middleware('permission:user_view');
+        Route::get('/create', [AdminController::class, 'create'])->middleware('permission:user_create');
+        Route::post('/store', [AdminController::class, 'store'])->middleware('permission:user_create');
+        Route::get('/edit/{id}', [AdminController::class, 'edit'])->middleware('permission:user_update');
+        Route::get('/edit-single/{id}', [AdminController::class, 'editSingle'])->middleware('permission:user_update');
+        Route::post('/update/{id}', [AdminController::class, 'update'])->middleware('permission:user_update');
+        Route::post('/update-single/{id}', [AdminController::class, 'updateSingle'])->middleware('permission:user_update');
+        Route::get('/delete/{id}', [AdminController::class, 'destroy'])->middleware('permission:user_delete');
+        Route::get('/trashed', [AdminController::class, 'trashed'])->middleware('permission:user_view');
 
         // Route::get('/list', [AdminController::class, 'index']);
         // Route::get('/create', [AdminController::class, 'create']);
