@@ -70,7 +70,9 @@ class TeacherController extends Controller
         $user->mobile_number = trim($request->mobile_number);
         $user->current_address = trim($request->current_address);
         $user->permanent_address = trim($request->permanent_address);
-        $user->qualification = json_encode($request->qualification);
+        if (!empty($request->qualification)) {
+            $user->qualification = json_encode($request->qualification);
+        }
         $user->work_experience = trim($request->work_experience);
         $user->note = trim($request->note);
         $user->marital_status = trim($request->marital_status);
@@ -144,7 +146,9 @@ class TeacherController extends Controller
         $user->mobile_number = trim($request->mobile_number);
         $user->current_address = trim($request->current_address);
         $user->permanent_address = trim($request->permanent_address);
-        $user->qualification = json_encode($request->qualification);
+        if (!empty($request->qualification)) {
+            $user->qualification = json_encode($request->qualification);
+        }
         $user->work_experience = trim($request->work_experience);
         $user->note = trim($request->note);
         $user->marital_status = trim($request->marital_status);

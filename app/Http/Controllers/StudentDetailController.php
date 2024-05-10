@@ -55,7 +55,9 @@ class StudentDetailController extends Controller
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
-        $user->qualification = json_encode($request->qualification);
+        if (!empty($request->qualification)) {
+            $user->qualification = json_encode($request->qualification);
+        }
         $user->user_type = 3;
         $user->status = 1;
         $user->save();
@@ -84,7 +86,9 @@ class StudentDetailController extends Controller
         $user->name = trim($request->name);
         $user->mobile_number = trim($request->mobile_number);
         $user->gender = trim($request->gender);
-        $user->qualification = json_encode(trim($request->qualification));
+        if (!empty($request->qualification)) {
+            $user->qualification = json_encode($request->qualification);
+        }
         $user->domicile = trim($request->domicile);
         $user->save();
 
@@ -132,7 +136,9 @@ class StudentDetailController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->qualification = json_encode($request->qualification);
+            if (!empty($request->qualification)) {
+                $user->qualification = json_encode($request->qualification);
+            }
             $user->save();
             return redirect('admin/student/list')->with('success', 'Student details updated successfully');
         } else {

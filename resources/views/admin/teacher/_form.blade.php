@@ -80,8 +80,8 @@
             <span class="text-danger">{{$errors->first('permanent_address')}}</span>
         </div>
         <div class="form-group col-4">
-            <label for="InputQualification">Qualification <span class="text-danger">*</span></label>
-            <input type="text" value="{{ old('qualification') ?? (isset($record) ? $record->qualification : '') }}" name="qualification" class="form-control" id="InputQualification" placeholder="Enter qualification" required>
+            <label for="InputQualification">Qualification <span class="text-danger font-weight-normal"> use comma separator if multiple </span> <span class="text-danger">*</span></label>
+            <input type="text" value="{{ old('qualification') ?? (isset($record) ? json_decode($record->qualification) : '') }}" name="qualification" class="form-control" id="InputQualification" placeholder="Enter qualification" required>
             <span class="text-danger">{{$errors->first('qualification')}}</span>
         </div>
         <div class="form-group col-4">
