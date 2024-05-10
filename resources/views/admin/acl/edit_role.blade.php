@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('styles')
 <style>
     .image-preview {
@@ -86,33 +86,49 @@
 @endsection
 
 @section('content')
-<main class="content">
-    <div class="container-fluid p-0">
-        <div class="head-section row my-2">
-            <div class="col-6">
-                <h1 class="h3 mb-3">Edit Role</h1>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Edit Role</h1>
+                </div>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-                <a href="{{route('permission_modules')}}" class="btn btn-primary py-2">
-                    Permission Modules
-                </a>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <!-- /.card -->
+                    <!-- /.card-header -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Role</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div class="card-body">
+                            <form action="{{url('admin/acl/role/update', $role->id)}}" method="POST" id="roles-form">
+                                @csrf
+                                @include('admin.acl.role_form', $permissions)
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="toast" class="toast">
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <form action="{{route('roles.update', $role->id)}}" method="POST" id="roles-form">
-                    @csrf
-                    @include('acl.role_form', $permissions)
-                </form>
-            </div>
-        </div>
-        <div id="toast" class="toast">
-        </div>
-    </div>
-</main>
+    </section>
+</div>
 @endsection
 
-@section('scripts')
+@section('script')
 <script>
     $(document).ready(function() {
         $(document).on('submit', '#roles-form', function(e) {
@@ -129,10 +145,14 @@
                 success: function(response) {
                     $('.loader').addClass('d-none');
                     if (response.status == true) {
-                        $('#toast').html(response.message);
-                        $('#toast').css('background-color', 'green');
-                        $('#toast').fadeIn().delay(3000).fadeOut();
+                        alert(response.message);
+                        window.location.reload();
+                        // $('#toast').html(response.message);
+                        // $('#toast').css('background-color', 'green');
+                        // $('#toast').fadeIn().delay(3000).fadeOut();
                     } else {
+                        alert(response.message);
+                        return false;
                         $('#toast').html(response.message);
                         $('#toast').css('background-color', 'red');
                         $('#toast').fadeIn().delay(3000).fadeOut();

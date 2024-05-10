@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -66,6 +67,11 @@ class UserController extends Controller
         if (isset($user)) {
             $user->name = trim($request->name);
             $user->email = trim($request->email);
+            $user->role_id = $request->role_id;
+            $role = Role::find($request->role_id);
+            if (isset($role)) {
+                $user->assignRole($role);
+            }
             if (!empty($request->file('profile_pic'))) {
                 if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
                     unlink('public/images/profile/' . $user->profile_pic);

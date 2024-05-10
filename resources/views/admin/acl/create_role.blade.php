@@ -113,7 +113,7 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <div class="card-body">
-                            <form role="form" id="form" method="POST" action="{{url('admin/admin/store')}}" enctype="multipart/form-data">
+                            <form role="form" id="roles-form" method="POST" action="{{url('admin/acl/role/store')}}">
                                 @csrf
                                 @include('admin.acl.role_form', $permissions)
                             </form>

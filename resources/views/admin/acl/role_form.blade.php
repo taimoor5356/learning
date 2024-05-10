@@ -10,41 +10,39 @@
 <div class="row">
     <div class="col-12">
         <div class="d-flex justify-content-between">
-            <h3 class="">Permissions</h3><span class="text-lg"> Assign All Permissions <input type="checkbox" class=" border-secondary" id="select-all"></span>
+            <h3 class="">Permissions</h3><span class="text-lg font-weight-bold"> Assign All Permissions <input type="checkbox" class=" border-secondary" id="select-all"></span>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-6">
-                <input type="checkbox" class="check-box border-secondary" id="select-all-view"> Assign all view
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 font-weight-bold">
+                Assign all view <input type="checkbox" class="check-box border-secondary" id="select-all-view">
                 <hr>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-6">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 font-weight-bold">
                 Assign all create <input type="checkbox" class="check-box border-secondary" id="select-all-create">
                 <hr>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-6">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 font-weight-bold">
                 Assign all update <input type="checkbox" class="check-box border-secondary" id="select-all-update">
                 <hr>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-6">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 font-weight-bold">
                 Assign all delete <input type="checkbox" class="check-box border-secondary" id="select-all-delete">
                 <hr>
             </div>
         </div>
-        @foreach ($permissionModule as $module)
         <div class="row">
-            <div class="">
+            <!-- <div class="">
                 <div class="row">
                     <div class="col-12">
-                        <h4 class="text-decoration-underline">{{str_replace('_', ' ', ucfirst($module->name))}}</h4>
                     </div>
                 </div>
-            </div>
+            </div> -->
             @php
             $permissions = Spatie\Permission\Models\Permission::get();
             @endphp
             @foreach ($permissions as $permission)
             <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-2">
-                <label for="name">
+                <label for="name" class="font-weight-normal">
                     {{str_replace('_', ' ', ucfirst($permission->name))}}
                 </label>
                 <br>
@@ -57,7 +55,6 @@
             </div>
             @endforeach
         </div>
-        @endforeach
     </div>
 </div>
 <hr>

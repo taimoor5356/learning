@@ -62,7 +62,6 @@ class AttendanceController extends Controller
                 'msg' => 'Attendance marked successfully'
             ]);
         } catch (\Exception $e) {
-            dd($e);
             return response()->json([
                 'status' => false,
                 'msg' => 'Something went wrong'

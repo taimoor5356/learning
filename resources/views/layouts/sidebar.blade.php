@@ -37,6 +37,7 @@
                         </p>
                     </a>
                 </li>
+                @can('user_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'admin' || Request::segment(2) == 'student' || Request::segment(2) == 'teacher') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'admin' || Request::segment(2) == 'student' || Request::segment(2) == 'teacher') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -66,6 +67,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('school_class_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'class' || Request::segment(2) == 'subject' || Request::segment(2) == 'class-subject' || Request::segment(2) == 'class-teacher' || Request::segment(2) == 'class-timetable') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'class' || Request::segment(2) == 'subject' || Request::segment(2) == 'class-subject' || Request::segment(2) == 'class-teacher' || Request::segment(2) == 'class-timetable') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -107,6 +110,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('examination_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'examinations') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'examinations') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -136,6 +141,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('attendance_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'attendance') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'attendance') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -165,6 +172,8 @@
                                 </li> -->
                     </ul>
                 </li>
+                @endcan
+                @can('communicate_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'communicate') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'communicate') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -188,6 +197,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('home_work_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'home-work') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'home-work') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -211,7 +222,16 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview @if(Request::segment(2) == 'home-work') menu-open @endif">
+                @endcan
+                @can('role_permission_view')
+                <li class="nav-item">
+                    <a href="{{url('admin/acl/roles')}}" class="nav-link @if(Request::url() == url('admin/acl/roles')) active @endif">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Roles & Permissions</p>
+                    </a>
+                </li>
+                @endcan
+                <!-- <li class="nav-item has-treeview @if(Request::segment(2) == 'home-work') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'home-work') active @endif">
                         <i class="nav-icon far fa-circle"></i>
                         <p>
@@ -233,7 +253,8 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
+                @can('fee_collection_view')
                 <li class="nav-item has-treeview @if(Request::segment(2) == 'fee-collection') menu-open @endif">
                     <a href="#" class="nav-link @if(Request::segment(2) == 'fee-collection') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -257,6 +278,7 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
                 <li class="nav-item">
                     <a href="{{url('admin/password/edit')}}" class="nav-link @if(Request::segment(2) == 'password') active @endif">
                         <i class="nav-icon far fa-circle"></i>
@@ -265,6 +287,7 @@
                         </p>
                     </a>
                 </li>
+                @can('setting_view')
                 <li class="nav-item">
                     <a href="{{url('admin/settings')}}" class="nav-link @if(Request::segment(2) == 'settings') active @endif">
                         <i class="nav-icon fas fa-cog"></i>
@@ -273,6 +296,7 @@
                         </p>
                     </a>
                 </li>
+                @endcan
                 <!-- Teacher Links -->
                 @elseif (Auth::user()->user_type == 2)
                 <li class="nav-item">

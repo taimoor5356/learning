@@ -40,7 +40,6 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
-                                        <th>Permissions</th>
                                         <th>Created Date</th>
                                         <th>Actions</th>
                                     </tr>
@@ -51,11 +50,9 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->name}}</td>
-                                        <td><a href="#" class="btn btn-primary">View Permissions</a></td>
                                         <td>{{$record->created_at}}</td>
                                         <td>
                                             <a href="{{url('admin/acl/role/edit/'.$record->id)}}" class="btn btn-primary">Edit</a>
-                                            <a href="{{url('admin/acl/role/'.$record->id)}}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach

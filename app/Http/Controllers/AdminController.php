@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -27,6 +28,7 @@ class AdminController extends Controller
     {
         //
         $data['header_title'] = 'Add New Admin';
+        $data['roles'] = Role::get();
         return view('admin.admin.create', $data);
     }
 
@@ -45,6 +47,11 @@ class AdminController extends Controller
         $user->email = trim($request->email);
         $user->password = Hash::make($request->password);
         $user->user_type = 1;
+        $user->role_id = $request->role_id;
+        $role = Role::find($request->role_id);
+        if (isset($role)) {
+            $user->assignRole($role);
+        }
         if (!empty($request->file('profile_pic'))) {
             $ext = $request->file('profile_pic')->getClientOriginalExtension();
             $file = $request->file('profile_pic');
@@ -98,6 +105,11 @@ class AdminController extends Controller
                 $user->password = Hash::make($request->password);
             }
             $user->user_type = 1;
+            $user->role_id = $request->role_id;
+            $role = Role::find($request->role_id);
+            if (isset($role)) {
+                $user->assignRole($role);
+            }
             if (!empty($request->file('profile_pic'))) {
                 if (!empty($user->getProfilePic())) {
                     if (file_exists('public/images/profile/'.$user->profile_pic)) {

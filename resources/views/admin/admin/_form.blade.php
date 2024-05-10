@@ -14,6 +14,15 @@
         <p>If you want to change the password, Enter a new Password</p>
     </div>
     <div class="form-group">
+        <label for="InputRole">Select Role</label>
+        <select name="role_id" class="form-control" required>
+            <option value="">Select Role</option>
+            @foreach($roles as $role)
+                <option value="{{$role->id}}" {{old('email') ?? (isset($record) && $record->role_id == $role->id) ? selected : ''}}>{{$role->name}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
         <label for="InputProfilePicture">Profile Picture <span class="text-danger">*</span></label>
         <input type="file" value="{{ old('profile_pic') ?? (isset($record) ? $record->profile_pic : '') }}" name="profile_pic" class="form-control" id="InputProfilePicture">
         <span class="text-danger">{{$errors->first('profile_pic')}}</span>
