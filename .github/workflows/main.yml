@@ -27,9 +27,6 @@ jobs:
       - name: Clear view cache
         run: php artisan view:clear
 
-      - name: Permission Seeder
-        run: php artisan:db seed PermissionModuleSeeder
-
       - name: Clear application cache
         run: php artisan optimize:clear
 
