@@ -82,6 +82,7 @@ class StudentDetailController extends Controller
             $user = new User();
         }
         $user->class_type = trim($request->class_type);
+        $user->user_type = 10;
         $user->class_program = trim($request->class_program);
         $user->name = trim($request->name);
         $user->mobile_number = trim($request->mobile_number);

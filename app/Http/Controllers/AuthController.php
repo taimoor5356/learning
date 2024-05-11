@@ -54,7 +54,7 @@ class AuthController extends Controller
             Session::put('otp_token', $token);
             Mail::to($user->email)->send(new OtpMail($user));
             DB::commit();
-            return redirect('otp')->with('success', 'OTP send to your email address');
+            return redirect('otp')->with('success', 'OTP sent to your email address');
         } catch (\Exception $e) {
             DB::rollBack();
             return $e->getMessage();
@@ -89,6 +89,8 @@ class AuthController extends Controller
                 return redirect('student/dashboard');
             } else if ($userType == 4) {
                 return redirect('parent/dashboard');
+            } else if ($userType == 10) {
+                return redirect('')->with('error', 'Please wait for the approval');
             }
         } else {
             return redirect()->back()->with('error', 'Invalid credentials');

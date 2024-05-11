@@ -509,7 +509,7 @@
                     </a>
                 </li>
                 <!-- Parent Links -->
-                @elseif (Auth::user()->user_type == 4)
+                @elseif (Auth::user()->user_type == 10)
                 <li class="nav-item">
                     <a href="{{url('admin/dashboard')}}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>

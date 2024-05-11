@@ -157,7 +157,10 @@ class User extends Authenticatable
 
     static public function getStudents()
     {
-        $students = self::where('user_type', 3);
+        $students = self::whereIn('user_type', [3, 10]);
+        if (!empty(Request::get('user_type'))) {
+            $students = $students->where('user_type', Request::get('user_type'));
+        }
         if (!empty(Request::get('name'))) {
             $students = $students->where('name', 'LIKE', '%' . Request::get('name') . '%');
         }

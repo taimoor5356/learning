@@ -117,6 +117,13 @@
                                         <label for="InputToDate">To Date</label>
                                         <input type="date" value="{{Request::get('to_date')}}" name="to_date" class="form-control" id="InputToDate">
                                     </div>
+                                    <div class="col-2">
+                                        <label for="InputVisitorType">Show Only Visitors</label>
+                                        <select name="user_type" class="form-control" id="InputVisitorType">
+                                            <option value="">Select User Type</option>
+                                            <option value="10" {{(Request::get('user_type') == '10') ? 'selected' : ''}}>Visitors</option>
+                                        </select>
+                                    </div>
                                     <div class="col-2" style="margin-top: 32px;">
                                         <button type="submit" class="btn btn-primary">Search</button>
                                         <a href="{{url('admin/student/list')}}" class="btn btn-success">Clear All</a>
@@ -140,6 +147,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Profile Pic</th>
+                                        <th>User Type</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Admission No</th>
@@ -165,6 +173,7 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td><img src="{{$record->getProfilePic()}}" height="50px" width="50px" class="rounded-circle" alt=""></td>
+                                        <td>{{$record->user_type == 3 ? 'Student' : ($record->user_type == '10' ? 'Visitor' : '')}}</td>
                                         <td class="text-capitalize">{{$record->name}}</td>
                                         <td>{{$record->email}}</td>
                                         <td class="text-capitalize">{{$record->admission_number}}</td>
