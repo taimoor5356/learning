@@ -51,6 +51,10 @@ Route::group(['prefix' => '/'], function () {
     Route::get('reset/{token}', [AuthController::class, 'resetPassword'])->name('resetPassword');
     Route::post('reset/{token}', [AuthController::class, 'postResetPassword'])->name('postresetPassword');
     Route::post('/update-password', [UserController::class, 'updatePassword']);
+    Route::get('/follow-us', function () {
+        $data['header_title'] = 'Follow Us';
+        return view('follow_us', $data);
+    });
 });
 Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], function () {
 

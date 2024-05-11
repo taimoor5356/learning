@@ -535,6 +535,14 @@
                     </a>
                 </li>
                 @endif
+                <li class="nav-item">
+                    <a href="{{url('follow-us')}}" class="nav-link @if(Request::segment(1) == 'follow-us') active @endif">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>
+                            Follow Us
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
