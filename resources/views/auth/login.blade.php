@@ -112,6 +112,10 @@
                 width: max-content;
                 animation: my-animation 40s linear infinite;
             }
+
+.fixed-bottom-row {
+    margin-bottom: -20px;
+}
         }
 
         /* Extra Small Devices (up to 575px) */
@@ -125,6 +129,10 @@
                 width: max-content;
                 animation: my-animation 40s linear infinite;
             }
+
+            .fixed-bottom-row {
+                margin-bottom: -20px;
+            }
         }
     </style>
 </head>
@@ -137,7 +145,7 @@
                     <div class="card-body login-card-body text-center p-0" style="margin: 0px auto; width: 100%;">
                         <h5 class="font-weight-bold text-danger">Important Note</h5>
                         <div class="text-container p-0 group-text" style="margin: 0px auto; width: 100%;">
-                            <span class="login-box-msg font-weight-bold">{{ 
+                            <span class="login-box-msg font-weight-bold">{{
     collect(range(0, 2))->map(function($index) use ($texts) {
         return isset($texts[$index]) ? $texts[$index] : ' ';
     })->implode('  ')
