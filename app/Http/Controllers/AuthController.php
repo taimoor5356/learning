@@ -19,7 +19,20 @@ class AuthController extends Controller
     //
     public function otp()
     {
-        return view('auth.otp');
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        return view('auth.otp', compact('texts', 'totalLength'));
     }
     public function postOtp(Request $request)
     {
@@ -34,7 +47,20 @@ class AuthController extends Controller
     }
     public function signup()
     {
-        return view('auth.register');
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        return view('auth.register', compact('texts', 'totalLength'));
     }
     public function postSignup(Request $request)
     {
@@ -111,7 +137,20 @@ class AuthController extends Controller
     }
     public function forgotPassword()
     {
-        return view('auth.forgot_password');
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        return view('auth.forgot_password', compact('texts', 'totalLength'));
     }
     public function forgetPassword(Request $request)
     {

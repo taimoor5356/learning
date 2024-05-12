@@ -155,12 +155,17 @@
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="login-logo">
-                        <a href="#"><b>{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }}</b></a>
+                        <h6>
+                        <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_logo) ? systemSettings()->school_logo: ''))}}" class="img-fluid" style="border-radius: 5px; height: 100px; width: 105px" alt="">
+                        </h6>
+                        <a href="#"><b class="font-weight-bold">{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }}</b></a>
+                        <h6>{{ !empty(systemSettings()) ? systemSettings()->school_description : '' }}</h6>
                     </div>
                     <!-- /.login-logo -->
                     <div class="card card-outline card-primary">
                         <div class="card-body login-card-body">
-                            <p class="login-box-msg p-0">Sign in to start your session</p>
+                            <h5 class="login-box-msg p-0 font-weight-bold">Sign in</h5>
+                            <br>
                             @include('_message')
                             <form action="{{url('login')}}" method="post">
                                 @csrf
@@ -242,6 +247,15 @@
         document.head.append(style);
     </script>
     <script>
+        
+        $(document).ready(function() {
+            $(document).on('click', '.btn-block', function() {
+                let _this = $(this);
+                setTimeout(function() {
+                    _this.attr('disabled', true);
+                }, 500);
+            });
+        });
         $('.carousel').owlCarousel({
             margin: 10,
             loop: true,
