@@ -113,9 +113,13 @@
                 animation: my-animation 40s linear infinite;
             }
 
-.fixed-bottom-row {
-    margin-bottom: -20px;
-}
+            .fixed-bottom-row {
+                margin-bottom: -20px;
+            }
+
+            .center-bdy {
+                margin-bottom: 50px;
+            }
         }
 
         /* Extra Small Devices (up to 575px) */
@@ -132,6 +136,10 @@
 
             .fixed-bottom-row {
                 margin-bottom: -20px;
+            }
+
+            .center-bdy {
+                margin-bottom: 50px;
             }
         }
     </style>
@@ -156,7 +164,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin: 0px auto;">
+        <div class="row center-bdy" style="margin: 0px auto;">
             <div class="col-lg-4 col-md-4 col-sm-12">
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
