@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{systemSettings()->school_logo_name}} | Log in</title>
+    <title>{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }} | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -150,7 +150,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="login-logo">
-                        <a href="#"><b>{{systemSettings()->school_logo_name}}</b></a>
+                        <a href="#"><b>{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }}</b></a>
                     </div>
                     <!-- /.login-logo -->
                     <div class="card card-outline card-primary">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{systemSettings()->school_logo_name}} | OTP Verification</title>
+    <title>{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }} | OTP Verification</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
