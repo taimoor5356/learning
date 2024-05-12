@@ -25,7 +25,7 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-6 col-6">
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-6 col-6">
                     <!-- small box -->
                     <div class="small-box bg-primary">
                         <div class="inner">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-12 col-12">
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
