@@ -156,50 +156,50 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="login-logo">
                         <h6>
-                        <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_logo) ? systemSettings()->school_logo: ''))}}" class="img-fluid" style="border-radius: 5px; height: 70px; width: 75px" alt="">
+                            <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_logo) ? systemSettings()->school_logo: ''))}}" class="img-fluid" style="border-radius: 5px; height: 70px; width: 75px" alt="">
                         </h6>
                         <a href="#"><b class="font-weight-bold">{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }}</b></a>
                         <h6>{{ !empty(systemSettings()) ? systemSettings()->school_description : '' }}</h6>
                     </div>
                     <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
-            <div class="card-body login-card-body">
-                <h5 class="login-box-msg p-0 font-weight-bold">Sign Up</h5>
-                <br>
-                @include('_message')
-                <form action="" method="post">
-                    @csrf
-                    <div class="input-group">
-                        <input type="email" required name="email" class="form-control" placeholder="Email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="text-danger">{{$errors->first('email')}}</span>
-                    <div class="input-group my-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-success btn-block">Sign Up</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
+                    <div class="card card-outline card-primary">
+                        <div class="card-body login-card-body">
+                            <h5 class="login-box-msg p-0 font-weight-bold">Sign Up</h5>
+                            <br>
+                            @include('_message')
+                            <form action="" method="post">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="email" required name="email" class="form-control" placeholder="Email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="text-danger">{{$errors->first('email')}}</span>
+                                <div class="input-group my-3">
+                                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-success btn-block">Sign Up</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </form>
 
-                <p class="mt-4 d-flex justify-content-between">
-                    <a href="{{url('')}}">Sign In</a>
-                </p>
-            </div>
-        </div>
+                            <p class="mt-4 d-flex justify-content-between">
+                                <a href="{{url('')}}">Sign In</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -238,7 +238,6 @@
         document.head.append(style);
     </script>
     <script>
-        
         $(document).ready(function() {
             $(document).on('click', '.btn-block', function() {
                 let _this = $(this);
