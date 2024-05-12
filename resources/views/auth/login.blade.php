@@ -137,7 +137,11 @@
                     <div class="card-body login-card-body text-center p-0" style="margin: 0px auto; width: 100%;">
                         <h5 class="font-weight-bold text-danger">Important Note</h5>
                         <div class="text-container p-0 group-text" style="margin: 0px auto; width: 100%;">
-                            <span class="login-box-msg font-weight-bold">{{ ($texts[0] ?? '') . ($texts[1] ? ' | ' : '') . ($texts[1] ?? '') . ($texts[2] ? ' | ' : '') . ($texts[2] ?? '') }}</span>
+                            <span class="login-box-msg font-weight-bold">{{ 
+    collect(range(0, 2))->map(function($index) use ($texts) {
+        return isset($texts[$index]) ? $texts[$index] : ' ';
+    })->implode('  ')
+}}</span>
                         </div>
                     </div>
                     <!-- /.login-card-body -->
