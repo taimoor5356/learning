@@ -22,6 +22,7 @@
     <style>
         .mywrapper {
             width: 100%;
+            margin-top: 100px;
         }
 
         .mywrapper .carousel {
@@ -112,14 +113,6 @@
                 width: max-content;
                 animation: my-animation 40s linear infinite;
             }
-
-            .fixed-bottom-row {
-                margin-bottom: -20px;
-            }
-
-            .center-bdy {
-                margin-bottom: 50px;
-            }
         }
 
         /* Extra Small Devices (up to 575px) */
@@ -132,14 +125,6 @@
                 padding: 0;
                 width: max-content;
                 animation: my-animation 40s linear infinite;
-            }
-
-            .fixed-bottom-row {
-                margin-bottom: -20px;
-            }
-
-            .center-bdy {
-                margin-bottom: 50px;
             }
         }
     </style>
@@ -164,7 +149,7 @@
                 </div>
             </div>
         </div>
-        <div class="row center-bdy" style="margin: 0px auto;">
+        <div class="row" style="margin: 0px auto;">
             <div class="col-lg-4 col-md-4 col-sm-12">
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
@@ -224,7 +209,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12">
             </div>
         </div>
-        <div class="row fixed-bottom-row mywrapper">
+        <div class="row mywrapper">
             <div class="carousel owl-carousel">
                 <div class="mycard card-1">
                     <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_one) ? systemSettings()->school_login_page_image_one : ''))}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
