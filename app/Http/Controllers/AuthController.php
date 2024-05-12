@@ -166,6 +166,21 @@ class AuthController extends Controller
     }
     public function resetPassword($token)
     {
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        $data['texts'] = $texts;
+        $data['totalLength'] = $totalLength;
         $user = User::getSingleToken($token);
         if (isset($user)) {
             $data['user'] = $user;

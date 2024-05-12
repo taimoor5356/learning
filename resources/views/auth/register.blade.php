@@ -22,7 +22,7 @@
     <style>
         .mywrapper {
             width: 100%;
-            margin-top: 100px;
+            margin-top: 0px;
         }
 
         .mywrapper .carousel {
@@ -149,14 +149,14 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin: 0px auto;">
+        <div class="row" style="margin: 50px auto;">
             <div class="col-lg-4 col-md-4 col-sm-12">
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="login-logo">
                         <h6>
-                        <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_logo) ? systemSettings()->school_logo: ''))}}" class="img-fluid" style="border-radius: 5px; height: 100px; width: 105px" alt="">
+                        <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_logo) ? systemSettings()->school_logo: ''))}}" class="img-fluid" style="border-radius: 5px; height: 70px; width: 75px" alt="">
                         </h6>
                         <a href="#"><b class="font-weight-bold">{{ !empty(systemSettings()) ? systemSettings()->school_logo_name : '' }}</b></a>
                         <h6>{{ !empty(systemSettings()) ? systemSettings()->school_description : '' }}</h6>
