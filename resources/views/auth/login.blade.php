@@ -211,19 +211,19 @@
         <div class="row fixed-bottom-row mywrapper">
             <div class="carousel owl-carousel">
                 <div class="mycard card-1">
-                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_one) ? systemSettings()->school_login_page_image_one : '')}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
+                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_one) ? systemSettings()->school_login_page_image_one : ''))}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
                 </div>
                 <div class="mycard card-2">
-                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_two) ? systemSettings()->school_login_page_image_two: '')}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
+                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_two) ? systemSettings()->school_login_page_image_two: ''))}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
                 </div>
                 <div class="mycard card-3">
-                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_three) ? systemSettings()->school_login_page_image_three: '')}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
+                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_three) ? systemSettings()->school_login_page_image_three: ''))}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
                 </div>
                 <div class="mycard card-4">
-                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_four) ? systemSettings()->school_login_page_image_four: '')}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
+                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_four) ? systemSettings()->school_login_page_image_four: ''))}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
                 </div>
                 <div class="mycard card-5">
-                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_five) ? systemSettings()->school_login_page_image_five: '')}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
+                    <img src="{{url('public/images/school_images/'.(isset(systemSettings()->school_login_page_image_five) ? systemSettings()->school_login_page_image_five: ''))}}" class="img-fluid" style="border-radius: 5px; height: 150px; width: 250px" alt="">
                 </div>
             </div>
         </div>
