@@ -62,6 +62,16 @@ class AuthController extends Controller
     }
     public function login()
     {
+        $settings = systemSettings();
+        $texts = [
+            $settings->school_login_page_notification_01,
+            $settings->school_login_page_notification_02,
+            $settings->school_login_page_notification_03,
+        ];
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
         if (!empty(Auth::check())) {
             $userType = Auth::user()->user_type;
             if ($userType == 1) {
@@ -74,7 +84,7 @@ class AuthController extends Controller
                 return redirect('parent/dashboard');
             }
         }
-        return view('auth.login');
+        return view('auth.login', compact('texts', 'totalLength'));
     }
     public function authLogin(Request $request)
     {

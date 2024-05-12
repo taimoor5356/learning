@@ -1,9 +1,5 @@
 <footer class="main-footer">
-
-    @php
-    $setting = \App\Models\Setting::where('id', 1)->first();
-    @endphp
-    <strong>Copyright &copy; 2024 <a href="#">{{$setting->school_name}}</a>.</strong>
+    <strong>Copyright &copy; 2024 <a href="#">@if(!empty(systemSettings())){{systemSettings()->school_name}}@endif</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0

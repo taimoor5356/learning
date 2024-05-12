@@ -2,8 +2,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <!-- <a href="index3.html" class="brand-link">
-        <img src="{{url('public/images/school_images/'.systemSettings()->school_logo)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">{{systemSettings()->school_logo_name}}</span>
+        <img src="#" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light"></span>
     </a> -->
 
     <!-- Sidebar -->
@@ -11,9 +11,9 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3">
             <div class="image d-flex justify-content-center" style="width: 100%">
-                <img src="{{url('public/images/school_images/'.systemSettings()->school_logo)}}" style="height: 100px !important; width: 100px !important" class="img-circle elevation-2 bg-white p-2" alt="User Image">
+                <img src="@if(!empty(systemSettings())){{url('public/images/school_images/'.systemSettings()->school_logo)}}@endif" style="height: 100px !important; width: 100px !important" class="img-circle elevation-2 bg-white p-2" alt="User Image">
             </div>
-            <!-- <a href="#" class="d-block text-lg">{{systemSettings()->school_logo_name}}</a> -->
+            <!-- <a href="#" class="d-block text-lg"></a> -->
         </div>
 
         <!-- Sidebar Menu -->

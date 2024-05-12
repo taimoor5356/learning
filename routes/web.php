@@ -39,6 +39,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['prefix' => '/'], function () {
+    Route::get('/carousel', function () {
+        return view('carousel');
+    });
     Route::get('', [AuthController::class, 'login'])->name('login');
     Route::get('/signup', [AuthController::class, 'signup'])->name('signup');
     Route::post('/signup', [AuthController::class, 'postSignup'])->name('postSignup');

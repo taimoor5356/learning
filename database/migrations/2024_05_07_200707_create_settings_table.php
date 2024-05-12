@@ -24,6 +24,9 @@ return new class extends Migration
             $table->longText('school_email_description')->nullable();
             $table->string('school_sms_api_key')->nullable();
             $table->longText('school_exam_report_description')->nullable();
+            $table->longText('school_login_page_notification_01')->nullable();
+            $table->longText('school_login_page_notification_02')->nullable();
+            $table->longText('school_login_page_notification_03')->nullable();
             $table->string('school_login_page_image_one')->nullable();
             $table->string('school_login_page_image_two')->nullable();
             $table->string('school_login_page_image_three')->nullable();

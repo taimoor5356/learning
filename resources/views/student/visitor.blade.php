@@ -13,7 +13,7 @@
                 <div class="col-12 text-center">
                     <h1 style="margin-bottom: 0px;">
                         <img src="{{ url('public/images/school_images/'.systemSettings()->school_logo) }}" alt="School Logo" style="width: 75px; height: 70px; margin-right: 10px;">
-                        {{ systemSettings()->school_name }}
+                        {{ isset(systemSettings()) ? systemSettings()->school_name: '' }}
                     </h1>
                     <p style="margin: -20px 0px 20px 70px;">{{ systemSettings()->school_description }}</p>
                 </div>

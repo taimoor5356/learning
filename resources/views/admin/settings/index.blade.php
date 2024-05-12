@@ -75,12 +75,26 @@
                                     <textarea name="school_exam_report_description" class="form-control" id="InputAcademyExamReportDescription">{{ old('school_exam_report_description') ?? (isset($record) ? $record->school_exam_report_description : '') }}</textarea>
                                     <span class="text-danger">{{$errors->first('school_exam_report_description')}}</span>
                                 </div>
-                                <div class="col-12"></div>
+                                <div class="form-group col-12">
+                                    <label for="InputLoginPageNotification01">Login Page Notification 01 *</label>
+                                    <textarea name="school_login_page_notification_01" class="form-control" id="InputLoginPageNotification01">{{ old('school_login_page_notification_01') ?? (isset($record) ? $record->school_login_page_notification_01 : '') }}</textarea>
+                                    <span class="text-danger">{{$errors->first('school_login_page_notification_01')}}</span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="InputLoginPageNotification02">Login Page Notification 02 *</label>
+                                    <textarea name="school_login_page_notification_02" class="form-control" id="InputLoginPageNotification02">{{ old('school_login_page_notification_02') ?? (isset($record) ? $record->school_login_page_notification_02 : '') }}</textarea>
+                                    <span class="text-danger">{{$errors->first('school_login_page_notification_02')}}</span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="InputLoginPageNotification03">Login Page Notification 03 *</label>
+                                    <textarea name="school_login_page_notification_03" class="form-control" id="InputLoginPageNotification03">{{ old('school_login_page_notification_03') ?? (isset($record) ? $record->school_login_page_notification_03 : '') }}</textarea>
+                                    <span class="text-danger">{{$errors->first('school_login_page_notification_03')}}</span>
+                                </div>
                                 <br>
                                 <br>
                                 <div class="form-group col-4">
                                     <label for="InputAcademyLogoName">Academy Logo Name *</label>
-                                    <input type="text" value="{{ old('school_logo_name') ?? (isset($record) ? $record->school_logo_name : '') }}" name="school_logo_name" class="form-control" id="InputAcademyLogoName" placeholder="Enter school logo name">
+                                    <input type="text" value="{{ old('school_logo_name') ?? (isset($record) ? $record->school_logo_name : '') }}" name="school_logo_name" class="form-control" name="school_logo_name" id="InputAcademyLogoName" placeholder="Enter school logo name">
                                     <span class="text-danger">{{$errors->first('school_logo_name')}}</span>
                                 </div>
 
