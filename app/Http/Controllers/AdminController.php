@@ -113,7 +113,7 @@ class AdminController extends Controller
             }
             if (!empty($request->file('profile_pic'))) {
                 if (!empty($user->getProfilePic())) {
-                    if (file_exists('public/images/profile/'.$user->profile_pic)) {
+                    if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
                         unlink('public/images/profile/'.$user->profile_pic);
                     }
                 }
