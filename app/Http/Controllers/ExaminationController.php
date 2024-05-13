@@ -23,7 +23,7 @@ class ExaminationController extends Controller
     {
         //
         $data['header_title'] = 'Exams List';
-        $data['records'] = Examination::getExams()->paginate(10);
+        $data['records'] = Examination::getExams()->paginate(25);
         return view('admin.examination.exams.index', $data);
     }
 
@@ -113,7 +113,7 @@ class ExaminationController extends Controller
     {
         //
         $data['header_title'] = 'Exams List';
-        $data['records'] = Examination::getTrashedExams()->paginate(10);
+        $data['records'] = Examination::getTrashedExams()->paginate(25);
         return view('admin.examination.exams.trashed', $data);
     }
 

@@ -18,7 +18,7 @@ class AttendanceController extends Controller
     public function myAttendanceReport(Request $request) 
     {
         $data['classes'] = Attendance::getStudentClasses(Auth::user()->id)->get();
-        $data['records'] = Attendance::getStudentAttendanceRecord(Auth::user()->id)->paginate(10);
+        $data['records'] = Attendance::getStudentAttendanceRecord(Auth::user()->id)->paginate(25);
         $data['header_title'] = 'Student Attendance Report';
         return view('student.attendance.student_attendance_report', $data);
     }
@@ -30,9 +30,9 @@ class AttendanceController extends Controller
         //
         $data['classes'] = SchoolClass::getClasses()->get();
         if (!empty($request->get('class_id')) && $request->get('attendance_date')) {
-            $data['students'] = User::getStudentClass($request->get('class_id'))->paginate(10);
+            $data['students'] = User::getStudentClass($request->get('class_id'))->paginate(25);
         } else {
-            $data['students'] = User::getStudentClass(0)->paginate(10);
+            $data['students'] = User::getStudentClass(0)->paginate(25);
         }
         $data['header_title'] = 'Student Attendance';
         return view('admin.attendance.student', $data);
@@ -72,7 +72,7 @@ class AttendanceController extends Controller
     public function studentAttendanceReport(Request $request) 
     {
         $data['classes'] = SchoolClass::getClasses()->get();
-        $data['records'] = Attendance::getAttendances()->paginate(10);
+        $data['records'] = Attendance::getAttendances()->paginate(25);
         $data['header_title'] = 'Student Attendance Report';
         return view('admin.attendance.student_attendance_report', $data);
     }
@@ -83,9 +83,9 @@ class AttendanceController extends Controller
         //
         $data['classes'] = ClassTeacher::myClassTeacherSubjectsGroup(Auth::user()->id)->get();
         if (!empty($request->get('class_id')) && $request->get('attendance_date')) {
-            $data['students'] = User::getStudentClass($request->get('class_id'))->paginate();
+            $data['students'] = User::getStudentClass($request->get('class_id'))->paginate(25);
         } else {
-            $data['students'] = User::getStudentClass(0)->paginate();
+            $data['students'] = User::getStudentClass(0)->paginate(25);
         }
         $data['header_title'] = 'Student Attendance';
         return view('teacher.attendance.student', $data);
@@ -130,7 +130,7 @@ class AttendanceController extends Controller
         foreach ($data['classes'] as $class) {
             $classArray[] = $class->class_id;
         }
-        $data['records'] = Attendance::getTeacherAttendanceRecord($classArray)->paginate(10);
+        $data['records'] = Attendance::getTeacherAttendanceRecord($classArray)->paginate(25);
         $data['header_title'] = 'Student Attendance Report';
         return view('teacher.attendance.student_attendance_report', $data);
     }

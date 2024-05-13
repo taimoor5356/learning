@@ -15,7 +15,7 @@ class SchoolClassController extends Controller
     {
         //
         $data['header_title'] = 'Classes List';
-        $data['records'] = SchoolClass::getClasses()->paginate(10);
+        $data['records'] = SchoolClass::getClasses()->paginate(25);
         return view('admin.class.index', $data);
     }
 
@@ -110,7 +110,7 @@ class SchoolClassController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Class list';
-        $data['records'] = SchoolClass::getTrashedClasses()->paginate(10);
+        $data['records'] = SchoolClass::getTrashedClasses()->paginate(25);
         return view('admin.class.trashed', $data);
     }
 }

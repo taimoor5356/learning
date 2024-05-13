@@ -20,7 +20,7 @@ class CommunicateController extends Controller
     {
         //
         $data['header_title'] = 'Notice Board';
-        $data['records'] = NoticeBoard::getAllNotices()->paginate(10);
+        $data['records'] = NoticeBoard::getAllNotices()->paginate(25);
         return view('admin.communicate.notice_board.index', $data);
     }
 
@@ -150,28 +150,28 @@ class CommunicateController extends Controller
         $data['header_title'] = 'Trashed Notices';
         $data['records'] = NoticeBoard::with(['notice_board_users' => function($q) {
             $q->onlyTrashed();
-        }])->onlyTrashed()->paginate(10);
+        }])->onlyTrashed()->paginate(25);
         return view('admin.communicate.notice_board.trashed', $data);
     }
 
     public function studentNoticeBoard()
     {
         $data['header_title'] = 'Notice Board';
-        $data['records'] = NoticeBoard::getUserRecords(Auth::user()->user_type)->paginate(1);
+        $data['records'] = NoticeBoard::getUserRecords(Auth::user()->user_type)->paginate(25);
         return view('student.communicate.notice_board.index', $data);
     }
 
     public function teacherNoticeBoard()
     {
         $data['header_title'] = 'Notice Board';
-        $data['records'] = NoticeBoard::getUserRecords(Auth::user()->user_type)->paginate(1);
+        $data['records'] = NoticeBoard::getUserRecords(Auth::user()->user_type)->paginate(25);
         return view('teacher.communicate.notice_board.index', $data);
     }
 
     public function sendEmail(Request $request)
     {
         $data['header_title'] = 'Send Email';
-        $data['records'] = NoticeBoard::getAllNotices()->paginate(10);
+        $data['records'] = NoticeBoard::getAllNotices()->paginate(25);
         return view('admin.communicate.send_email', $data);
     }
 

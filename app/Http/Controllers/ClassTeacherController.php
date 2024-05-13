@@ -15,7 +15,7 @@ class ClassTeacherController extends Controller
     public function index() 
     {
         $data['header_title'] = 'Assigned Class Teacher List';
-        $data['records'] = ClassTeacher::getClassTeachers()->paginate(10);
+        $data['records'] = ClassTeacher::getClassTeachers()->paginate(25);
         return view('admin.assign_class_teacher.index', $data);
     }
 
@@ -176,7 +176,7 @@ class ClassTeacherController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Assigned Subject list';
-        $data['records'] = ClassTeacher::getTrashedClassSubjects()->paginate(10);
+        $data['records'] = ClassTeacher::getTrashedClassSubjects()->paginate(25);
         return view('admin.assign_class_teacher.trashed', $data);
     }
 
@@ -186,7 +186,7 @@ class ClassTeacherController extends Controller
         $data['header_title'] = 'My Class Subjects list';
         $teacherId = Auth::user()->id;
         $data['subjects'] = ClassTeacher::getMyClassSubjects($teacherId);
-        $data['records'] = ClassTeacher::myClassTeacherSubjects($teacherId)->paginate(10);
+        $data['records'] = ClassTeacher::myClassTeacherSubjects($teacherId)->paginate(25);
         return view('teacher.my_subject', $data);
     }
 }

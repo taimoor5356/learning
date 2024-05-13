@@ -149,7 +149,7 @@ class AdminController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Admins list';
-        $data['records'] = User::getTrashedAdmins()->paginate(10);
+        $data['records'] = User::getTrashedAdmins()->paginate(25);
         return view('admin.admin.trashed', $data);
     }
 }

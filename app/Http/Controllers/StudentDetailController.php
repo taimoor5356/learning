@@ -169,14 +169,14 @@ class StudentDetailController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Students list';
-        $data['records'] = User::getTrashedStudents()->paginate(10);
+        $data['records'] = User::getTrashedStudents()->paginate(25);
         return view('admin.student.trashed', $data);
     }
 
     public function myTeacherStudents()
     {
         $data['header_title'] = 'My Students List';
-        $data['records'] = User::getTeacherStudents(Auth::user()->id)->paginate(10);
+        $data['records'] = User::getTeacherStudents(Auth::user()->id)->paginate(25);
         $data['classes'] = SchoolClass::getClasses()->get();
         return view('teacher.student.index', $data);
     }

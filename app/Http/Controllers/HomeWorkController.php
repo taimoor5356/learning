@@ -20,7 +20,7 @@ class HomeWorkController extends Controller
     {
         //
         $data['header_title'] = 'Home Work';
-        $data['records'] = HomeWork::getAllHomeWork()->paginate(10);
+        $data['records'] = HomeWork::getAllHomeWork()->paginate(25);
         return view('admin.home_work.index', $data);
     }
 
@@ -33,7 +33,7 @@ class HomeWorkController extends Controller
         $data['header_title'] = 'Submitted Home Work List';
         $homeWork = HomeWork::getSingleHomeWork(1)->first();
         if (isset($homeWork)) {
-            $data['records'] = SubmittedHomeWork::getHomeWorkList()->paginate(10);
+            $data['records'] = SubmittedHomeWork::getHomeWorkList()->paginate(25);
             return view('admin.home_work.submitted_list', $data);
         } else {
             return redirect()->route('home_work.index')->with('error', 'Home Work Not Found');
@@ -49,7 +49,7 @@ class HomeWorkController extends Controller
         $data['header_title'] = 'Home Work';
         $homeWork = HomeWork::getSingleHomeWork($id)->first();
         if (isset($homeWork)) {
-            $data['records'] = SubmittedHomeWork::getSingleSubmittedHomeWork($id)->paginate(10);
+            $data['records'] = SubmittedHomeWork::getSingleSubmittedHomeWork($id)->paginate(25);
             return view('admin.home_work.submitted', $data);
         } else {
             return redirect()->route('home_work.index')->with('error', 'Home Work Not Found');
@@ -206,7 +206,7 @@ class HomeWorkController extends Controller
         //
         $data['header_title'] = 'Home Work';
         $classIds = ClassTeacher::myClassTeacherSubjectsGroup(Auth::user()->id)->pluck('class_id');
-        $data['records'] = HomeWork::getAllTeacherHomeWork($classIds)->paginate(10);
+        $data['records'] = HomeWork::getAllTeacherHomeWork($classIds)->paginate(25);
         return view('teacher.home_work.index', $data);
     }
     /**
@@ -324,7 +324,7 @@ class HomeWorkController extends Controller
     {
         //
         // $data['header_title'] = 'Trashed Home Work';
-        // $data['records'] = HomeWork::getAllTeacherTrashedHomeWork()->paginate(1);
+        // $data['records'] = HomeWork::getAllTeacherTrashedHomeWork()->paginate(25);
         // return view('teacher.home_work.trashed', $data);
     }
 
@@ -335,7 +335,7 @@ class HomeWorkController extends Controller
     {
         //
         $data['header_title'] = 'Home Work';
-        $data['records'] = HomeWork::getAllStudentHomeWork(Auth::user()->class_id, Auth::user()->id)->paginate(10);
+        $data['records'] = HomeWork::getAllStudentHomeWork(Auth::user()->class_id, Auth::user()->id)->paginate(25);
         return view('student.home_work.index', $data);
     }
     /**
@@ -356,7 +356,7 @@ class HomeWorkController extends Controller
     public function submittedStudentHomeWork(Request $request)
     {
         //
-        $data['records'] = SubmittedHomeWork::getStudentSubmittedHomeWork(Auth::user()->id)->paginate(10);
+        $data['records'] = SubmittedHomeWork::getStudentSubmittedHomeWork(Auth::user()->id)->paginate(25);
         $data['header_title'] = 'Submit Home Work';
         return view('student.home_work.submitted', $data);
     }
@@ -462,7 +462,7 @@ class HomeWorkController extends Controller
     {
         //
         // $data['header_title'] = 'Trashed Home Work';
-        // $data['records'] = HomeWork::getAllTeacherTrashedHomeWork()->paginate(1);
+        // $data['records'] = HomeWork::getAllTeacherTrashedHomeWork()->paginate(25);
         // return view('student.home_work.trashed', $data);
     }
 }

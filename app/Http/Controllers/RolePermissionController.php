@@ -16,7 +16,7 @@ class RolePermissionController extends Controller
     {
         //
         $data['header_title'] = 'Roles';
-        $data['records'] = Role::paginate(10);
+        $data['records'] = Role::paginate(25);
         return view('admin.acl.roles', $data);
     }
 
