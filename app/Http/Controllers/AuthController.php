@@ -34,16 +34,29 @@ class AuthController extends Controller
         }
         return view('auth.otp', compact('texts', 'totalLength'));
     }
+    public function resendOTP()
+    {
+        $token = Session::get('otp_token');
+        $user = User::where('otp_token', $token)->first();
+        $user->otp = mt_rand(1000, 9999);
+        $user->save();
+        Mail::to($user->email)->send(new OtpMail($user));
+        return redirect()->back()->with('success', 'OTP sent to your email address');
+    }
     public function postOtp(Request $request)
     {
         request()->validate([
             'otp' => 'required'
         ]);
         $token = Session::get('otp_token');
-        $user = User::where('otp_token', $token)->first();
-        $user->otp_verified = 1;
-        $user->save();
-        return redirect('')->with('success', 'OTP verified successfully. Contact your administrator now');
+        $user = User::where('otp_token', $token)->where('otp', $request->otp)->first();
+        if (isset($user)) {
+            $user->otp_verified = 1;
+            $user->save();
+            return redirect('')->with('success', 'OTP verified successfully. Contact your administrator now');
+        } else {
+            return redirect()->back()->with('error', 'Invalid OTP');
+        }
     }
     public function signup()
     {

@@ -181,6 +181,11 @@
                         <div class="offset-8 col-4">
                             <button type="submit" class="btn btn-success btn-block">Submit</button>
                         </div>
+                        <br>
+                        <br>
+                        <div class="col-4">
+                            <a href="{{url('resend-otp')}}" class="">Send OTP again</a>
+                        </div>
                         <!-- /.col -->
                     </div>
                 </form>
