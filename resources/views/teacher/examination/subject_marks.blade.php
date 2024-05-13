@@ -13,12 +13,6 @@
                 <div class="col-sm-6">
                     <h1>Subject Results/Marks</h1>
                 </div>
-                <!-- <div class="col-sm-6">
-                    <div class="add-new float-sm-right">
-                        <a href="{{url('admin/class/create')}}" class="btn btn-primary">Add New</a>
-                        <a href="{{url('admin/class/trashed')}}" class="btn btn-danger">Trashed</a>
-                    </div>
-                </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>

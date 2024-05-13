@@ -13,12 +13,12 @@
                 <div class="col-sm-6">
                     <h1>My Class Subject List (Total: {{$records->total()}})</h1>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="add-new float-sm-right">
                         <a href="{{url('teacher/subject/create')}}" class="btn btn-primary">Add New</a>
                         <a href="{{url('teacher/subject/trashed')}}" class="btn btn-danger">Trashed</a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>
