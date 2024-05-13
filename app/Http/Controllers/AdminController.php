@@ -17,7 +17,7 @@ class AdminController extends Controller
     {
         //
         $data['header_title'] = 'Admins list';
-        $data['records'] = User::getAdmins()->paginate(3);
+        $data['records'] = User::getAdmins()->paginate(25);
         return view('admin.admin.index', $data);
     }
 
