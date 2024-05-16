@@ -10,6 +10,8 @@ use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\CommunicateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExaminationController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ExpenseHeadController;
 use App\Http\Controllers\FeeCollectionController;
 use App\Http\Controllers\HomeWorkController;
 use App\Http\Controllers\ParentController;
@@ -367,6 +369,29 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         // Route::get('/report', [FeeCollectionController::class, 'feeCollectionReport']);
         // Route::get('/collect-fee/{id}', [FeeCollectionController::class, 'create']);
         // Route::post('/collect-fee/{id}', [FeeCollectionController::class, 'store']);
+    });
+
+    // Expense
+    Route::group(['prefix' => 'expenses'], function () {
+        // Expense Head
+        Route::get('/heads/list', [ExpenseHeadController::class, 'index'])->middleware('permission:expense_head_view');
+        Route::get('/heads/create', [ExpenseHeadController::class, 'create'])->middleware('permission:expense_head_create');
+        Route::post('/heads/store', [ExpenseHeadController::class, 'store'])->middleware('permission:expense_head_create');
+        Route::get('/heads/edit/{id}', [ExpenseHeadController::class, 'edit'])->middleware('permission:expense_head_update');
+        Route::post('/heads/update/{id}', [ExpenseHeadController::class, 'update'])->middleware('permission:expense_head_update');
+        
+
+        // Expenses
+        Route::get('/list', [ExpenseController::class, 'index'])->middleware('permission:expense_view');
+        Route::get('/create', [ExpenseController::class, 'create'])->middleware('permission:expense_create');
+        Route::post('/store', [ExpenseController::class, 'store'])->middleware('permission:expense_create');
+        Route::get('/edit/{id}', [ExpenseController::class, 'edit'])->middleware('permission:expense_update');
+        Route::post('/update/{id}', [ExpenseController::class, 'update'])->middleware('permission:expense_update');
+
+        // Route::get('/list', [ExpenseController::class, 'index']);
+        // Route::get('/report', [ExpenseController::class, 'feeCollectionReport']);
+        // Route::get('/collect-fee/{id}', [ExpenseController::class, 'create']);
+        // Route::post('/collect-fee/{id}', [ExpenseController::class, 'store']);
     });
 
     // Homework

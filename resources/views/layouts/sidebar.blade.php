@@ -279,6 +279,31 @@
                     </ul>
                 </li>
                 @endcan
+                @can('expense_view')
+                <li class="nav-item has-treeview @if(Request::segment(2) == 'expenses') menu-open @endif">
+                    <a href="#" class="nav-link @if(Request::segment(2) == 'expenses') active @endif">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>
+                            Expenses
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('admin/expenses/heads/list')}}" class="nav-link @if(Request::url() == url('admin/expenses/heads/list')) active @endif">
+                                <i class="fas fa-minus nav-icon"></i>
+                                <p>Expense Heads</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('admin/expenses/list')}}" class="nav-link @if(Request::url() == url('admin/expenses/list')) active @endif">
+                                <i class="fas fa-minus nav-icon"></i>
+                                <p>Expenses List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
                 <li class="nav-item">
                     <a href="{{url('admin/password/edit')}}" class="nav-link @if(Request::segment(2) == 'password') active @endif">
                         <i class="nav-icon far fa-circle"></i>

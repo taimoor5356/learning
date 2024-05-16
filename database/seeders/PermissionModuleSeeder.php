@@ -56,7 +56,7 @@ class PermissionModuleSeeder extends Seeder
         }
         $user = User::find(1);
         $permissions = Permission::get();
-        $role = Role::create([
+        $role = Role::updateOrCreate([
             'name' => 'admin',
             'guard_name' => 'web'
         ]);
