@@ -17,7 +17,7 @@ class ClassSubjectController extends Controller
     {
         //
         $data['header_title'] = 'Class Teachers List';
-        $data['records'] = ClassSubject::getClassSubjects()->paginate(10);
+        $data['records'] = ClassSubject::getClassSubjects()->paginate(25);
         return view('admin.class_subject.index', $data);
     }
 
@@ -186,7 +186,7 @@ class ClassSubjectController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Assigned Subject list';
-        $data['records'] = ClassSubject::getTrashedClassSubjects()->paginate(10);
+        $data['records'] = ClassSubject::getTrashedClassSubjects()->paginate(25);
         return view('admin.class_subject.trashed', $data);
     }
 }

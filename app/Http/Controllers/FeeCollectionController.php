@@ -21,7 +21,7 @@ class FeeCollectionController extends Controller
         $data['header_title'] = 'My Fee Details';
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['user'] = User::getSingleUser($id)->first();
-        $data['records'] = SubmittedFee::getStudentFees($id)->paginate(10);
+        $data['records'] = SubmittedFee::getStudentFees($id)->paginate(25);
         $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, Auth::user()->class_id);
         return view('admin.fee_collection.collect_fee', $data);
     }
@@ -34,7 +34,7 @@ class FeeCollectionController extends Controller
         //
         $data['header_title'] = 'Fee Collection Report';
         $data['classes'] = SchoolClass::getClasses()->get();
-        $data['records'] = SubmittedFee::getFeeCollectionReport()->paginate(10);
+        $data['records'] = SubmittedFee::getFeeCollectionReport()->paginate(25);
         return view('admin.fee_collection.report', $data);
     }
 
@@ -46,7 +46,7 @@ class FeeCollectionController extends Controller
         //
         $data['header_title'] = 'Students Fee List';
         $data['classes'] = SchoolClass::getClasses()->get();
-        $data['records'] = User::getFeeCollectedStudents()->paginate(10);
+        $data['records'] = User::getFeeCollectedStudents()->paginate(25);
         return view('admin.fee_collection.index', $data);
     }
 
@@ -59,7 +59,7 @@ class FeeCollectionController extends Controller
         $data['header_title'] = 'Collect Fee';
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['user'] = User::getSingleUser($id)->first();
-        $data['records'] = SubmittedFee::getStudentFees($id)->paginate(10);
+        $data['records'] = SubmittedFee::getStudentFees($id)->paginate(25);
         $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, $data['user']->class_id);
         return view('admin.fee_collection.collect_fee', $data);
     }

@@ -75,11 +75,14 @@ class SettingController extends Controller
         $setting->school_sms_api_key = $request->school_sms_api_key;
         $setting->school_email_description = $request->school_email_description;
         $setting->school_exam_report_description = $request->school_exam_report_description;
+        $setting->school_login_page_notification_01 = $request->school_login_page_notification_01;
+        $setting->school_login_page_notification_02 = $request->school_login_page_notification_02;
+        $setting->school_login_page_notification_03 = $request->school_login_page_notification_03;
         // Images
         // Store multiple images for settings
         $settings = [
-            'school_logo',
             'school_browser_icon',
+            'school_logo',
             'school_login_page_image_one',
             'school_login_page_image_two',
             'school_login_page_image_three',

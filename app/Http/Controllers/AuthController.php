@@ -19,7 +19,29 @@ class AuthController extends Controller
     //
     public function otp()
     {
-        return view('auth.otp');
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        return view('auth.otp', compact('texts', 'totalLength'));
+    }
+    public function resendOTP()
+    {
+        $token = Session::get('otp_token');
+        $user = User::where('otp_token', $token)->first();
+        $user->otp = mt_rand(1000, 9999);
+        $user->save();
+        Mail::to($user->email)->send(new OtpMail($user));
+        return redirect()->back()->with('success', 'OTP sent to your email address');
     }
     public function postOtp(Request $request)
     {
@@ -27,14 +49,31 @@ class AuthController extends Controller
             'otp' => 'required'
         ]);
         $token = Session::get('otp_token');
-        $user = User::where('otp_token', $token)->first();
-        $user->otp_verified = 1;
-        $user->save();
-        return redirect('')->with('success', 'OTP verified successfully. Contact your administrator now');
+        $user = User::where('otp_token', $token)->where('otp', $request->otp)->first();
+        if (isset($user)) {
+            $user->otp_verified = 1;
+            $user->save();
+            return redirect('')->with('success', 'OTP verified successfully. Contact your administrator now');
+        } else {
+            return redirect()->back()->with('error', 'Invalid OTP');
+        }
     }
     public function signup()
     {
-        return view('auth.register');
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        return view('auth.register', compact('texts', 'totalLength'));
     }
     public function postSignup(Request $request)
     {
@@ -62,6 +101,19 @@ class AuthController extends Controller
     }
     public function login()
     {
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
         if (!empty(Auth::check())) {
             $userType = Auth::user()->user_type;
             if ($userType == 1) {
@@ -74,7 +126,7 @@ class AuthController extends Controller
                 return redirect('parent/dashboard');
             }
         }
-        return view('auth.login');
+        return view('auth.login', compact('texts', 'totalLength'));
     }
     public function authLogin(Request $request)
     {
@@ -98,7 +150,20 @@ class AuthController extends Controller
     }
     public function forgotPassword()
     {
-        return view('auth.forgot_password');
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        return view('auth.forgot_password', compact('texts', 'totalLength'));
     }
     public function forgetPassword(Request $request)
     {
@@ -114,6 +179,21 @@ class AuthController extends Controller
     }
     public function resetPassword($token)
     {
+        $settings = systemSettings();
+        $texts = [];
+        if (!empty($settings)) {
+            $texts = [
+                $settings->school_login_page_notification_01,
+                $settings->school_login_page_notification_02,
+                $settings->school_login_page_notification_03,
+            ];
+        }
+        $totalLength = 0;
+        foreach ($texts as $text) {
+            $totalLength += strlen($text);
+        }
+        $data['texts'] = $texts;
+        $data['totalLength'] = $totalLength;
         $user = User::getSingleToken($token);
         if (isset($user)) {
             $data['user'] = $user;

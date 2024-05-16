@@ -13,11 +13,6 @@
                 <div class="col-sm-6">
                     <h1>Collect Fee (Total: {{!empty($records) ? $records->total() : 0}})</h1>
                 </div>
-                <div class="col-sm-6">
-                    <div class="add-new float-sm-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFeeModal">Add New</button>
-                    </div>
-                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>

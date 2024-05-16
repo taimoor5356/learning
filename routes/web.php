@@ -39,11 +39,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['prefix' => '/'], function () {
+    Route::get('/carousel', function () {
+        return view('carousel');
+    });
     Route::get('', [AuthController::class, 'login'])->name('login');
     Route::get('/signup', [AuthController::class, 'signup'])->name('signup');
     Route::post('/signup', [AuthController::class, 'postSignup'])->name('postSignup');
     Route::get('/otp', [AuthController::class, 'otp'])->name('otp');
     Route::post('/post-otp', [AuthController::class, 'postOtp'])->name('postOtp');
+    Route::get('/resend-otp', [AuthController::class, 'resendOTP'])->name('postOtp');
     Route::post('login', [AuthController::class, 'authLogin'])->name('authLogin');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');

@@ -49,7 +49,7 @@ class ClassTimetableController extends Controller
             $wDays[] = $wData;
         }
         $data['weekDays'] = $wDays;
-        $data['records'] = SchoolClass::getClasses()->paginate(10);
+        $data['records'] = SchoolClass::getClasses()->paginate(25);
         return view('admin.timetable.index', $data);
     }
 

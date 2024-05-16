@@ -17,7 +17,7 @@ class SubjectController extends Controller
     {
         //
         $data['header_title'] = 'Subjects List';
-        $data['records'] = Subject::getSubjects()->paginate(10);
+        $data['records'] = Subject::getSubjects()->paginate(25);
         return view('admin.subject.index', $data);
     }
 
@@ -112,7 +112,7 @@ class SubjectController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Subjects list';
-        $data['records'] = Subject::getTrashedSubjects()->paginate(10);
+        $data['records'] = Subject::getTrashedSubjects()->paginate(25);
         return view('admin.subject.trashed', $data);
     }
 
@@ -121,7 +121,7 @@ class SubjectController extends Controller
         //
         $data['header_title'] = 'My Subjects list';
         $classId = Auth::user()->class_id;
-        $data['records'] = ClassSubject::getSingleClassSubjects($classId)->paginate(10);
+        $data['records'] = ClassSubject::getSingleClassSubjects($classId)->paginate(25);
         return view('student.my_subject', $data);
     }
 }

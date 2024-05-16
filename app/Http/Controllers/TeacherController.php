@@ -19,7 +19,7 @@ class TeacherController extends Controller
     {
         //
         $data['header_title'] = 'Teachers List';
-        $data['records'] = User::getTeachers()->paginate(2);
+        $data['records'] = User::getTeachers()->paginate(25);
         $data['classes'] = SchoolClass::getClasses()->get();
         return view('admin.teacher.index', $data);
     }
@@ -191,7 +191,7 @@ class TeacherController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Teachers list';
-        $data['records'] = User::getTrashedTeachers()->paginate(10);
+        $data['records'] = User::getTrashedTeachers()->paginate(25);
         return view('admin.teacher.trashed', $data);
     }
 }

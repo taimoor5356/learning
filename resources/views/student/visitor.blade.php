@@ -29,11 +29,9 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-12 text-center">
-                    <h1 class="logo-content" style="margin-bottom: 0px;">
-                        <div class="logo-img">
-                            <img class="my-school-logo" src="{{ url('public/images/school_images/'.systemSettings()->school_logo) }}" alt="School Logo">
-                        </div>
-                        {{ systemSettings()->school_name }}
+                    <h1 style="margin-bottom: 0px;">
+                        <img src="{{ url('public/images/school_images/'.systemSettings()->school_logo) }}" alt="School Logo" style="width: 75px; height: 70px; margin-right: 10px;">
+                        {{ !empty(systemSettings()) ? systemSettings()->school_name: '' }}
                     </h1>
                     <p style="margin: 0px 0px 0px 0px;">{{ systemSettings()->school_description }}</p>
                 </div>

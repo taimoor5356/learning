@@ -17,7 +17,7 @@ class AdminController extends Controller
     {
         //
         $data['header_title'] = 'Admins list';
-        $data['records'] = User::getAdmins()->paginate(3);
+        $data['records'] = User::getAdmins()->paginate(25);
         return view('admin.admin.index', $data);
     }
 
@@ -113,7 +113,7 @@ class AdminController extends Controller
             }
             if (!empty($request->file('profile_pic'))) {
                 if (!empty($user->getProfilePic())) {
-                    if (file_exists('public/images/profile/'.$user->profile_pic)) {
+                    if (!empty($user->profile_pic) && file_exists('public/images/profile/' . $user->profile_pic)) {
                         unlink('public/images/profile/'.$user->profile_pic);
                     }
                 }
@@ -149,7 +149,7 @@ class AdminController extends Controller
     {
         //
         $data['header_title'] = 'Trashed Admins list';
-        $data['records'] = User::getTrashedAdmins()->paginate(10);
+        $data['records'] = User::getTrashedAdmins()->paginate(25);
         return view('admin.admin.trashed', $data);
     }
 }
