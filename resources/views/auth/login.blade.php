@@ -261,28 +261,6 @@
                 </div>
             </div>
         </div>
-        <br>
-        <hr>
-        <div class="login-images">
-            <div class="row">
-                <div class="col-3 d-flex justify-content-center">
-                    <img class="login-img-1 img-fluid p-2" style="border-radius: 15px;" height="200px" width="300px" src="{{ url('public/images/school_images/3.jpg') }}" alt="School Logo">
-                </div>
-                <div class="col-3 d-flex justify-content-center">
-                    <img class="login-img-2 img-fluid p-2" style="border-radius: 15px;" height="200px" width="300px" src="{{ url('public/images/school_images/4.png') }}" alt="School Logo">
-                </div>
-                <div class="col-3 d-flex justify-content-center">
-                    <img class="login-img-3 img-fluid p-2" style="border-radius: 15px;" height="200px" width="300px" src="{{ url('public/images/school_images/5.jpg') }}" alt="School Logo">
-                </div>
-                <div class="col-3 d-flex justify-content-center">
-                    <img class="login-img-3 img-fluid p-2" style="border-radius: 15px;" height="200px" width="300px" src="{{ url('public/images/school_images/1.png') }}" alt="School Logo">
-                </div>
-            </div>
-        </div>
-        <!-- /.login-box -->
-        <!-- <div class="notifications d-flex justify-content-center p-2 font-weight-bold" style="margin: 55px auto;">
-            <span class="text-danger font-weight-bold mx-2">Important: </span> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, maiores voluptatibus iusto fugiat sit dolore eius. Sapiente reprehenderit in consequatur at aliquam obcaecati ut, excepturi sit quos dolor blanditiis animi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor officiis at libero eveniet repudiandae quo, pariatur, ex mollitia placeat reiciendis suscipit asperiores fugit unde sunt? Eligendi impedit fugit harum ab.
-        </div> -->
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
