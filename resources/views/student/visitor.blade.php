@@ -1,31 +1,13 @@
 @extends('layouts.visitor_app')
 @section('style')
 <style type="text/css">
-    .my-school-logo {
-        width: 75px;
-        height: 70px;
-        margin-right: 10px;
-    }
 
-    @media only screen and (max-width: 405px) {
-        .logo-img {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .my-school-logo img {
-            width: 50px;
-            height: 50px;
-            margin: 0px auto;
-        }
-    }
 </style>
 @endsection
 @section('content')
 <div class="content-wrappersss">
     <!-- Content Header (Page header) -->
-    <section class="content-header" style="margin: 0;">
+    <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-12 text-center">
@@ -33,7 +15,7 @@
                         <img src="{{ url('public/images/school_images/'.systemSettings()->school_logo) }}" alt="School Logo" style="width: 75px; height: 70px; margin-right: 10px;">
                         {{ !empty(systemSettings()) ? systemSettings()->school_name: '' }}
                     </h1>
-                    <p style="margin: 0px 0px 0px 0px;">{{ systemSettings()->school_description }}</p>
+                    <p style="margin: -20px 0px 20px 70px;">{{ systemSettings()->school_description }}</p>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
