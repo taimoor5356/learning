@@ -72,7 +72,7 @@
                 margin: 0px 0;
                 padding: 0;
                 width: max-content;
-                animation: my-animation 40s linear infinite;
+                animation: my-animation 60s linear infinite;
             }
         }
 
@@ -85,7 +85,7 @@
                 margin: 0px 0;
                 padding: 0;
                 width: max-content;
-                animation: my-animation 40s linear infinite;
+                animation: my-animation 60s linear infinite;
             }
         }
 
@@ -98,7 +98,7 @@
                 margin: 0px 0;
                 padding: 0;
                 width: max-content;
-                animation: my-animation 40s linear infinite;
+                animation: my-animation 60s linear infinite;
             }
         }
 
@@ -111,7 +111,7 @@
                 margin: 0px 0;
                 padding: 0;
                 width: max-content;
-                animation: my-animation 40s linear infinite;
+                animation: my-animation 60s linear infinite;
             }
         }
 
@@ -124,7 +124,7 @@
                 margin: 0px 0;
                 padding: 0;
                 width: max-content;
-                animation: my-animation 40s linear infinite;
+                animation: my-animation 60s linear infinite;
             }
         }
     </style>
