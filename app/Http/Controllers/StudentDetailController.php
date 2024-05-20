@@ -70,13 +70,14 @@ class StudentDetailController extends Controller
             'class_type' => ['required', Rule::in(['on_campus', 'online'])],
             'class_program' => ['required', Rule::in(['css', 'pms', 'examination', 'interview', 'others'])],
             'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
+            'email' => 'required|email|unique:users,email',
             'mobile_number' => 'required|min_digits:10|max_digits:15',
             'gender' => ['required', Rule::in(['male', 'female'])],
-            'qualification' => 'required',
+            // 'qualification' => 'required',
             'domicile' => ['required', Rule::in(['isb', 'punjab', 'sindh', 'balochistan', 'kpk'])],
         ]);
-        $user = User::getSingleUser(Auth::user()->id)->first();
-        if (isset($user)) {
+        if (Auth::user()) {
+            $user = User::getSingleUser(Auth::user()->id)->first();
             $user = $user;
         } else {
             $user = new User();
@@ -85,8 +86,10 @@ class StudentDetailController extends Controller
         $user->user_type = 10;
         $user->class_program = trim($request->class_program);
         $user->name = trim($request->name);
+        $user->email = trim($request->email);
         $user->mobile_number = trim($request->mobile_number);
         $user->gender = trim($request->gender);
+        $user->status = 0;
         if (!empty($request->qualification)) {
             $user->qualification = json_encode($request->qualification);
         }
@@ -111,7 +114,11 @@ class StudentDetailController extends Controller
     {
         //
         $data['header_title'] = 'Edit Student Detail';
+        $data['id'] = $id;
         $data['record'] = User::getSingleUser($id)->first();
+        $data['paid_amount'] = User::submitted_fee($id, $data['record']->class_id)->sum('paid_amount');
+        $data['remaining_dues'] = User::submitted_fee($id, $data['record']->class_id)->sum('remaining_amount');
+        $data['payment_method'] = User::submitted_fee($id, $data['record']->class_id)->first()->payment_type;
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['exams'] = Examination::getExams()->get();
         return view('admin.student.edit', $data);
@@ -139,6 +146,12 @@ class StudentDetailController extends Controller
             }
             if (!empty($request->qualification)) {
                 $user->qualification = json_encode($request->qualification);
+            }
+            if (!empty($request->password)) {
+                $user->password = Hash::make('12345678');
+            }
+            if (empty($user->admission_number)) {
+                $user->admission_number = Str::random(5).$id;
             }
             $user->save();
             return redirect('admin/student/list')->with('success', 'Student details updated successfully');

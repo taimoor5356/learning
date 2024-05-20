@@ -155,6 +155,9 @@ class UserController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
+            if (!empty($request->password)) {
+                $user->password = Hash::make($request->password);
+            }
             $user->qualification = json_encode($request->qualification);
             $user->save();
             return redirect()->back()->with('success', 'Account updated successfully');

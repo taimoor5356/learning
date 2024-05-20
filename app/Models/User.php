@@ -22,56 +22,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'email_verified_at',
-        'password',
-        'father_name',
-        'father_occupation',
-        'cnic',
-        'mobile_number',
-        'whatsapp_number',
-        'emergency_contact_number',
-        'address',
-        'user_type',
-        'status',
-        'gender',
-        'date_of_birth',
-        'domicile',
-        'caste',
-        'religion',
-        'profile_pic',
-        'blood_group',
-        'height',
-        'weight',
-        'marital_status',
-        'current_address',
-        'permanent_address',
-        'qualification',
-        'work_experience',
-        'note',
-        'batch_starting_date',
-        'batch_number',
-        'admission_date',
-        'admission_number',
-        'roll_number',
-        'class_id',
-        'class_type',
-        'class_program',
-        'interview_type',
-        'exam_id',
-        'discounted_amount',
-        'discount_reason',
-        'freeze_date',
-        'left_date',
-        'fee_slip',
-        'optional_subjects',
-        'otp',
-        'otp_verified',
-        'otp_token',
-        'deleted_at',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -366,6 +317,11 @@ class User extends Authenticatable
     static public function searchUser($searchValue)
     {
         return self::where('name', 'LIKE', '%'. $searchValue. '%')->orWhere('email', 'LIKE', '%'. $searchValue. '%')->orWhere('admission_number', 'LIKE', '%'. $searchValue. '%')->orWhere('roll_number', 'LIKE', '%'. $searchValue. '%')->orWhere('mobile_number', 'LIKE', '%'. $searchValue. '%')->limit(5);
+    }
+
+    static public function submitted_fee($id, $classId)
+    {
+        return SubmittedFee::where('user_id', '=', $id)->where('class_id', $classId);
     }
 
     // Relations

@@ -248,7 +248,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         Route::post('/update-single/{id}', [ClassTimetableController::class, 'updateSingle'])->middleware('permission:school_class_update');
         Route::get('/delete/{id}', [ClassTimetableController::class, 'destroy'])->middleware('permission:school_class_delete');
         Route::get('/trashed', [ClassTimetableController::class, 'trashed'])->middleware('permission:school_class_delete');
-        
+
         Route::post('/subjects', [ClassTimetableController::class, 'getClassSubjects'])->middleware('permission:school_class_view');
         Route::post('/add', [ClassTimetableController::class, 'insertOrUpdate'])->middleware('permission:school_class_create');
 
@@ -302,7 +302,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         Route::get('/scheduled-exams', [ExaminationController::class, 'examSchedule'])->middleware('permission:examination_view');
         Route::post('/store-scheduled-exams', [ExaminationController::class, 'storeExamSchedule'])->middleware('permission:examination_create');
         Route::get('/create-scheduled-exams', [ExaminationController::class, 'createScheduleExam'])->middleware('permission:examination_create');
-        
+
         // Marks Registration
         Route::get('/subject-marks', [ExaminationController::class, 'SubjectMarks'])->middleware('permission:examination_view');
         Route::post('/subject-marks', [ExaminationController::class, 'storeSubjectMarks'])->middleware('permission:examination_create');
@@ -379,7 +379,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         Route::post('/heads/store', [ExpenseHeadController::class, 'store'])->middleware('permission:expense_head_create');
         Route::get('/heads/edit/{id}', [ExpenseHeadController::class, 'edit'])->middleware('permission:expense_head_update');
         Route::post('/heads/update/{id}', [ExpenseHeadController::class, 'update'])->middleware('permission:expense_head_update');
-        
+
 
         // Expenses
         Route::get('/list', [ExpenseController::class, 'index'])->middleware('permission:expense_view');
@@ -492,12 +492,12 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'teacher'], function () {
         Route::get('/get-class-subjects', [HomeWorkController::class, 'getClassSubjects']);
     });
 });
-Route::group(['prefix' => 'student', 'middleware' => 'student'], function () {
-    Route::group(['middleware' => ['otp_verified']], function () {
-        Route::get('/dashboard', [DashboardController::class, 'dashboard']);
-        Route::post('/visitor/store', [StudentDetailController::class, 'storeVisitor']);
-    });
-    Route::group(['middleware' => 'is_active'], function () {
+Route::group(['prefix' => 'student'], function () {
+    // Route::group(['middleware' => ['otp_verified']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+    Route::post('/visitor/store', [StudentDetailController::class, 'storeVisitor']);
+    // });
+    Route::group(['middleware' => ['is_active', 'student']], function () {
         // My Subject
         Route::get('/account', [UserController::class, 'myAccount']);
         Route::post('/update-account', [UserController::class, 'updateMyStudentAccount']);

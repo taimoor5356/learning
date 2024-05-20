@@ -155,13 +155,13 @@
                                         <th>Class</th>
                                         <th>Gender</th>
                                         <th>DOB</th>
-                                        <th>Caste</th>
-                                        <th>Religion</th>
+                                        <!-- <th>Caste</th>
+                                        <th>Religion</th> -->
                                         <th>Mobile</th>
                                         <th>Admission Date</th>
-                                        <th>Blood Group</th>
+                                        <!-- <th>Blood Group</th>
                                         <th>Height</th>
-                                        <th>Weight</th>
+                                        <th>Weight</th> -->
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th>Actions</th>
@@ -181,13 +181,13 @@
                                         <td class="text-capitalize">{{$record->class?->name}}</td>
                                         <td class="text-capitalize">{{$record->gender}}</td>
                                         <td>{{$record->date_of_birth}}</td>
-                                        <td class="text-capitalize">{{$record->caste}}</td>
-                                        <td class="text-capitalize">{{$record->religion}}</td>
+                                        <!-- <td class="text-capitalize">{{$record->caste}}</td>
+                                        <td class="text-capitalize">{{$record->religion}}</td> -->
                                         <td>{{$record->mobile_number}}</td>
                                         <td>{{$record->admission_date}}</td>
-                                        <td class="text-capitalize">{{$record->blood_group}}</td>
+                                        <!-- <td class="text-capitalize">{{$record->blood_group}}</td>
                                         <td>{{$record->height}}</td>
-                                        <td>{{$record->weight}}</td>
+                                        <td>{{$record->weight}}</td> -->
                                         <td class="text-capitalize {{($record->status == 1) ? 'text-success' : 'text-danger'}}">{{($record->status == 1) ? 'Active' : 'In Active'}}</td>
                                         <td>{{$record->created_at}}</td>
                                         <td style="min-width: 200px;">

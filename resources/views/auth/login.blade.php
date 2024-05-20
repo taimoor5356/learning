@@ -204,7 +204,7 @@
 
                             <p class="mt-4 d-flex justify-content-between">
                                 <a href="{{url('forgot-password')}}">I forgot my password</a>
-                                <a href="{{url('signup')}}">SignUp</a>
+                                <a href="{{url('student/dashboard')}}">New? Click Here</a>
                             </p>
                         </div>
                         <!-- /.login-card-body -->

@@ -40,7 +40,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-5">
                                         <label for="InputClassType">Class Type <span class="text-danger">*</span></label>
                                         <select name="class_type" id="InputClassType" class="form-control" required>
                                             <option value="">Select Class Type</option>
@@ -49,7 +49,7 @@
                                         </select>
                                         <span class="text-danger">{{$errors->first('class_type')}}</span>
                                     </div>
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-5">
                                         <label for="InputClassProgram">Select Class Program <span class="text-danger">*</span></label>
                                         <select class="form-control" id="InputClassProgram" name="class_program" required>
                                             <option value="">Select Class</option>
@@ -61,10 +61,20 @@
                                         </select>
                                         <span class="text-danger">{{$errors->first('class_program')}}</span>
                                     </div>
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-2 d-flex justify-content-end">
+                                        <br>
+                                        <button type="button" class="btn btn-primary" id="InputDownloadProspectus">Download Prospectus</button>
+                                        <span class="text-danger">{{$errors->first('name')}}</span>
+                                    </div>
+                                    <div class="form-group col-6">
                                         <label for="InputFullName">Full Name <span class="text-danger">*</span></label>
                                         <input type="text" name="name" value="{{ old('name') ?? (isset($record) ? $record->name : '') }}" class="form-control" id="InputFullName" placeholder="Enter full name" required>
                                         <span class="text-danger">{{$errors->first('name')}}</span>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="InputEmail">Email <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}" class="form-control" id="InputEmail" placeholder="Enter email" required>
+                                        <span class="text-danger">{{$errors->first('email')}}</span>
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="InputMobileNumber">Mobile Number <span class="text-danger">*</span></label>
@@ -82,7 +92,7 @@
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="InputQualification">Qualification <span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ old('qualification') ?? (isset($record) ? $record->qualification : '') }}" class="form-control" id="InputQualification" placeholder="Enter qualification" name="qualification" required>
+                                        <input type="text" value="{{ old('qualification') ?? (isset($record) ? $record->qualification : '') }}" class="form-control" id="InputQualification" placeholder="Enter qualification" name="qualification" >
                                         <span class="text-danger">{{$errors->first('qualification')}}</span>
                                     </div>
                                     <div class="form-group col-12">
@@ -101,8 +111,8 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{url('logout')}}" class="btn btn-danger">Logout</a>
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <a href="{{url('logout')}}" class="btn btn-primary">Goto Login</a>
                             </div>
                         </form>
                     </div>

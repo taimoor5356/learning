@@ -130,21 +130,29 @@ class AuthController extends Controller
     }
     public function authLogin(Request $request)
     {
-        $remember = !empty($request->remember) ? true : false;
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-            $userType = Auth::user()->user_type;
-            if ($userType == 1) {
-                return redirect('admin/dashboard');
-            } else if ($userType == 2) {
-                return redirect('teacher/dashboard');
-            } else if ($userType == 3) {
-                return redirect('student/dashboard');
-            } else if ($userType == 4) {
-                return redirect('parent/dashboard');
-            } else if ($userType == 10) {
-                return redirect('')->with('error', 'Please wait for the approval');
+        try {
+            $remember = !empty($request->remember) ? true : false;
+            if (!empty($request->email) && !empty($request->password)) {
+                if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
+                    $userType = Auth::user()->user_type;
+                    if ($userType == 1) {
+                        return redirect('admin/dashboard');
+                    } else if ($userType == 2) {
+                        return redirect('teacher/dashboard');
+                    } else if ($userType == 3) {
+                        return redirect('student/dashboard');
+                    } else if ($userType == 4) {
+                        return redirect('parent/dashboard');
+                    } else if ($userType == 10) {
+                        return redirect('')->with('error', 'Please wait for the approval');
+                    }
+                } else {
+                    return redirect()->back()->with('error', 'Invalid credentials');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Invalid credentials');
             }
-        } else {
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Invalid credentials');
         }
     }
