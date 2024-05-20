@@ -23,7 +23,7 @@
         </div> -->
         <div class="form-group col-3 offset-9">
             <label for="InputBatchStartingDate">Batch starting date <span class="text-danger">*</span></label>
-            <input type="date" value="{{ old('batch_starting_date') ?? (isset($record) ? $record->batch_starting_date : '') }}" name="batch_starting_date" class="form-control" id="InputBatchStartingDate" >
+            <input type="date" value="{{ old('batch_starting_date') ?? (isset($record) ? $record->batch_starting_date : '') }}" name="batch_starting_date" class="form-control" id="InputBatchStartingDate" required>
             <span class="text-danger">{{$errors->first('batch_starting_date')}}</span>
         </div>
     </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputYear">Year <span class="text-danger">*</span></label>
-            <select name="class_year" id="InputYear" class="form-control" >
+            <select name="class_year" id="InputYear" class="form-control" required>
                 <option value="">Select Year</option>
                 <option value="css_2024" {{ isset($record) ? ($record->class_year == 'css_2024' ? 'selected' : '') : (old('year') == 'css_2024' ? 'selected' : '') }}>CSS 2024</option>
                 <option value="pms_2024" {{ isset($record) ? ($record->class_year == 'pms_2024' ? 'selected' : '') : (old('year') == 'pms_2024' ? 'selected' : '') }}>PMS 2024</option>
@@ -78,7 +78,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputBatchNumber">Enter Batch <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="batch_number" placeholder="Enter batch number" id="InputBatchNumber" value="{{ old('batch_number') ?? (isset($record) ? $record->batch_number : '') }}">
+            <input type="text" class="form-control" name="batch_number" placeholder="Enter batch number" id="InputBatchNumber" value="{{ old('batch_number') ?? (isset($record) ? $record->batch_number : '') }}" required>
             <span class="text-danger">{{$errors->first('batch_number')}}</span>
         </div>
         <input type="hidden" id="user_id" value="{{ old('id') ?? (isset($record) ? $record->id : '') }}">
@@ -89,17 +89,17 @@
         </div> -->
         <div class="form-group col-3">
             <label for="InputRollNo">Roll Number <span class="text-danger">*</span></label>
-            <input type="text" value="{{ old('roll_number') ?? (isset($record) ? $record->roll_number : '') }}" name="roll_number" class="form-control" id="InputRollNo" readonly>
+            <input type="text" value="{{ old('roll_number') ?? (isset($record) ? $record->roll_number : '') }}" name="roll_number" class="form-control" id="InputRollNo" readonly required>
             <span class="text-danger">{{$errors->first('roll_number')}}</span>
         </div>
         <div class="form-group col-3">
             <label for="InputEmail">Email <span class="text-danger">*</span></label>
-            <input type="email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}" name="email" class="form-control" id="InputEmail" placeholder="Enter email" >
+            <input type="email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}" name="email" class="form-control" id="InputEmail" placeholder="Enter email" required>
             <span class="text-danger">{{$errors->first('email')}}</span>
         </div>
         <div class="form-group col-3">
             <label for="InputClassProgram">Select Class Program <span class="text-danger">*</span></label>
-            <select class="form-control" id="InputClassProgram" name="class_program">
+            <select class="form-control" id="InputClassProgram" name="class_program" required>
                 <option value="">Select Class Program</option>
                 <option value="css" {{ isset($record) ? ($record->class_program == 'css' ? 'selected' : '') : (old('class_program') == 'css' ? 'selected' : '') }}>CSS</option>
                 <option value="pms" {{ isset($record) ? ($record->class_program == 'pms' ? 'selected' : '') : (old('class_program') == 'pms' ? 'selected' : '') }}>PMS</option>
@@ -111,7 +111,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputClassType">Class Type <span class="text-danger">*</span></label>
-            <select name="class_type" id="InputClassType" class="form-control">
+            <select name="class_type" id="InputClassType" class="form-control" required>
                 <option value="">Select Class Type</option>
                 <option value="on_campus" {{ isset($record) ? ($record->class_type == 'on_campus' ? 'selected' : '') : (old('class_type') == 'on_campus' ? 'selected' : '') }}>On Campus</option>
                 <option value="online" {{ isset($record) ? ($record->class_type == 'online' ? 'selected' : '') : (old('class_type') == 'online' ? 'selected' : '') }}>Onlie</option>
@@ -120,7 +120,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputClass">Select Class/Subjects <span class="text-danger">*</span></label>
-            <select name="class_id" class="form-control" id="InputClass">
+            <select name="class_id" class="form-control" id="InputClass" required>
                 <option value="">Select Class</option>
                 @foreach($classes as $key => $class)
                 <option data-fee="{{$class->amount}}" value="{{$class->id}}" {{ isset($record) ? ($class->id == $record->class_id ? 'selected' : '') : (old('class_id') == $class->id ? 'selected' : '') }}>{{$class->name}} - (Fee Rs.{{$class->amount}})</option>
@@ -130,7 +130,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputAppliedFor">Applying for <span class="text-danger">*</span></label>
-            <select name="applied_for" class="form-control" id="InputAppliedFor">
+            <select name="applied_for" class="form-control" id="InputAppliedFor" required>
                 <option value="">Applying for</option>
                 <option value="written_exam" {{ isset($record) ? ($record->applied_for == 'written_exam' ? 'selected' : '') : (old('applied_for') == 'written_exam' ? 'selected' : '') }}>Written Exam</option>
                 <option value="interview" {{ isset($record) ? ($record->interview == 'class' ? 'selected' : '') : (old('interview') == 'class' ? 'selected' : '') }}>Interview</option>
@@ -186,7 +186,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputTotalFee">Total Fee <span class="text-danger">*</span></label>
-            <input disabled type="text" name="total_fee" class="form-control" id="InputTotalFee" value="{{ old('total_fee') ?? (isset($record) ? $record->total_fee : '') }}" placeholder="Total Fee">
+            <input readonly type="text" name="total_fee" class="form-control" id="InputTotalFee" value="{{ old('total_fee') ?? (isset($record) ? $record->total_fee : '') }}" placeholder="Total Fee">
             <span class="text-danger">{{$errors->first('total_fee')}}</span>
         </div>
         <div class="form-group col-3">
@@ -236,7 +236,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputStatus">Status <span class="text-danger">*</span></label>
-            <select name="status" id="status" class="form-control">
+            <select name="status" id="status" class="form-control" required>
                 <option value="">Select Status</option>
                 <option value="1" {{ isset($record) ? ($record->status == '1' ? 'selected' : '') : (old('status') == '1' ? 'selected' : '') }}>Active</option>
                 <option value="0" {{ isset($record) ? ($record->status == '0' ? 'selected' : '') : (old('status') == '0' ? 'selected' : '') }}>Inactive</option>
@@ -254,7 +254,7 @@
         <!---------------------->
         <div class="form-group col-3">
             <label for="InputAdmissionDate">Admission Date <span class="text-danger">*</span></label>
-            <input type="date" value="{{ old('admission_date') ?? (isset($record) ? $record->admission_date : '') }}" name="admission_date" class="form-control" id="InputAdmissionDate">
+            <input type="date" value="{{ old('admission_date') ?? (isset($record) ? $record->admission_date : '') }}" name="admission_date" class="form-control" id="InputAdmissionDate" required>
             <span class="text-danger">{{$errors->first('admission_date')}}</span>
         </div>
         <div class="form-group col-3">
@@ -471,7 +471,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputRollNo">Roll Number <span class="text-danger">*</span></label>
-            <input type="text" value="{{ old('roll_number') ?? (isset($record) ? $record->roll_number : '') }}" disabled class="form-control" id="InputRollNo" placeholder="Enter roll number">
+            <input type="text" value="{{ old('roll_number') ?? (isset($record) ? $record->roll_number : '') }}" readonly class="form-control" id="InputRollNo" placeholder="Enter roll number" required>
             <span class="text-danger">{{$errors->first('roll_number')}}</span>
         </div>
         <div class="form-group col-3">

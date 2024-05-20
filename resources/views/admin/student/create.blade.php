@@ -81,4 +81,28 @@
 </div>
 @endsection
 @section('script')
+<script>
+    $(document).ready(function() {
+        $(document).on('keyup', '#InputBatchNumber', function() {
+            var year = $('#InputYear').val();
+            if (year == '') {
+                alert('Please select a year');
+                $(this).val('');
+                return false;
+            }
+            var batchNumber = $(this).val();
+            var userId = $('#user_id').val();
+            $('#InputRollNo').val(year + userId + batchNumber);
+        });
+        $(document).on('change', '#InputClass', function() {
+            var _this = $(this);
+            var classId = _this.val();
+            if (classId != '') {
+                var selectedOption = _this.find('option:selected');
+                var classFee = selectedOption.attr('data-fee');
+                $('#InputTotalFee').val(classFee);
+            }
+        });
+    });
+</script>
 @endsection

@@ -59,7 +59,13 @@ class StudentDetailController extends Controller
             $user->qualification = json_encode($request->qualification);
         }
         $user->user_type = 3;
-        $user->status = 1;
+        // $user->status = 1;
+        $user->save();
+        $user->password = Hash::make('12345678');
+        if (!empty($request->roll_number)) {
+            $user->roll_number = $request->roll_number.$user->id;
+        }
+        $user->admission_number = Str::random(5).$user->id;
         $user->save();
         return redirect('admin/student/list')->with('success', 'Student added successfully');
     }
