@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('class_id');
             $table->string('attendance_date');
             $table->integer('user_id');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exam_schedules', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('exam_id')->nullable();
             $table->integer('class_id')->nullable();
             $table->integer('subject_id')->nullable();

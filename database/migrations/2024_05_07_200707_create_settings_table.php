@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('school_logo')->nullable();
             $table->string('school_logo_name')->nullable();
             $table->string('school_browser_icon')->nullable();

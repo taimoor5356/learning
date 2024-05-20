@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notice_board_users', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('notice_board_id');
             $table->integer('message_to');
             $table->string('deleted_at')->nullable();

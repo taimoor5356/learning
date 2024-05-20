@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('days_of_weeks', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('name');
             $table->integer('fullcalendar_day')->default(1);
             $table->string('deleted_at');

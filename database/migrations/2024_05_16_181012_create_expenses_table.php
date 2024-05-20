@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('expenses', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('expense_head_id');
             $table->string('invoice_number');
             $table->longText('description');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('submitted_fees', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('user_id');
             $table->integer('class_id');
             $table->double('total_amount', 8,2)->default(0);

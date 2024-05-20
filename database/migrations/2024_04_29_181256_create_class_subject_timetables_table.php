@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('class_subject_timetables', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('class_id');
             $table->integer('subject_id');
             $table->integer('week_days_id');

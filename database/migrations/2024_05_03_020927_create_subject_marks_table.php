@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subject_marks', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('student_id');
             $table->integer('exam_id');
             $table->integer('class_id');
