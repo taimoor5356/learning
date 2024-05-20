@@ -210,7 +210,7 @@
             <span class="text-danger">{{$errors->first('left_date')}}</span>
         </div>
         <div class="form-group col-3">
-            <label for="InputPaymentMethod">Last Payment Method <span class="text-danger">*</span> ( <a target="_blank" href="{{url('admin/fee-collection/list?roll_number='.$record->roll_number)}}">View All Transactions</a> )</label>
+            <label for="InputPaymentMethod">Last Payment Method <span class="text-danger">*</span> ( <a target="_blank" href="@isset($record){{url('admin/fee-collection/list?roll_number='.$record->roll_number)}}@endisset">View All Transactions</a> )</label>
             <input type="text" disabled name="payment_method" class="form-control" id="InputPaymentMethod" value="{{ old('payment_method') ?? (isset($record) ? $payment_method : '') }}" placeholder="Enter payment method">
             <span class="text-danger">{{$errors->first('payment_method')}}</span>
         </div>
