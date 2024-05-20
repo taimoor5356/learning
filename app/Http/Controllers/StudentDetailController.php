@@ -154,7 +154,7 @@ class StudentDetailController extends Controller
             if (!empty($request->qualification)) {
                 $user->qualification = json_encode($request->qualification);
             }
-            if (!empty($request->password)) {
+            if (empty($user->password)) {
                 $user->password = Hash::make('12345678');
             }
             if (empty($user->admission_number)) {
