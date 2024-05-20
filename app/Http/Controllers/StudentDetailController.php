@@ -118,7 +118,8 @@ class StudentDetailController extends Controller
         $data['record'] = User::getSingleUser($id)->first();
         $data['paid_amount'] = User::submitted_fee($id, $data['record']->class_id)->sum('paid_amount');
         $data['remaining_dues'] = User::submitted_fee($id, $data['record']->class_id)->sum('remaining_amount');
-        $data['payment_method'] = User::submitted_fee($id, $data['record']->class_id)->first()->payment_type;
+        $paymentMethod = User::submitted_fee($id, $data['record']->class_id)->first();
+        $data['payment_method'] = isset($paymentMethod) ? $paymentMethod->payment_type : '';
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['exams'] = Examination::getExams()->get();
         return view('admin.student.edit', $data);
