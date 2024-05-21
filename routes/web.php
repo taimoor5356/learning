@@ -22,6 +22,7 @@ use App\Http\Controllers\StudentDetailController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZoomClassController;
 use App\Models\ClassTeacher;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,19 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/follow-us', function () {
         $data['header_title'] = 'Follow Us';
         return view('follow_us', $data);
+    });
+    Route::get('/student-services', function () {
+        $data['header_title'] = 'Student Services';
+        return view('student_services', $data);
+    });
+    Route::group(['prefix' => 'zoom-classes', 'middleware' => ['auth']], function () {
+        Route::get('/', [ZoomClassController::class, 'index']);
+        Route::group(['prefix' => '/', 'middleware' => ['admin']], function () {
+            Route::get('create', [ZoomClassController::class, 'create']);
+            Route::post('store', [ZoomClassController::class, 'store']);
+            Route::get('edit/{id}', [ZoomClassController::class, 'edit']);
+            Route::post('update/{id}', [ZoomClassController::class, 'update']);
+        });
     });
 });
 Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], function () {
