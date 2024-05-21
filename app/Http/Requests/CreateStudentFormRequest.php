@@ -32,7 +32,7 @@ class CreateStudentFormRequest extends FormRequest
     {
         $rules = [
             'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users,email',
+            'email' => 'sometimes|email|unique:users,email',
             // 'password' => 'sometimes|nullable|string|min:8',
         ];
         // if ($userType == 1) {

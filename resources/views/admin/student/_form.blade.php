@@ -94,7 +94,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputEmail">Email <span class="text-danger">*</span></label>
-            <input type="email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}" name="email" class="form-control" id="InputEmail" placeholder="Enter email" required>
+            <input type="email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}" name="email" class="form-control" id="InputEmail" placeholder="Enter email">
             <span class="text-danger">{{$errors->first('email')}}</span>
         </div>
         <div class="form-group col-3">
