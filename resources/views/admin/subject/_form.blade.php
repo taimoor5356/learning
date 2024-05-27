@@ -6,8 +6,8 @@
     <div class="form-group">
         <label for="InputType">Subject Type</label>
         <select name="type" class="form-control" id="InputType">
-            <option {{ (isset($record) ? (($record->type == 'theory') ? 'selected' : '') : '') }} value="theory">Theory</option>
-            <option {{ (isset($record) ? (($record->type == 'practical') ? 'selected' : '') : '') }} value="practical">Practical</option>
+            <option {{ (isset($record) ? (($record->type == 'compulsory') ? 'selected' : '') : '') }} value="compulsory">Compulsory</option>
+            <option {{ (isset($record) ? (($record->type == 'optional') ? 'selected' : '') : '') }} value="optional">Optional</option>
         </select>
         <span class="text-danger">{{$errors->first('status')}}</span>
     </div>
