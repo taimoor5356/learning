@@ -45,7 +45,7 @@ class SubjectController extends Controller
         $subject->type = $request->type;
         $subject->status = $request->status;
         $subject->created_by = Auth::user()->id;
-        $subject->save();
+        $subject->save(); //remove all save
         return redirect('admin/subject/list')->with('success', 'Subject created successfully created');
     }
 
@@ -87,7 +87,7 @@ class SubjectController extends Controller
             $subject->type = $request->type;
             $subject->status = $request->status;
             $subject->created_by = Auth::user()->id;
-            $subject->save();
+            $subject->save(); //remove all save
             return redirect('admin/subject/list')->with('success', 'Subject updated successfully');
         } else {
             return redirect()->back()->with('error', 'Subject data not found');

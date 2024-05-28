@@ -90,7 +90,7 @@ class HomeWorkController extends Controller
                 $file->move('public/images/homework/', $fileName);
                 $homeWork->document = $fileName;
             }
-            $homeWork->save();
+            $homeWork->save(); //remove all save
             return redirect('admin/home-work/list')->with('success', 'Home work submitted successfully');
         } catch (\Exception $e) {
             dd($e);
@@ -151,7 +151,7 @@ class HomeWorkController extends Controller
                 $file->move('public/images/homework/', $fileName);
                 $homeWork->document = $fileName;
             }
-            $homeWork->save();
+            $homeWork->save(); //remove all save
             return redirect('admin/home-work/list')->with('success', 'Home work submitted successfully');
         } catch (\Exception $e) {
             dd($e);
@@ -243,7 +243,7 @@ class HomeWorkController extends Controller
                 $file->move('public/images/homework/', $fileName);
                 $homeWork->document = $fileName;
             }
-            $homeWork->save();
+            $homeWork->save(); //remove all save
             return redirect('teacher/home-work/list')->with('success', 'Home work submitted successfully');
         } catch (\Exception $e) {
             dd($e);
@@ -296,7 +296,7 @@ class HomeWorkController extends Controller
                 $file->move('public/images/homework/', $fileName);
                 $homeWork->document = $fileName;
             }
-            $homeWork->save();
+            $homeWork->save(); //remove all save
             return redirect('teacher/home-work/list')->with('success', 'Home work submitted successfully');
         } catch (\Exception $e) {
             dd($e);
@@ -381,7 +381,7 @@ class HomeWorkController extends Controller
                 $file->move('public/images/homework/', $fileName);
                 $submittedHomeWork->document = $fileName;
             }
-            $submittedHomeWork->save();
+            $submittedHomeWork->save(); //remove all save
             return redirect('student/home-work/list')->with('success', 'Home work submitted successfully');
         } catch (\Exception $e) {
             dd($e);
@@ -434,7 +434,7 @@ class HomeWorkController extends Controller
                 $file->move('public/images/homework/', $fileName);
                 $homeWork->document = $fileName;
             }
-            $homeWork->save();
+            $homeWork->save(); //remove all save
             return redirect('student/home-work/list')->with('success', 'Home work submitted successfully');
         } catch (\Exception $e) {
             dd($e);

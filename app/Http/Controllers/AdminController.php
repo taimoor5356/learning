@@ -60,7 +60,7 @@ class AdminController extends Controller
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
-        $user->save();
+        $user->save(); //remove all save
         return redirect('admin/admin/list')->with('success', 'Admin created successfully created');
     }
 
@@ -124,7 +124,7 @@ class AdminController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->save();
+            $user->save(); //remove all save
             return redirect('admin/admin/list')->with('success', 'Admin updated successfully');
         } else {
             return redirect()->back()->with('error', 'User data not found');

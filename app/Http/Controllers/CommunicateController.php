@@ -47,14 +47,14 @@ class CommunicateController extends Controller
             $notice->publish_date = $request->publish_date;
             $notice->message = $request->message;
             $notice->created_by = Auth::user()->id;
-            $notice->save();
+            $notice->save(); //remove all save
 
             if (!empty($request->message_to)) {
                 foreach ($request->message_to as $userId) {
                     $noticeBoardUser = new NoticeBoardUser();
                     $noticeBoardUser->notice_board_id = $notice->id;
                     $noticeBoardUser->message_to = $userId;
-                    $noticeBoardUser->save();
+                    $noticeBoardUser->save(); //remove all save
                 }
             }
 
@@ -101,7 +101,7 @@ class CommunicateController extends Controller
                 $notice->publish_date = $request->publish_date;
                 $notice->message = $request->message;
                 $notice->created_by = Auth::user()->id;
-                $notice->save();
+                $notice->save(); //remove all save
                 // delete users and add again
                 if (!empty($request->message_to)) {
                     NoticeBoardUser::where('notice_board_id', $id)->delete();
@@ -109,7 +109,7 @@ class CommunicateController extends Controller
                         $noticeBoardUser = new NoticeBoardUser();
                         $noticeBoardUser->notice_board_id = $notice->id;
                         $noticeBoardUser->message_to = $userId;
-                        $noticeBoardUser->save();
+                        $noticeBoardUser->save(); //remove all save
                     }
                 }
                 return redirect('admin/communicate/notice-board/list')->with('success', 'Notice Board Updated Successfully');

@@ -78,7 +78,7 @@ class ClassTimetableController extends Controller
                 $classTimetable->start_time = $timeTable['start_time'];
                 $classTimetable->end_time = $timeTable['end_time'];
                 $classTimetable->room_number = $timeTable['room_number'];
-                $classTimetable->save();
+                $classTimetable->save(); //remove all save
             }
         }
         return redirect()->back()->with('success', 'Class Timetable Updated Successfully');

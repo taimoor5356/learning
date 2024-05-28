@@ -46,14 +46,14 @@ class ClassTeacherController extends Controller
                 $getSingleAlreadyAssigned = ClassTeacher::getSingleAlreadyAssigned($request->class_id, $teacher);
                 if (!empty($getSingleAlreadyAssigned)) {
                     $getSingleAlreadyAssigned->status == $request->status;
-                    $getSingleAlreadyAssigned->save();
+                    $getSingleAlreadyAssigned->save(); //remove all save
                 } else {
                     $classTeacher = new ClassTeacher();
                     $classTeacher->class_id = $request->class_id;
                     $classTeacher->teacher_id = $teacher;
                     $classTeacher->created_by = Auth::user()->id;
                     $classTeacher->status = $request->status;
-                    $classTeacher->save();
+                    $classTeacher->save(); //remove all save
                 }
             }
             return redirect('admin/class-teacher/list')->with('success', 'Teacher assigned successfully');
@@ -116,14 +116,14 @@ class ClassTeacherController extends Controller
                 $getSingleAlreadyAssigned = ClassTeacher::getSingleAlreadyAssigned($request->class_id, $teacher);
                 if (!empty($getSingleAlreadyAssigned)) {
                     $getSingleAlreadyAssigned->status == $request->status;
-                    $getSingleAlreadyAssigned->save();
+                    $getSingleAlreadyAssigned->save(); //remove all save
                 } else {
                     $classTeacher = new ClassTeacher();
                     $classTeacher->class_id = $request->class_id;
                     $classTeacher->teacher_id = $teacher;
                     $classTeacher->created_by = Auth::user()->id;
                     $classTeacher->status = $request->status;
-                    $classTeacher->save();
+                    $classTeacher->save(); //remove all save
                 }
             }
             return redirect('admin/class-teacher/list')->with('success', 'Teacher assigned successfully');
@@ -145,7 +145,7 @@ class ClassTeacherController extends Controller
         $getSingleAlreadyAssigned = ClassTeacher::getSingleAlreadyAssigned($request->class_id, $request->teacher_id);
         if (isset($getSingleAlreadyAssigned)) {
             $getSingleAlreadyAssigned->status = $request->status;
-            $getSingleAlreadyAssigned->save();
+            $getSingleAlreadyAssigned->save(); //remove all save
             return redirect('admin/class-teacher/list')->with('success', 'Status updated successfully');
         } else {
             $classTeacher = ClassTeacher::getSingleClassTeacher($id);
@@ -153,7 +153,7 @@ class ClassTeacherController extends Controller
             $classTeacher->teacher_id = $request->teacher_id;
             $classTeacher->created_by = Auth::user()->id;
             $classTeacher->status = $request->status;
-            $classTeacher->save();
+            $classTeacher->save(); //remove all save
         }
         return redirect('admin/class-teacher/list')->with('success', 'Teacher assigned successfully');
     }

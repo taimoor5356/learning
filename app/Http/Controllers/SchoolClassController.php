@@ -43,7 +43,7 @@ class SchoolClassController extends Controller
         $class->amount = trim($request->amount);
         $class->status = $request->status;
         $class->created_by = Auth::user()->id;
-        $class->save();
+        $class->save(); //remove all save
         return redirect('admin/class/list')->with('success', 'Class created successfully created');
     }
 
@@ -85,7 +85,7 @@ class SchoolClassController extends Controller
             $class->amount = trim($request->amount);
             $class->status = $request->status;
             $class->created_by = Auth::user()->id;
-            $class->save();
+            $class->save(); //remove all save
             return redirect('admin/class/list')->with('success', 'Class updated successfully');
         } else {
             return redirect()->back()->with('error', 'Class data not found');

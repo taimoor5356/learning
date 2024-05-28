@@ -89,7 +89,7 @@ class FeeCollectionController extends Controller
                 $submittedFee->payment_type = $request->payment_type;
                 $submittedFee->description = $request->description;
                 $submittedFee->created_by = Auth::user()->id;
-                $submittedFee->save();
+                $submittedFee->save(); //remove all save
                 return redirect()->back()->with('success', 'Fee submitted successfully');
             } else {
                 return redirect()->back()->with('error', 'You can not submit more than the remaining amount');

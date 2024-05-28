@@ -39,7 +39,7 @@ class AuthController extends Controller
         $token = Session::get('otp_token');
         $user = User::where('otp_token', $token)->first();
         $user->otp = mt_rand(1000, 9999);
-        $user->save();
+        $user->save(); //remove all save
         Mail::to($user->email)->send(new OtpMail($user));
         return redirect()->back()->with('success', 'OTP sent to your email address');
     }
@@ -52,7 +52,7 @@ class AuthController extends Controller
         $user = User::where('otp_token', $token)->where('otp', $request->otp)->first();
         if (isset($user)) {
             $user->otp_verified = 1;
-            $user->save();
+            $user->save(); //remove all save
             return redirect('')->with('success', 'OTP verified successfully. Contact your administrator now');
         } else {
             return redirect()->back()->with('error', 'Invalid OTP');
@@ -89,7 +89,7 @@ class AuthController extends Controller
             $user->otp = mt_rand(1000, 9999);
             $user->otp_token = $token;
             $user->status = 0;
-            $user->save();
+            $user->save(); //remove all save
             Session::put('otp_token', $token);
             Mail::to($user->email)->send(new OtpMail($user));
             DB::commit();
@@ -178,7 +178,7 @@ class AuthController extends Controller
         $user = User::getSingleEmail($request->email);
         if (isset($user)) {
             $user->remember_token = Str::random(30);
-            $user->save();
+            $user->save(); //remove all save
             Mail::to($user->email)->send(new ForgotPasswordMail($user));
             return redirect()->back()->with('success', 'Please check your email');
         } else {
@@ -217,7 +217,7 @@ class AuthController extends Controller
             if (isset($user)) {
                 $user->password = Hash::make($request->password);
                 $user->remember_token = Str::random(30);
-                $user->save();
+                $user->save(); //remove all save
                 return redirect('')->with('success', 'Password reset successfully');
             } else {
                 return redirect()->back()->with('error', 'User does not exist');

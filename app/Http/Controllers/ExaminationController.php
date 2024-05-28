@@ -47,7 +47,7 @@ class ExaminationController extends Controller
         $exam->name = $request->name;
         $exam->note = $request->note;
         $exam->created_by = Auth::user()->id;
-        $exam->save();
+        $exam->save(); //remove all save
         return redirect('admin/examinations/exams-list')->with('success', 'Exam successfully registered');
     }
 
@@ -84,7 +84,7 @@ class ExaminationController extends Controller
         if (isset($exam)) {
             $exam->name = $request->name;
             $exam->note = $request->note;
-            $exam->save();
+            $exam->save(); //remove all save
             return redirect('admin/examinations/exams-list')->with('success', 'Exam successfully updated');
         } else {
             abort(404);
@@ -174,7 +174,7 @@ class ExaminationController extends Controller
                     $examSchedule->full_marks = $schedule['full_marks'];
                     $examSchedule->passing_marks = $schedule['passing_marks'];
                     $examSchedule->created_by = Auth::user()->id;
-                    $examSchedule->save();
+                    $examSchedule->save(); //remove all save
                 }
             }
             return redirect()->back()->with('success', 'Exam schedule successfully saved');
@@ -310,7 +310,7 @@ class ExaminationController extends Controller
                         $subjectMarks->passing_marks  = $getPassingMarks;
                         $subjectMarks->created_by = Auth::user()->id;
 
-                        $subjectMarks->save();
+                        $subjectMarks->save(); //remove all save
                     } else {
                         $validation = 1;
                     }
@@ -376,7 +376,7 @@ class ExaminationController extends Controller
 
                 $subjectMarks->created_by = Auth::user()->id;
 
-                $subjectMarks->save();
+                $subjectMarks->save(); //remove all save
 
                 return response()->json([
                     'status' => true,
@@ -453,7 +453,7 @@ class ExaminationController extends Controller
                         $subjectMarks->passing_marks  = $getPassingMarks;
                         $subjectMarks->created_by = Auth::user()->id;
 
-                        $subjectMarks->save();
+                        $subjectMarks->save(); //remove all save
                     } else {
                         $validation = 1;
                     }
@@ -519,7 +519,7 @@ class ExaminationController extends Controller
 
                 $subjectMarks->created_by = Auth::user()->id;
 
-                $subjectMarks->save();
+                $subjectMarks->save(); //remove all save
 
                 return response()->json([
                     'status' => true,
@@ -608,7 +608,7 @@ class ExaminationController extends Controller
                         $subjectMarks->exam_work  = $examWork;
                         $subjectMarks->created_by = Auth::user()->id;
 
-                        $subjectMarks->save();
+                        $subjectMarks->save(); //remove all save
                     } else {
                         $validation = 1;
                     }
@@ -668,7 +668,7 @@ class ExaminationController extends Controller
                 $subjectMarks->exam_work  = $examWork;
                 $subjectMarks->created_by = Auth::user()->id;
 
-                $subjectMarks->save();
+                $subjectMarks->save(); //remove all save
 
                 return response()->json([
                     'status' => true,

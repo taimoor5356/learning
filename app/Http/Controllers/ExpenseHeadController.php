@@ -40,7 +40,7 @@ class ExpenseHeadController extends Controller
         ]);
         $expenseHead = new ExpenseHead();
         $expenseHead->name = $request->name;
-        $expenseHead->save();
+        $expenseHead->save(); //remove all save
         return redirect('admin/expenses/heads/list')->with('success', 'Expense Head successfully created.');
     }
 
@@ -80,7 +80,7 @@ class ExpenseHeadController extends Controller
             abort(404);
         }
         $expenseHead->name = $request->name;
-        $expenseHead->save();
+        $expenseHead->save(); //remove all save
         return redirect('admin/expenses/heads/list')->with('success', 'Expense Head successfully updated.');
     }
 

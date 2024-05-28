@@ -31,7 +31,7 @@ class UserController extends Controller
         if (Hash::check($request->old_password, $user->password)) {
             if ($request->new_password == $request->confirm_password) {
                 $user->password = Hash::make($request->new_password);
-                $user->save();
+                $user->save(); //remove all save
                 return redirect()->back()->with('success', 'Password updated successfully');
             } else {
                 return redirect()->back()->with('error', 'New password and confirm password does not match');
@@ -83,7 +83,7 @@ class UserController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->save();
+            $user->save(); //remove all save
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
             return redirect()->back()->with('error', 'User data not found');
@@ -131,7 +131,7 @@ class UserController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
-            $user->save();
+            $user->save(); //remove all save
 
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
@@ -159,7 +159,7 @@ class UserController extends Controller
                 $user->password = Hash::make($request->password);
             }
             $user->qualification = json_encode($request->qualification);
-            $user->save();
+            $user->save(); //remove all save
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
             return redirect()->back()->with('error', 'User data not found');

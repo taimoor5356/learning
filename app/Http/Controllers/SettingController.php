@@ -103,7 +103,7 @@ class SettingController extends Controller
                 }
             }
         }
-        $setting->save();
+        $setting->save(); //remove all save
         return redirect()->back()->with('success', 'Update successfully');
     }
 

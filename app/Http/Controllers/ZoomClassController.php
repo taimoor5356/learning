@@ -44,7 +44,7 @@ class ZoomClassController extends Controller
         $zoomClass->date = $request->date;
         $zoomClass->time = $request->time;
         $zoomClass->description = $request->description;
-        $zoomClass->save();
+        $zoomClass->save(); //remove all save
         return redirect('zoom-classes')->with('success', 'Save Successfully');
     }
 
@@ -87,7 +87,7 @@ class ZoomClassController extends Controller
         $zoomClass->date = $request->date;
         $zoomClass->time = $request->time;
         $zoomClass->description = $request->description;
-        $zoomClass->save();
+        $zoomClass->save(); //remove all save
         return redirect('zoom-classes')->with('success', 'Saved Successfully');
     }
 

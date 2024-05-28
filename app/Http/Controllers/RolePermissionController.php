@@ -91,7 +91,7 @@ class RolePermissionController extends Controller
             $permissions = Permission::whereIn('id', $permissionIds)->get();
             $role = Role::find($id);
             $role->name = strtolower($request->role_name);
-            $role->save();
+            $role->save(); //remove all save
             $role->syncPermissions([]);
             $role->syncPermissions($permissions);
             return response()->json([

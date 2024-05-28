@@ -57,7 +57,7 @@ class ExpenseController extends Controller
             $file->move('public/images/expenses/', $fileName);
             $expense->file = $fileName;
         }
-        $expense->save();
+        $expense->save(); //remove all save
         return redirect('admin/expenses/list')->with('success', 'Expense successfully added.');
     }
 
@@ -112,7 +112,7 @@ class ExpenseController extends Controller
             $file->move('public/images/expenses/', $fileName);
             $expense->file = $fileName;
         }
-        $expense->save();
+        $expense->save(); //remove all save
         return redirect('admin/expenses/list')->with('success', 'Expense successfully updated.');
     }
 

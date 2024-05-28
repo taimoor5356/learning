@@ -86,7 +86,7 @@ class TeacherController extends Controller
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
-        $user->save();
+        $user->save(); //remove all save
 
         return redirect('admin/teacher/list')->with('success', 'Teacher added successfully');
     }
@@ -164,7 +164,7 @@ class TeacherController extends Controller
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
-        $user->save();
+        $user->save(); //remove all save
 
         return redirect('admin/teacher/list')->with('success', 'Teacher details updated successfully');
     }

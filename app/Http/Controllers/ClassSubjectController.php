@@ -48,14 +48,14 @@ class ClassSubjectController extends Controller
                 $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->class_id, $subject);
                 if (!empty($getSingleAlreadyAssigned)) {
                     $getSingleAlreadyAssigned->status == $request->status;
-                    $getSingleAlreadyAssigned->save();
+                    $getSingleAlreadyAssigned->save(); //remove all save
                 } else {
                     $class_subject = new ClassSubject();
                     $class_subject->class_id = $request->class_id;
                     $class_subject->subject_id = $subject;
                     $class_subject->created_by = Auth::user()->id;
                     $class_subject->status = $request->status;
-                    $class_subject->save();
+                    $class_subject->save(); //remove all save
                 }
             }
             return redirect('admin/class-subject/list')->with('success', 'Subject assigned successfully');
@@ -126,14 +126,14 @@ class ClassSubjectController extends Controller
                 $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->class_id, $subject);
                 if (!empty($getSingleAlreadyAssigned)) {
                     $getSingleAlreadyAssigned->status == $request->status;
-                    $getSingleAlreadyAssigned->save();
+                    $getSingleAlreadyAssigned->save(); //remove all save
                 } else {
                     $class_subject = new ClassSubject();
                     $class_subject->class_id = $request->class_id;
                     $class_subject->subject_id = $subject;
                     $class_subject->created_by = Auth::user()->id;
                     $class_subject->status = $request->status;
-                    $class_subject->save();
+                    $class_subject->save(); //remove all save
                 }
             }
             return redirect('admin/class-subject/list')->with('success', 'Subject assigned successfully');
@@ -155,7 +155,7 @@ class ClassSubjectController extends Controller
         $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->class_id, $request->subject_id);
         if (isset($getSingleAlreadyAssigned)) {
             $getSingleAlreadyAssigned->status = $request->status;
-            $getSingleAlreadyAssigned->save();
+            $getSingleAlreadyAssigned->save(); //remove all save
             return redirect('admin/class-subject/list')->with('success', 'Status updated successfully');
         } else {
             $class_subject = ClassSubject::getSingleClassSubject($id);
@@ -163,7 +163,7 @@ class ClassSubjectController extends Controller
             $class_subject->subject_id = $request->subject_id;
             $class_subject->created_by = Auth::user()->id;
             $class_subject->status = $request->status;
-            $class_subject->save();
+            $class_subject->save(); //remove all save
         }
         return redirect('admin/class-subject/list')->with('success', 'Subject assigned successfully');
     }

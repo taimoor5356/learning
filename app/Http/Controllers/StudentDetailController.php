@@ -60,13 +60,13 @@ class StudentDetailController extends Controller
         }
         $user->user_type = 3;
         // $user->status = 1;
-        $user->save();
+        $user->save(); //remove all save
         $user->password = Hash::make('12345678');
         if (!empty($request->roll_number)) {
             $user->roll_number = $request->roll_number.$user->id;
         }
         $user->admission_number = Str::random(5).$user->id;
-        $user->save();
+        $user->save(); //remove all save
         return redirect('admin/student/list')->with('success', 'Student added successfully');
     }
 
@@ -100,7 +100,7 @@ class StudentDetailController extends Controller
             $user->qualification = json_encode($request->qualification);
         }
         $user->domicile = trim($request->domicile);
-        $user->save();
+        $user->save(); //remove all save
 
         return redirect('')->with('success', 'Updated successfully');
     }
@@ -160,7 +160,7 @@ class StudentDetailController extends Controller
             if (empty($user->admission_number)) {
                 $user->admission_number = Str::random(5).$id;
             }
-            $user->save();
+            $user->save(); //remove all save
             return redirect('admin/student/list')->with('success', 'Student details updated successfully');
         } else {
             return redirect()->back()->with('error', 'User not found');

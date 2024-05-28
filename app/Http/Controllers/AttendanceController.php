@@ -56,7 +56,7 @@ class AttendanceController extends Controller
             }
             $attendance->attendance_status = $request->attendance_status;
             $attendance->created_by = Auth::user()->id;
-            $attendance->save();
+            $attendance->save(); //remove all save
             return response()->json([
                 'status' => true,
                 'msg' => 'Attendance marked successfully'
@@ -109,7 +109,7 @@ class AttendanceController extends Controller
             }
             $attendance->attendance_status = $request->attendance_status;
             $attendance->created_by = Auth::user()->id;
-            $attendance->save();
+            $attendance->save(); //remove all save
             return response()->json([
                 'status' => true,
                 'msg' => 'Attendance marked successfully'
