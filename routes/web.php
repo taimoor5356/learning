@@ -50,7 +50,7 @@ Route::group(['prefix' => '/'], function () {
     Route::post('/signup', [AuthController::class, 'postSignup'])->name('postSignup');
     Route::get('/otp', [AuthController::class, 'otp'])->name('otp');
     Route::post('/post-otp', [AuthController::class, 'postOtp'])->name('postOtp');
-    Route::get('/resend-otp', [AuthController::class, 'resendOTP'])->name('postOtp');
+    Route::get('/resend-otp', [AuthController::class, 'resendOTP'])->name('resetPostOtp');
     Route::post('login', [AuthController::class, 'authLogin'])->name('authLogin');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
