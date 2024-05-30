@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -56,12 +57,28 @@ class PermissionModuleSeeder extends Seeder
         }
         $user = User::find(1);
         $permissions = Permission::get();
-        $role = Role::updateOrCreate([
-            'name' => 'admin',
-            'guard_name' => 'web'
-        ]);
-        $user->assignRole($role);
-        $role->syncPermissions($permissions);
+        if (isset($user)) {
+            $role = Role::updateOrCreate([
+                'name' => 'admin',
+                'guard_name' => 'web'
+            ]);
+            $user->assignRole($role);
+            $role->syncPermissions($permissions);
+        } else {
+            $user = new User();
+            $user->name = 'Admin';
+            $user->email = 'admin@admin.com';
+            $user->password =  Hash::make('12345678');
+            $user->user_type = 1;
+            $user->role_id = 1;
+            $role = Role::updateOrCreate([
+                'name' => 'admin',
+                'guard_name' => 'web'
+            ]);
+            $user->assignRole($role);
+            $role->syncPermissions($permissions);
+            $user->save();
+        }
 
     }
     function camelCaseToWords($input) {

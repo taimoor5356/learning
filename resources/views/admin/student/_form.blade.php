@@ -97,7 +97,16 @@
             <input type="email" value="{{ old('email') ?? (isset($record) ? $record->email : '') }}" name="email" class="form-control" id="InputEmail" placeholder="Enter email">
             <span class="text-danger">{{$errors->first('email')}}</span>
         </div>
-        <div class="form-group col-3">
+        <div class="form-group col-6">
+            <label for="InputClassType">Class Type <span class="text-danger">*</span></label>
+            <select name="class_type" id="InputClassType" class="form-control" required>
+                <option value="">Select Class Type</option>
+                <option value="on_campus" {{ isset($record) ? ($record->class_type == 'on_campus' ? 'selected' : '') : (old('class_type') == 'on_campus' ? 'selected' : '') }}>On Campus</option>
+                <option value="online" {{ isset($record) ? ($record->class_type == 'online' ? 'selected' : '') : (old('class_type') == 'online' ? 'selected' : '') }}>Onlie</option>
+            </select>
+            <span class="text-danger">{{$errors->first('class_type')}}</span>
+        </div>
+        <div class="form-group col-6">
             <label for="InputClassProgram">Select Class Program <span class="text-danger">*</span></label>
             <select class="form-control" id="InputClassProgram" name="class_program" required>
                 <option value="">Select Class Program</option>
@@ -109,25 +118,8 @@
             </select>
             <span class="text-danger">{{$errors->first('class_program')}}</span>
         </div>
-        <div class="form-group col-3">
-            <label for="InputClassType">Class Type <span class="text-danger">*</span></label>
-            <select name="class_type" id="InputClassType" class="form-control" required>
-                <option value="">Select Class Type</option>
-                <option value="on_campus" {{ isset($record) ? ($record->class_type == 'on_campus' ? 'selected' : '') : (old('class_type') == 'on_campus' ? 'selected' : '') }}>On Campus</option>
-                <option value="online" {{ isset($record) ? ($record->class_type == 'online' ? 'selected' : '') : (old('class_type') == 'online' ? 'selected' : '') }}>Onlie</option>
-            </select>
-            <span class="text-danger">{{$errors->first('class_type')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputClass">Select Class/Subjects <span class="text-danger">*</span></label>
-            <select name="class_id" class="form-control" id="InputClass" required>
-                <option value="">Select Class</option>
-                @foreach($classes as $key => $class)
-                <option data-fee="{{$class->amount}}" value="{{$class->id}}" {{ isset($record) ? ($class->id == $record->class_id ? 'selected' : '') : (old('class_id') == $class->id ? 'selected' : '') }}>{{$class->name}} - (Fee Rs.{{$class->amount}})</option>
-                @endforeach
-            </select>
-            <span class="text-danger">{{$errors->first('class_id')}}</span>
-        </div>
+    </div>
+    <div class="row">
         <div class="form-group col-3">
             <label for="InputAppliedFor">Applying for <span class="text-danger">*</span></label>
             <select name="applied_for" class="form-control" id="InputAppliedFor" required>
@@ -137,6 +129,16 @@
                 <option value="examination" {{ isset($record) ? ($record->examination == 'class' ? 'selected' : '') : (old('examination') == 'class' ? 'selected' : '') }}>Examination</option>
             </select>
             <span class="text-danger">{{$errors->first('exam_id')}}</span>
+        </div>
+        <div class="form-group col-3">
+            <label for="InputClass">Select Class/Subjects <span class="text-danger">*</span></label>
+            <select name="class_id" class="form-control" id="InputClass" required>
+                <option value="" selected>Select Class</option>
+                @foreach($classes as $key => $class)
+                <option data-fee="{{$class->amount}}" value="{{$class->id}}" {{ isset($record) ? ($class->id == $record->class_id ? 'selected' : '') : (old('class_id') == $class->id ? 'selected' : '') }}>{{$class->name}} - (Fee Rs.{{$class->amount}})</option>
+                @endforeach
+            </select>
+            <span class="text-danger">{{$errors->first('class_id')}}</span>
         </div>
         <div class="form-group col-3 InputInterview">
             <label for="InputInterview">Select Interview Type <span class="text-danger">*</span></label>
@@ -226,7 +228,7 @@
         </div>
         <div class="form-group col-3">
             <label for="InputReceiptNo">Receipt No <span class="text-danger">*</span></label>
-            <input type="text" name="receipt_number" class="form-control" id="InputReceiptNo" value="{{ old('receipt_number') ?? (isset($record) ? $record->receipt_number : '') }}">
+            <input type="text" name="receipt_number" class="form-control" id="InputReceiptNo" value="{{ old('receipt_number') ?? (isset($record) ? $record->receipt_number : '') }}" placeholder="Enter receipt number">
             <span class="text-danger">{{$errors->first('receipt_number')}}</span>
         </div>
         <div class="form-group col-3">
@@ -258,9 +260,15 @@
             <span class="text-danger">{{$errors->first('admission_date')}}</span>
         </div>
         <div class="form-group col-3">
-            <label for="InputOptionalSubjects">Optional Subjects <span class="text-danger">*</span></label>
+            <label for="InputSendFeeNotification">Send Fee Notification <span class="text-danger">*</span></label>
+            <br>
+            <input type="checkbox" name="send_fee_notification" id="InputSendFeeNotification">
             <span class="text-danger">{{$errors->first('optional_subjects')}}</span>
         </div>
+        <!-- <div class="form-group col-3">
+            <label for="InputOptionalSubjects">Optional Subjects <span class="text-danger">*</span></label>
+            <span class="text-danger">{{$errors->first('optional_subjects')}}</span>
+        </div> -->
     </div>
 </div>
 @else

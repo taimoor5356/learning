@@ -61,7 +61,8 @@ return new class extends Migration
             $table->json('optional_subjects')->nullable();
             $table->string('rules_regulations')->nullable();
             $table->string('declaration')->nullable();
-
+            $table->string('rules_regulations_policies')->nullable();
+            $table->json('user_review')->nullable();
 
             // student profile 2
             $table->string('written_exam_serial_number')->nullable();
@@ -80,6 +81,7 @@ return new class extends Migration
             $table->string('admission_date')->nullable();
             $table->integer('role_id')->nullable();
             $table->tinyInteger('user_type')->comment('1:admin, 2:teacher, 3:student, 4:parent')->default(3);
+            $table->tinyInteger('send_fee_notification')->default(0);
 
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateStudentFormRequest;
 use App\Http\Requests\UpdateStudentFormRequest;
+use App\Mail\ForgotPasswordMail;
+use App\Mail\SendPasswordMail;
 use App\Models\Examination;
 use App\Models\SchoolClass;
 use App\Models\StudentDetail;
@@ -11,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -61,12 +64,14 @@ class StudentDetailController extends Controller
         $user->user_type = 3;
         // $user->status = 1;
         $user->save(); //remove all save
-        $user->password = Hash::make('12345678');
+        $userPassword = Str::random(10);
+        $user->password = Hash::make($userPassword);
         if (!empty($request->roll_number)) {
             $user->roll_number = $request->roll_number.$user->id;
         }
         $user->admission_number = Str::random(5).$user->id;
         $user->save(); //remove all save
+        Mail::to($user->email)->send(new SendPasswordMail($user, $userPassword));
         return redirect('admin/student/list')->with('success', 'Student added successfully');
     }
 

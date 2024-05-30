@@ -118,6 +118,9 @@ class User extends Authenticatable
         if (!empty(Request::get('email'))) {
             $students = $students->where('email', 'LIKE', '%' . Request::get('email') . '%');
         }
+        if (!empty(Request::get('batch_number'))) {
+            $students = $students->where('batch_number', '=', Request::get('batch_number'));
+        }
         if (!empty(Request::get('admission_number'))) {
             $students = $students->where('admission_number', 'LIKE', '%' . Request::get('admission_number') . '%');
         }
@@ -338,5 +341,10 @@ class User extends Authenticatable
     public function class()
     {
         return $this->belongsTo(SchoolClass::class, 'class_id', 'id');
+    }
+
+    public function fee()
+    {
+        return $this->hasMany(SubmittedFee::class, 'user_id', 'id');
     }
 }

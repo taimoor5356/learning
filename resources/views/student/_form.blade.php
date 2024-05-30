@@ -1,5 +1,6 @@
 <div class="card-body">
     <div class="row">
+        <div class="offset-6"></div>
         <div class="form-group col-3">
             <label for="InputProfilePicture">Profile Picture <span class="text-danger">*</span></label>
             <input type="file" value="{{ old('profile_pic') ?? (isset($record) ? $record->profile_pic : '') }}" name="profile_pic" class="form-control" id="InputProfilePicture">
@@ -78,11 +79,86 @@
             </select>
             <span class="text-danger">{{$errors->first('class_program')}}</span>
         </div>
-        <div class="form-group col-3">
-            <label for="InputQualification">Qualification <span class="text-danger">*</span></label>
-            <input type="text" value="{{ old('qualification') ?? (isset($record) ? json_decode($record->qualification) : '') }}" class="form-control" id="InputQualification" placeholder="Enter qualification" name="qualification">
-            <span class="text-danger">{{$errors->first('qualification')}}</span>
+    </div>
+    <hr>
+    <div class="row degree-qualification">
+        @php
+        $qualifications = isset($record) ? json_decode($record->qualification) : array();
+        @endphp
+        @if (!empty($qualifications))
+        @foreach ($qualifications as $key => $qualification)
+        <div class="all-cols-degree-qualification container-fluid">
+            <div class="row">
+                <div class="form-group col-2">
+                    <label for="InputDegree">Certificate/Degree <span class="text-danger">*</span></label>
+                    <input type="text" value="{{ old('degree') ?? (isset($record) ? $qualification->degree : '') }}" class="form-control" id="InputDegree" placeholder="Enter certificate/degree name" name="degree[]">
+                    <span class="text-danger">{{$errors->first('degree')}}</span>
+                </div>
+                <div class="form-group col-3">
+                    <label for="InputMajorSubjects">Major Subjects <span class="text-danger">*</span></label>
+                    <input type="text" value="{{ old('major_subjects') ?? (isset($record) ? $qualification->major_subjects : '') }}" class="form-control" id="InputMajorSubjects" placeholder="Enter CGPA" name="major_subjects[]">
+                    <span class="text-danger">{{$errors->first('major_subjects')}}</span>
+                </div>
+                <div class="form-group col-2">
+                    <label for="InputCgpa">CGPA/Percentage <span class="text-danger">*</span></label>
+                    <input type="text" value="{{ old('cgpa') ?? (isset($record) ? $qualification->cgpa : '') }}" class="form-control" id="InputCgpa" placeholder="Enter CGPA/Percentage" name="cgpa[]">
+                    <span class="text-danger">{{$errors->first('cgpa')}}</span>
+                </div>
+                <div class="form-group col-4">
+                    <label for="InputUniversityName">Institute Name <span class="text-danger">*</span></label>
+                    <input type="text" value="{{ old('university_name') ?? (isset($record) ? $qualification->university_name : '') }}" class="form-control" id="InputUniversityName" placeholder="Enter institute name" name="university_name[]">
+                    <span class="text-danger">{{$errors->first('university_name')}}</span>
+                </div>
+                <div class="form-group col-1 d-flex justify-content-end">
+                    <div>
+                        <label for="InputUniversityName"></label>
+                        <br>
+                        @if ($key == 0)
+                        <button type="button" class="btn btn-primary mt-2" id="add-new-qualification">+</button>
+                        @else
+                        <button type="button" class="btn btn-danger remove-qualification mt-2">-</button>
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
+        @endforeach
+        @else
+        <div class="all-cols-degree-qualification container-fluid">
+            <div class="row">
+                <div class="form-group col-2">
+                    <label for="InputDegree">Certificate/Degree <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="InputDegree" placeholder="Enter degree name" name="degree[]">
+                    <span class="text-danger">{{$errors->first('degree')}}</span>
+                </div>
+                <div class="form-group col-3">
+                    <label for="InputMajorSubjects">Major Subjects <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="InputMajorSubjects" placeholder="Enter CGPA" name="major_subjects[]">
+                    <span class="text-danger">{{$errors->first('major_subjects')}}</span>
+                </div>
+                <div class="form-group col-2">
+                    <label for="InputCgpa">CGPA/Percentage <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="InputCgpa" placeholder="Enter CGPA" name="cgpa[]">
+                    <span class="text-danger">{{$errors->first('cgpa')}}</span>
+                </div>
+                <div class="form-group col-4">
+                    <label for="InputUniversityName">School/College/University Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="InputUniversityName" placeholder="Enter university name" name="university_name[]">
+                    <span class="text-danger">{{$errors->first('university_name')}}</span>
+                </div>
+                <div class="form-group col-1 d-flex justify-content-end">
+                    <div>
+                        <label for="InputUniversityName"></label>
+                        <br>
+                        <button type="button" class="btn btn-primary mt-2" id="add-new-qualification">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+    <hr>
+    <div class="row">
         <div class="form-group col-3">
             <label for="InputCurrentAddress">Current address <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('current_address') ?? (isset($record) ? $record->current_address : '') }}" name="current_address" class="form-control" id="InputCurrentAddress" placeholder="Enter current address">
@@ -107,6 +183,11 @@
             <label for="InputWhatsAppNumber">WhatsApp Number <span class="text-danger">*</span></label>
             <input type="number" value="{{ old('whatsapp_number') ?? (isset($record) ? $record->whatsapp_number : '') }}" name="whatsapp_number" class="form-control" id="InputWhatsAppNumber" placeholder="Enter whatsapp number">
             <span class="text-danger">{{$errors->first('whatsapp_number')}}</span>
+        </div>
+        <div class="form-group col-3">
+            <label for="InputWhatsAppNumber">Join WhatsApp Group <span class="text-danger">*</span></label>
+            <br>
+            <a href="#" class="btn btn-default w-100">Join WhatsApp Group Now!</a>
         </div>
         <div class="form-group col-3">
             <label for="InputMobileNumber">Mobile Number <span class="text-danger">*</span></label>
@@ -137,6 +218,27 @@
             <label for="InputShortNote">Short Note <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('note') ?? (isset($record) ? $record->note : '') }}" name="note" class="form-control" id="InputShortNote" placeholder="Enter short note">
             <span class="text-danger">{{$errors->first('note')}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <small class="font-weight-bold">Rules and Regulation <input type="checkbox" name="rules_regulations" value="1" @isset($record) @if($record->rules_regulations == '1') checked @endif @endisset></small>
+            <p class="text-danger" style="font-size: 12px">Dues once paid are neither refundable nor adjustable in any case. Any damage caused by the student will be charged accordingly. Institution will not in any case be responsible for any loss suffered by a student. Morally presentable dress code is to be observed.</p>
+        </div>
+        <div class="form-group col-6">
+            <small class="font-weight-bold">Declaration <input type="checkbox" name="declaration" value="1" @isset($record) @if($record->declaration == '1') checked @endif @endisset></small>
+            <p class="text-danger my-0" style="font-size: 12px">
+                1. I hereby certify that the information give here is authentic to the best of my knowledge and belief.
+            </p>
+            <p class="text-danger my-0" style="font-size: 12px">
+                2. Undertake that I will abide by all the rules and regulations of the institute and those that will be implemented in figure.
+            </p>
+            <p class="text-danger my-0" style="font-size: 12px">
+                3. Acknowledge that the administration reserves the right to expel the student without any refund of fee for voilating the rules of the institute.
+            </p>
+            <p class="text-danger my-0" style="font-size: 12px">
+                4. Therefore, agree to uphold all the rules and regulations and co-operate with administration and teachers.
+            </p>
         </div>
 
         <!---------------------->
@@ -205,10 +307,10 @@
             <input type="text" disabled class="form-control" id="InputDiscountReason" value="{{ old('discount_reason') ?? (isset($record) ? $record->discount_reason : '') }}" placeholder="Enter discount reason">
             <span class="text-danger">{{$errors->first('discount_reason')}}</span>
         </div> -->
-        <div class="form-group col-3">
+        <!-- <div class="form-group col-3">
             <label for="InputOptionalSubjects">Optional Subjects <span class="text-danger">*</span></label>
             <span class="text-danger">{{$errors->first('optional_subjects')}}</span>
-        </div>
+        </div> -->
     </div>
     <hr>
     <div class="row">
@@ -252,7 +354,7 @@
         <div class="col-3">
             <label for="InputMockInterviewDateTime">Mock Interview Time</label>
             <br>
-            <input  value="{{ old('mock_interview_time') ?? (isset($record) ? $record->mock_interview_time : '') }}" type="time" name="mock_interview_time" id="InputMockInterviewDateTime" class="form-control">
+            <input value="{{ old('mock_interview_time') ?? (isset($record) ? $record->mock_interview_time : '') }}" type="time" name="mock_interview_time" id="InputMockInterviewDateTime" class="form-control">
         </div>
     </div>
     <div class="row">
@@ -265,6 +367,12 @@
             <label for="InputJoinWhatsAppGroup">Join WhatsApp Group</label>
             <br>
             <input type="checkbox" name="join_whatsapp_group" id="InputJoinWhatsAppGroup" {{ isset($record) ? ($record->join_whatsapp_group ? 'checked' : '') : (old('join_whatsapp_group') ? 'checked' : '') }}>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="form-group col-6">
+        <input type="checkbox" name="rules_regulations_policies" value="1" @isset($record) @if($record->rules_regulations_policies == '1') checked @endif @endisset> <small class="font-weight-bold">All the rules, regulations will follow and policies of institution are acceptable </small>
         </div>
     </div>
 </div>

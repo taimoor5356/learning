@@ -137,7 +137,7 @@
                                                     <input type="text" id="class_work_{{$student->id}}{{$subject->subject_id}}" value="@isset($getStudentMarks){{$getStudentMarks->class_work}}@endisset" name="marks[{{$i}}][class_work]" class="form-control w-50" placeholder="Enter marks">
                                                 </div>
                                                 <div>
-                                                    Home work:
+                                                    Assignment work:
                                                     <input type="text" id="home_work_{{$student->id}}{{$subject->subject_id}}" value="@isset($getStudentMarks){{$getStudentMarks->home_work}}@endisset" name="marks[{{$i}}][home_work]" class="form-control w-50" placeholder="Enter marks">
                                                 </div>
                                                 <div>

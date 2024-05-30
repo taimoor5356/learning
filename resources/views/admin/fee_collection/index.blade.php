@@ -88,6 +88,7 @@
                                         <th>Paid Amount</th>
                                         <th>Remaining Amount</th>
                                         <th>Created Date</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -106,6 +107,15 @@
                                         <td>Rs.{{$paidAmount}}</td>
                                         <td>Rs.{{$record->class?->amount - $paidAmount}}</td>
                                         <td>{{$record->created_at}}</td>
+                                        <td>
+                                            @if ($record->class?->amount == $paidAmount)
+                                            <span class="badge badge-success">PAID</span>
+                                            @elseif($paidAmount > 0 && $paidAmount < $record->class?->amount)
+                                                <span class="badge badge-warning">PARTIAL PAID</span>
+                                            @else
+                                                <span class="badge badge-danger">UNPAID</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{url('admin/fee-collection/collect-fee/'.$record->id)}}" class="btn btn-success">Collect Fee</a>
                                         </td>

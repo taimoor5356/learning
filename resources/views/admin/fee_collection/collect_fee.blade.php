@@ -32,7 +32,7 @@
                     @include('_message')
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Payment detail</h3>
+                            <h3 class="card-title">Payment detail  @if(Auth::user()->user_type == 3 && Auth::user()->fee->sum('paid_amount') == Auth::user()->class?->amount) <span class="badge badge-success">Fully PAID</span>@endif</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
@@ -45,6 +45,8 @@
                                         <th>Paid Amount</th>
                                         <th>Remaining Amount</th>
                                         <th>Payment Type</th>
+                                        <th>Installment</th>
+                                        <th>Challan Number</th>
                                         <th>Remarks</th>
                                         <th>Created By</th>
                                         <th>Created Date</th>
@@ -61,6 +63,8 @@
                                         <td>Rs.{{$record->paid_amount}}</td>
                                         <td>Rs.{{$record->remaining_amount}}</td>
                                         <td>{{$record->payment_type}}</td>
+                                        <td>{{$record->installment}}</td>
+                                        <td>{{$record->challan_number}}</td>
                                         <td>{{$record->description}}</td>
                                         <td>{{$record->created_user?->name}}</td>
                                         <td>{{$record->created_at}}</td>
@@ -132,11 +136,19 @@
                         </div>
                         <div class="col-12">
                             <label for="">Payment Type</label>
-                            <select name="payment_type" id="" class="form-control" required>
+                            <select name="payment_type" class="form-control" required>
                                 <option value="">Select Payment Type</option>
                                 <option value="cash_in_hand">Cash in hand</option>
-                                <option value="cheque">Cheque</option>
                                 <option value="" disabled>Bank payment</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="">Installment</label>
+                            <select name="installment" class="form-control">
+                                <option value="">Select Installment</option>
+                                <option value="first">first</option>
+                                <option value="second">second</option>
+                                <option value="third">third</option>
                             </select>
                         </div>
                         <div class="col-12">

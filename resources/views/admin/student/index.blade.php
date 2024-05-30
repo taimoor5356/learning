@@ -63,27 +63,27 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <!-- <div class="col-2">
                                         <label for="InputGender">Gender</label>
                                         <select name="gender" id="InputGender" class="form-control">
                                             <option value="">Select Gender</option>
                                             <option value="male" {{(Request::get('gender') == 'male') ? 'selected' : ''}}>Male</option>
                                             <option value="female" {{(Request::get('gender') == 'female') ? 'selected' : ''}}>Female</option>
                                         </select>
-                                    </div>
-                                    <div class="col-2">
+                                    </div> -->
+                                    <!-- <div class="col-2">
                                         <label for="InputCaste">Caste</label>
                                         <input type="text" value="{{Request::get('caste')}}" name="caste" class="form-control" id="InputCaste" placeholder="Enter caste">
-                                    </div>
-                                    <div class="col-2">
+                                    </div> -->
+                                    <!-- <div class="col-2">
                                         <label for="InputReligion">Religion</label>
                                         <input type="text" value="{{Request::get('religion')}}" name="religion" class="form-control" id="InputReligion" placeholder="Enter religion">
-                                    </div>
+                                    </div> -->
                                     <div class="col-2">
                                         <label for="InputMobile">Mobile</label>
                                         <input type="text" value="{{Request::get('mobile_number')}}" name="mobile_number" class="form-control" id="InputMobile" placeholder="Enter mobile number">
                                     </div>
-                                    <div class="col-2">
+                                    <!-- <div class="col-2">
                                         <label for="InputBloodGroup">Blood Group</label>
                                         <select name="blood_group" id="blood_group" class="form-control">
                                             <option value="">Select Blood Group</option>
@@ -96,6 +96,10 @@
                                             <option value="O+" {{(Request::get('blood_group') == 'O+') ? 'selected' : ''}}>O+</option>
                                             <option value="O-" {{(Request::get('blood_group') == 'O-') ? 'selected' : ''}}>O-</option>
                                         </select>
+                                    </div> -->
+                                    <div class="col-2">
+                                        <label for="InputBatchNumber">Batch Number</label>
+                                        <input type="text" value="{{Request::get('batch_number')}}" name="batch_number" placeholder="Enter batch number" class="form-control" id="InputBatchNumber">
                                     </div>
                                     <div class="col-2">
                                         <label for="InputAdmissionDate">Admission Date</label>
@@ -147,6 +151,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Profile Pic</th>
+                                        <th>Batch Number</th>
                                         <th>User Type</th>
                                         <th>Name</th>
                                         <th>Email</th>
@@ -173,6 +178,7 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td><img src="{{$record->getProfilePic()}}" height="50px" width="50px" class="rounded-circle" alt=""></td>
+                                        <td>{{$record->batch_number}}</td>
                                         <td>{{$record->user_type == 3 ? 'Student' : ($record->user_type == '10' ? 'Visitor' : '')}}</td>
                                         <td class="text-capitalize">{{$record->name}}</td>
                                         <td>{{$record->email}}</td>

@@ -8,6 +8,7 @@ use App\Models\SubmittedFee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class FeeCollectionController extends Controller
 {
@@ -87,7 +88,9 @@ class FeeCollectionController extends Controller
                 $submittedFee->paid_amount = $request->amount;
                 $submittedFee->remaining_amount = $amountToBePaid;
                 $submittedFee->payment_type = $request->payment_type;
+                $submittedFee->installment = $request->installment;
                 $submittedFee->description = $request->description;
+                $submittedFee->challan_number = Str::random(10).$user->id.$user->class_id;
                 $submittedFee->created_by = Auth::user()->id;
                 $submittedFee->save(); //remove all save
                 return redirect()->back()->with('success', 'Fee submitted successfully');

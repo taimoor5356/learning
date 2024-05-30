@@ -103,6 +103,25 @@
                 $('#InputTotalFee').val(classFee);
             }
         });
+        $(document).on('change', '#InputAppliedFor', function() {
+            var _this = $(this);
+            var appliedForId = _this.val();
+            if (appliedForId != '') {
+                if (appliedForId == 'written_exam') {
+                    $('#InputClass').attr('disabled', false);
+                    $('#InputInterview').attr('disabled', true);
+                    $('#InputExam').attr('disabled', true);
+                } else if (appliedForId == 'interview') {
+                    // $('#InputClass').attr('disabled', true);
+                    $('#InputInterview').attr('disabled', false);
+                    $('#InputExam').attr('disabled', true);
+                } else if (appliedForId == 'examination') {
+                    // $('#InputClass').attr('disabled', true);
+                    $('#InputInterview').attr('disabled', true);
+                    $('#InputExam').attr('disabled', false);
+                }
+            }
+        });
     });
 </script>
 @endsection

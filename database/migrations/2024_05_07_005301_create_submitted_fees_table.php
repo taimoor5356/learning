@@ -19,6 +19,8 @@ return new class extends Migration
             $table->double('paid_amount', 8,2)->default(0);
             $table->double('remaining_amount', 8,2)->default(0);
             $table->string('payment_type')->nullable();
+            $table->string('installment')->nullable();
+            $table->string('challan_number')->nullable();
             $table->longText('description')->nullable();
             $table->integer('created_by');
             $table->timestamps();

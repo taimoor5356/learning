@@ -32,11 +32,13 @@ class HomeWorkController extends Controller
         //
         $data['header_title'] = 'Submitted Home Work List';
         $homeWork = HomeWork::getSingleHomeWork(1)->first();
+        $data['records'] = SubmittedHomeWork::getHomeWorkList()->paginate(25);
+        return view('admin.home_work.submitted_list', $data);
         if (isset($homeWork)) {
             $data['records'] = SubmittedHomeWork::getHomeWorkList()->paginate(25);
             return view('admin.home_work.submitted_list', $data);
         } else {
-            return redirect()->route('home_work.index')->with('error', 'Home Work Not Found');
+            return redirect('admin/home-work/list')->with('error', 'Home Work Not Found');
         }
     }
 

@@ -23,7 +23,10 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomClassController;
-use App\Models\ClassTeacher;
+use App\Models\Suggestions;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,14 +61,53 @@ Route::group(['prefix' => '/'], function () {
     Route::get('reset/{token}', [AuthController::class, 'resetPassword'])->name('resetPassword');
     Route::post('reset/{token}', [AuthController::class, 'postResetPassword'])->name('postresetPassword');
     Route::post('/update-password', [UserController::class, 'updatePassword']);
+    //
+    Route::group(['prefix' => 'teacher-review', 'middleware' => ['auth']], function () {
+        Route::get('/', function () {
+            $data['header_title'] = 'Teacher Review';
+            $data['teachers'] = User::where('user_type', 2)->get();
+            return view('teacher_review', $data);
+        });
+        Route::post('/store', function (Request $request) {
+            $teacher = User::find($request->user_id);
+            if (isset($teacher)) {
+                $subjectName = $request->subject_name;
+                $comment = $request->comment;
+                $rating = $request->teacher_rating;
+                $teacher->user_review = json_encode([$subjectName, $comment, $rating]);
+                $teacher->save();
+            }
+            return redirect()->back()->with('success', 'Successfully updated');
+        });
+    });
+    //
+    Route::group(['prefix' => 'suggestions', 'middleware' => ['auth']], function () {
+        Route::get('/', function () {
+            $data['header_title'] = 'Suggestions';
+            return view('suggestions', $data);
+        });
+        Route::post('/store', function (Request $request) {
+            $suggestions = new Suggestions();
+            $suggestions->user_id = Auth::user()->id;
+            $suggestions->suggestion = $request->suggestion;
+            $suggestions->administration_complaint = $request->administration_complaint;
+            $suggestions->general_complaint = $request->general_complaint;
+            $suggestions->rating = $request->administrative_rating;
+            $suggestions->save();
+            return redirect()->back()->with('success', 'Successfully updated');
+        });
+    });
+    //
     Route::get('/follow-us', function () {
         $data['header_title'] = 'Follow Us';
         return view('follow_us', $data);
     });
+    //
     Route::get('/student-services', function () {
         $data['header_title'] = 'Student Services';
         return view('student_services', $data);
     });
+    //
     Route::group(['prefix' => 'zoom-classes', 'middleware' => ['auth']], function () {
         Route::get('/', [ZoomClassController::class, 'index']);
         Route::group(['prefix' => '/', 'middleware' => ['admin']], function () {

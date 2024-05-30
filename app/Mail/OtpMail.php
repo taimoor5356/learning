@@ -42,7 +42,7 @@ class OtpMail extends Mailable
         return new Content(
             markdown: 'emails.otp',
             with: [
-                'uset' => $this->user,
+                'user' => $this->user,
             ]
         );
     }

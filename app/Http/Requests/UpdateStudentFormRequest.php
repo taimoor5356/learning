@@ -44,7 +44,6 @@ class UpdateStudentFormRequest extends FormRequest
         // if ($userType == 1) {
             $rules['class_type'] = 'sometimes';
             $rules['gender'] = 'sometimes';
-            // $rules['qualification'] = 'sometimes';
             $rules['class_year'] = 'sometimes';
             $rules['class_program'] = 'sometimes';
             $rules['domicile'] = 'sometimes';
@@ -75,6 +74,7 @@ class UpdateStudentFormRequest extends FormRequest
             $rules['role_id'] = 'sometimes';
             $rules['admission_number'] = 'sometimes';
             $rules['user_type'] = 'sometimes';
+            $rules['send_fee_notification'] = 'sometimes';
         // } else {
             $rules['profile_pic'] = 'sometimes';
             $rules['fee_slip'] = 'sometimes';

@@ -158,7 +158,21 @@ class UserController extends Controller
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }
-            $user->qualification = json_encode($request->qualification);
+            if (empty($request->rules_regulations_policies)) {
+                $user->rules_regulations_policies = 0;
+            } else {
+                $user->rules_regulations_policies = 1;
+            }
+            $qualification = [];
+            foreach ($request->degree as $key => $val) {
+                if (!empty($val) && !empty($request->major_subjects[$key]) && !empty($request->cgpa[$key]) && !empty($request->university_name[$key])) {
+                    $qualification[$key]['degree'] = $val;
+                    $qualification[$key]['major_subjects'] = $request->major_subjects[$key];
+                    $qualification[$key]['cgpa'] = $request->cgpa[$key];
+                    $qualification[$key]['university_name'] = $request->university_name[$key];
+                }
+            }
+            $user->qualification = json_encode($qualification);
             $user->save(); //remove all save
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
