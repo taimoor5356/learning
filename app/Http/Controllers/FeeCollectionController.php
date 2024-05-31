@@ -78,7 +78,7 @@ class FeeCollectionController extends Controller
                 $classId = $user->class_id;
             }
             $paidAmount = SubmittedFee::getStudentPaidFees($id, $classId);
-            $remainingAmount = $user->class?->amount - $paidAmount;
+            $remainingAmount = $user->class?->amount - $paidAmount - $user->discounted_amount;
             if ($remainingAmount >= $request->amount) {
                 $amountToBePaid = $remainingAmount - $request->amount;
                 $submittedFee = new SubmittedFee();

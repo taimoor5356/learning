@@ -121,12 +121,17 @@
                         <br>
                         <br>
                         <div class="col-12">
+                            <label for="">Total Discount: Rs.{{$user->discounted_amount}}</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
                             <label for="">Paid Amount: Rs.{{$paid_amount}}</label>
                         </div>
                         <br>
                         <br>
                         <div class="col-12">
-                            <label for="">Remaining Amount: Rs.{{$user->class?->amount - $paid_amount}}</label>
+                            <label for="">Remaining Amount: Rs.{{$user->class?->amount - $paid_amount - $user->discounted_amount}}</label>
                         </div>
                         <br>
                         <br>

@@ -82,9 +82,14 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Student Name</th>
-                                        <th>Roll Number</th>
+                                        <th>Batch</th>
+                                        <th>Class Type</th>
+                                        <th>Program</th>
                                         <th>Class</th>
+                                        <th>Roll Number</th>
+                                        <th>Mobile Number</th>
                                         <th>Total Amount</th>
+                                        <th>Total Discount</th>
                                         <th>Paid Amount</th>
                                         <th>Remaining Amount</th>
                                         <th>Created Date</th>
@@ -101,14 +106,19 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->name}}</td>
-                                        <td>{{$record->roll_number}}</td>
+                                        <td>{{$record->batch_number}}</td>
+                                        <td>{{$record->class_type}}</td>
+                                        <td>{{$record->class_program}}</td>
                                         <td>{{$record->class?->name}}</td>
+                                        <td>{{$record->roll_number}}</td>
+                                        <td>{{$record->mobile_number}}</td>
                                         <td>Rs.{{$record->class?->amount}}</td>
+                                        <td>Rs.{{$record->discounted_amount}}</td>
                                         <td>Rs.{{$paidAmount}}</td>
-                                        <td>Rs.{{$record->class?->amount - $paidAmount}}</td>
+                                        <td>Rs.{{$record->class?->amount - ($paidAmount + $record->discounted_amount)}}</td>
                                         <td>{{$record->created_at}}</td>
                                         <td>
-                                            @if ($record->class?->amount == $paidAmount)
+                                            @if ($record->class?->amount <= ($paidAmount + $record->discounted_amount))
                                             <span class="badge badge-success">PAID</span>
                                             @elseif($paidAmount > 0 && $paidAmount < $record->class?->amount)
                                                 <span class="badge badge-warning">PARTIAL PAID</span>
@@ -116,7 +126,7 @@
                                                 <span class="badge badge-danger">UNPAID</span>
                                             @endif
                                         </td>
-                                        <td>
+                                        <td style="min-width: 150px;">
                                             <a href="{{url('admin/fee-collection/collect-fee/'.$record->id)}}" class="btn btn-success">Collect Fee</a>
                                         </td>
                                     </tr>
