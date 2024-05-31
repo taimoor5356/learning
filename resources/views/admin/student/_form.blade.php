@@ -266,6 +266,13 @@
             <span class="text-danger">{{$errors->first('optional_subjects')}}</span>
         </div>
         <!-- <div class="form-group col-3">
+            <label for="InputSendPasswordEmail">Send Password Email</label>
+            <br>
+            <input type="checkbox" name="send_password_email" id="InputSendPasswordEmail">
+            <br>
+            <small>It will set a newly generated Password</small>
+        </div> -->
+        <!-- <div class="form-group col-3">
             <label for="InputOptionalSubjects">Optional Subjects <span class="text-danger">*</span></label>
             <span class="text-danger">{{$errors->first('optional_subjects')}}</span>
         </div> -->
