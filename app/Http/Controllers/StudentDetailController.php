@@ -166,6 +166,12 @@ class StudentDetailController extends Controller
                 $user->admission_number = Str::random(5).$id;
             }
             $user->save(); //remove all save
+            $userPassword = Str::random(10);
+            $user->password = Hash::make($userPassword);
+            if (!empty($request->roll_number)) {
+                $user->roll_number = $request->roll_number.$user->id;
+            }
+            Mail::to($user->email)->send(new SendPasswordMail($user, $userPassword));
             return redirect('admin/student/list')->with('success', 'Student details updated successfully');
         } else {
             return redirect()->back()->with('error', 'User not found');
