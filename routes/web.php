@@ -420,6 +420,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         Route::get('/report', [FeeCollectionController::class, 'feeCollectionReport'])->middleware('permission:fee_collection_view');
         Route::get('/collect-fee/{id}', [FeeCollectionController::class, 'create'])->middleware('permission:fee_collection_update');
         Route::post('/collect-fee/{id}', [FeeCollectionController::class, 'store'])->middleware('permission:fee_collection_update');
+        Route::get('/export-fee-report', [FeeCollectionController::class, 'export'])->middleware('permission:fee_collection_update');
 
         // Route::get('/list', [FeeCollectionController::class, 'index']);
         // Route::get('/report', [FeeCollectionController::class, 'feeCollectionReport']);

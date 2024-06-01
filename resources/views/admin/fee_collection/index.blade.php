@@ -73,7 +73,10 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Students list</h3>
+                            <div class="d-flex justify-content-between">
+                                <span class="card-title">Students list</span>
+                                <a href="{{url('admin/fee-collection/export-fee-report')}}" class="card-title btn btn-primary text-white">Export</a>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">

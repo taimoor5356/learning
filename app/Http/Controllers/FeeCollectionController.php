@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FeeExport;
 use App\Models\FeeCollection;
 use App\Models\SchoolClass;
 use App\Models\SubmittedFee;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FeeCollectionController extends Controller
 {
@@ -132,5 +134,10 @@ class FeeCollectionController extends Controller
     public function destroy(FeeCollection $feeCollection)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new FeeExport, 'fee_report.xlsx');
     }
 }
