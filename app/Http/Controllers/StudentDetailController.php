@@ -77,6 +77,7 @@ class StudentDetailController extends Controller
             $user->admission_number = Str::random(5).$user->id;
             $studentSubjects = $request->subject_id;
             $user->subjects = json_encode($studentSubjects);
+            $user->total_fees = $request->total_fee;
             $user->save(); //remove all save
             foreach ($studentSubjects as $key => $subject) {
                 $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->batch_number, $subject);
@@ -213,6 +214,7 @@ class StudentDetailController extends Controller
             // }
             $studentSubjects = $request->subject_id;
             $user->subjects = json_encode($studentSubjects);
+            $user->total_fees = $request->total_fee;
             $user->save(); //remove all save
             foreach ($studentSubjects as $key => $subject) {
                 $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->batch_number, $subject);

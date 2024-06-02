@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     @include('_message')
                     <!-- /.card -->
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Search</h3>
@@ -102,8 +102,8 @@
                                 <tbody>
                                     @if (!empty($records) && ($records->total() > 0))
                                     @foreach ($records as $key => $record)
-                                    @php 
-                                        $paidAmount = $record->getPaidAmount($record->id, $record->class_id);
+                                    @php
+                                        $paidAmount = $record->getPaidAmount($record->id, $record->batch_number);
                                     @endphp
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
@@ -113,15 +113,15 @@
                                         <td>{{$record->batch?->name}}</td>
                                         <td>{{$record->roll_number}}</td>
                                         <td>{{$record->mobile_number}}</td>
-                                        <td>Rs.{{$record->class?->amount}}</td>
+                                        <td>Rs.{{$record->total_fees}}</td>
                                         <td>Rs.{{$record->discounted_amount}}</td>
                                         <td>Rs.{{$paidAmount}}</td>
-                                        <td>Rs.{{$record->class?->amount - ($paidAmount + $record->discounted_amount)}}</td>
+                                        <td>Rs.{{$record->total_fees - ($paidAmount + $record->discounted_amount)}}</td>
                                         <td>{{$record->created_at}}</td>
                                         <td>
-                                            @if ($record->class?->amount <= ($paidAmount + $record->discounted_amount))
+                                            @if ($record->total_fees <= ($paidAmount + $record->discounted_amount))
                                             <span class="badge badge-success">PAID</span>
-                                            @elseif($paidAmount > 0 && $paidAmount < $record->class?->amount)
+                                            @elseif($paidAmount > 0 && $paidAmount < $record->total_fees)
                                                 <span class="badge badge-warning">PARTIAL PAID</span>
                                             @else
                                                 <span class="badge badge-danger">UNPAID</span>

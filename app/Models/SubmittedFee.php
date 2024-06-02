@@ -23,7 +23,7 @@ class SubmittedFee extends Model
             });
         }
         if (!empty(Request::get('class_id'))) {
-            $submittedFees->where('class_id', Request::get('class_id'));
+            $submittedFees->where('batch_number', Request::get('class_id'));
         }
         if (!empty(Request::get('payment_type'))) {
             $submittedFees->where('payment_type', Request::get('payment_type'));
@@ -34,7 +34,7 @@ class SubmittedFee extends Model
         if (!empty(Request::get('to_date'))) {
             $submittedFees->whereDate('created_at', '<=', Request::get('to_date'));
         }
-        
+
         return $submittedFees;
     }
 

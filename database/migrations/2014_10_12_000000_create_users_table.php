@@ -48,6 +48,7 @@ return new class extends Migration
             $table->string('challan_number')->nullable();
             $table->string('receipt_number')->nullable();
             $table->string('payment_refund')->nullable();
+            $table->double('total_fees', 8,2)->nullable();
 
             // student profile
             $table->string('profile_pic')->nullable();

@@ -25,7 +25,7 @@ class FeeCollectionController extends Controller
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['user'] = User::getSingleUser($id)->first();
         $data['records'] = SubmittedFee::getStudentFees($id)->paginate(25);
-        $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, Auth::user()->class_id);
+        $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, Auth::user()->batch_number);
         return view('admin.fee_collection.collect_fee', $data);
     }
 
@@ -63,7 +63,7 @@ class FeeCollectionController extends Controller
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['user'] = User::getSingleUser($id)->first();
         $data['records'] = SubmittedFee::getStudentFees($id)->paginate(25);
-        $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, $data['user']->class_id);
+        $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, $data['user']->batch_number);
         return view('admin.fee_collection.collect_fee', $data);
     }
 
@@ -77,10 +77,10 @@ class FeeCollectionController extends Controller
             $user = User::getStudentSingleClass($id)->first();
             $classId = 0;
             if (isset($user)) {
-                $classId = $user->class_id;
+                $classId = $user->batch_number;
             }
             $paidAmount = SubmittedFee::getStudentPaidFees($id, $classId);
-            $remainingAmount = $user->class?->amount - $paidAmount - $user->discounted_amount;
+            $remainingAmount = $user->total_fees - $paidAmount - $user->discounted_amount;
             if ($remainingAmount >= $request->amount) {
                 $amountToBePaid = $remainingAmount - $request->amount;
                 $submittedFee = new SubmittedFee();
@@ -92,7 +92,7 @@ class FeeCollectionController extends Controller
                 $submittedFee->payment_type = $request->payment_type;
                 $submittedFee->installment = $request->installment;
                 $submittedFee->description = $request->description;
-                $submittedFee->challan_number = Str::random(10).$user->id.$user->class_id;
+                $submittedFee->challan_number = $request->challan_number;
                 $submittedFee->created_by = Auth::user()->id;
                 $submittedFee->save(); //remove all save
                 return redirect()->back()->with('success', 'Fee submitted successfully');

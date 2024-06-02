@@ -40,13 +40,13 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>Class Name</th>
+                                        <th>Batch Number</th>
                                         <th>Total Amount</th>
                                         <th>Paid Amount</th>
                                         <th>Remaining Amount</th>
                                         <th>Payment Type</th>
                                         <th>Installment</th>
-                                        <th>Challan Number</th>
+                                        <th>Receipt Number</th>
                                         <th>Remarks</th>
                                         <th>Created By</th>
                                         <th>Created Date</th>
@@ -58,7 +58,7 @@
                                     @foreach ($records as $key => $record)
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
-                                        <td>{{$record->class?->name}}</td>
+                                        <td>{{$record->user?->batch?->name}}</td>
                                         <td>Rs.{{$record->total_amount}}</td>
                                         <td>Rs.{{$record->paid_amount}}</td>
                                         <td>Rs.{{$record->remaining_amount}}</td>
@@ -116,7 +116,7 @@
                         <br>
                         <br>
                         <div class="col-12">
-                            <label for="">Total Amount: Rs.{{$user->class?->amount}}</label>
+                            <label for="">Total Amount: Rs.{{$user->total_fees}}</label>
                         </div>
                         <br>
                         <br>
@@ -131,7 +131,7 @@
                         <br>
                         <br>
                         <div class="col-12">
-                            <label for="">Remaining Amount: Rs.{{$user->class?->amount - $paid_amount - $user->discounted_amount}}</label>
+                            <label for="">Remaining Amount: Rs.{{$user->total_fees - $paid_amount - $user->discounted_amount}}</label>
                         </div>
                         <br>
                         <br>
@@ -159,6 +159,10 @@
                         <div class="col-12">
                             <label for="">Description</label>
                             <textarea name="description" class="form-control" placeholder="Enter short remarks"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="">Receipt Number</label>
+                            <input type="text" name="challan_number" class="form-control" placeholder="Enter receipt number">
                         </div>
                     </div>
                 </div>

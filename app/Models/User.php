@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     static public function getUsersCount($type)
     {
-       return self::where('user_type', $type)->count(); 
+       return self::where('user_type', $type)->count();
     }
 
     static public function getAdmins()
@@ -195,16 +195,16 @@ class User extends Authenticatable
     {
         return SubmittedFee::getStudentPaidFees($userId, $classid);
     }
-    
+
     static public function getStudentClass($classId)
     {
         return self::where('user_type', 3)->where('batch_number', $classId)->orderBy('id', 'desc');
     }
 
-    
+
     static public function getStudentSingleClass($userId)
     {
-        return self::with('class')->where('user_type', 3)->where('id', $userId);
+        return self::with('class', 'batch')->where('user_type', 3)->where('id', $userId);
     }
 
     static public function getTeacherStudentsCount($teacherId)
@@ -227,7 +227,7 @@ class User extends Authenticatable
         ->where('class_teachers.teacher_id', $teacherId)
         ->where('users.user_type', '=', 3)
         ->groupBy('users.id');
-       
+
         if (!empty(Request::get('name'))) {
             $students = $students->where('name', 'LIKE', '%' . Request::get('name') . '%');
         }

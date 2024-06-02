@@ -23,7 +23,7 @@
                 <!-- /.col -->
                 <div class="col-md-12">
                     @include('_message')
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Search Student</h3>
@@ -40,9 +40,9 @@
                                         <input type="text" name="roll_number" id="InputStudentRollNumber" class="form-control" value="{{Request::get('roll_number')}}" placeholder="Enter student roll number">
                                     </div>
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch</label>
                                         <select name="class_id" class="form-control" id="InputClassId">
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch</option>
                                             @if (!empty($classes))
                                             @foreach($classes as $key => $class)
                                                 <option {{Request::get('class_id') == $class->id ? 'selected' : ''}} value="{{$class->id}}" {{ isset($record) && ($class->id == $record->class_id) ? 'selected' : '' }}>{{$class->name}}</option>
@@ -89,7 +89,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>Student Name</th>
                                         <th>Student Roll Number</th>
-                                        <th>Class Name</th>
+                                        <th>Batch Number</th>
                                         <th>Total Amount</th>
                                         <th>Paid Amount</th>
                                         <th>Remaining Amount</th>
@@ -107,7 +107,7 @@
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->user?->name}}</td>
                                         <td>{{$record->user?->roll_number}}</td>
-                                        <td>{{$record->class?->name}}</td>
+                                        <td>{{$record->user?->batch?->name}}</td>
                                         <td>Rs.{{$record->total_amount}}</td>
                                         <td>Rs.{{$record->paid_amount}}</td>
                                         <td>Rs.{{$record->remaining_amount}}</td>
