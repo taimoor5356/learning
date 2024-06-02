@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->integer('batch_id')->nullable();
             $table->integer('class_id');
             $table->string('attendance_date');
             $table->integer('user_id');

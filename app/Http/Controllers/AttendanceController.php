@@ -50,6 +50,7 @@ class AttendanceController extends Controller
                 $attendance = $checkAlreadyMarkedAttendance;
             } else {
                 $attendance = new Attendance();
+                $attendance->batch_id = $request->class_id;
                 $attendance->class_id = $request->class_id;
                 $attendance->attendance_date = $request->attendance_date;
                 $attendance->user_id = $request->student_id;
@@ -103,6 +104,7 @@ class AttendanceController extends Controller
                 $attendance = $checkAlreadyMarkedAttendance;
             } else {
                 $attendance = new Attendance();
+                $attendance->batch_id = $request->class_id;
                 $attendance->class_id = $request->class_id;
                 $attendance->attendance_date = $request->attendance_date;
                 $attendance->user_id = $request->student_id;

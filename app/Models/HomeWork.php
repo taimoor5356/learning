@@ -51,6 +51,11 @@ class HomeWork extends Model
         }
     }
 
+    public function batch()
+    {
+        return $this->belongsTo(SchoolClass::class, 'batch_id', 'id');
+    }
+
     public function class()
     {
         return $this->belongsTo(SchoolClass::class, 'class_id', 'id');

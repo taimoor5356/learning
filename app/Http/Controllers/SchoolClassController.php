@@ -14,7 +14,7 @@ class SchoolClassController extends Controller
     public function index()
     {
         //
-        $data['header_title'] = 'Classes List';
+        $data['header_title'] = 'Batches List';
         $data['records'] = SchoolClass::getClasses()->paginate(25);
         return view('admin.class.index', $data);
     }
@@ -25,7 +25,7 @@ class SchoolClassController extends Controller
     public function create()
     {
         //
-        $data['header_title'] = 'Add Class';
+        $data['header_title'] = 'Add Batch';
         return view('admin.class.create', $data);
     }
 
@@ -40,7 +40,7 @@ class SchoolClassController extends Controller
         ]);
         $class = new SchoolClass();
         $class->name = trim($request->name);
-        $class->amount = trim($request->amount);
+        $class->amount = 0;
         $class->status = $request->status;
         $class->created_by = Auth::user()->id;
         $class->save(); //remove all save
@@ -63,7 +63,7 @@ class SchoolClassController extends Controller
         //
         $data['record'] = SchoolClass::getSingleClass($id);
         if (isset($data['record'])) {
-            $data['header_title'] = 'Edit Class Details';
+            $data['header_title'] = 'Edit Batch';
             return view('admin.class.edit', $data);
         } else {
             abort(404);
@@ -109,7 +109,7 @@ class SchoolClassController extends Controller
     public function trashed()
     {
         //
-        $data['header_title'] = 'Trashed Class list';
+        $data['header_title'] = 'Trashed Batches list';
         $data['records'] = SchoolClass::getTrashedClasses()->paginate(25);
         return view('admin.class.trashed', $data);
     }

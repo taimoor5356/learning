@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->integer('student_id');
             $table->integer('exam_id');
+            $table->integer('batch_id')->nullable();
             $table->integer('class_id');
             $table->integer('subject_id');
             $table->string('class_work')->nullable();

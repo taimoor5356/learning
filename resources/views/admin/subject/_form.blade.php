@@ -4,6 +4,10 @@
         <input type="text" value="{{ old('name') ?? (isset($record) ? $record->name : '') }}" name="name" class="form-control" id="InputName" placeholder="Enter subject name" required>
     </div>
     <div class="form-group">
+        <label for="InputFees">Subject Fees *</label>
+        <input type="text" value="{{ old('fees') ?? (isset($record) ? $record->fees : '') }}" name="fees" class="form-control" id="InputFees" placeholder="Enter subject fees" required>
+    </div>
+    <div class="form-group">
         <label for="InputType">Subject Type</label>
         <select name="type" class="form-control" id="InputType">
             <option {{ (isset($record) ? (($record->type == 'compulsory') ? 'selected' : '') : '') }} value="compulsory">Compulsory</option>

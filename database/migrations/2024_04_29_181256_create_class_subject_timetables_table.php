@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('class_subject_timetables', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->integer('batch_id');
             $table->integer('class_id');
             $table->integer('subject_id');
             $table->integer('week_days_id');

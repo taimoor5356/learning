@@ -165,6 +165,7 @@ class ExaminationController extends Controller
                 if ((!empty($schedule['subject_id'])) && (!empty($schedule['exam_date'])) && (!empty($schedule['start_time'])) && (!empty($schedule['end_time'])) && (!empty($schedule['room_number'])) && (!empty($schedule['full_marks'])) && (!empty($schedule['passing_marks']))) {
                     $examSchedule = new ExamSchedule();
                     $examSchedule->exam_id = $request->get('exam_id');
+                    $examSchedule->batch_id = $request->get('class_id');
                     $examSchedule->class_id = $request->get('class_id');
                     $examSchedule->subject_id = $schedule['subject_id'];
                     $examSchedule->exam_date = $schedule['exam_date'];
@@ -297,6 +298,7 @@ class ExaminationController extends Controller
                             $subjectMarks             = new SubjectMark();
                         }
                         $subjectMarks->student_id = $request->student_id;
+                        $subjectMarks->batch_id   = $request->class_id;
                         $subjectMarks->class_id   = $request->class_id;
                         $subjectMarks->exam_id    = $request->exam_id;
 
@@ -362,6 +364,7 @@ class ExaminationController extends Controller
                     $subjectMarks             = new SubjectMark();
                 }
                 $subjectMarks->student_id = $request->student_id;
+                $subjectMarks->batch_id   = $request->class_id;
                 $subjectMarks->class_id   = $request->class_id;
                 $subjectMarks->exam_id    = $request->exam_id;
 

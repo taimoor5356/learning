@@ -50,9 +50,9 @@
                                         </select>
                                     </div>
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch</label>
                                         <select value="{{Request::get('class_id')}}" name="class_id" class="form-control get-class-id" id="InputClassId">
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch</option>
                                             @if (!empty($classes))
                                             @foreach ($classes as $class)
                                             <option value="{{$class->id}}" {{(Request::get('class_id') == $class->id) ? 'selected' : ''}}>{{$class->name}}</option>
@@ -107,24 +107,24 @@
                                             <td style="min-width: 350px;">
                                                 <h5 class="font-weight-bold">{{$student->name}}</h5>
                                             </td>
-                                            @php 
-                                                $i = 1; 
-                                                $studentTotalObtained = 0;    
-                                                $allTotalSubjectFullMarks = 0;    
-                                                $totalPassingMarks = 0;    
-                                                $passOrFail = 0;    
+                                            @php
+                                            $i = 1;
+                                            $studentTotalObtained = 0;
+                                            $allTotalSubjectFullMarks = 0;
+                                            $totalPassingMarks = 0;
+                                            $passOrFail = 0;
                                             @endphp
                                             @foreach ($subjects as $subject)
-                                            @php 
-                                                $totalStudentMarks = 0;
-                                                $allTotalSubjectFullMarks = $allTotalSubjectFullMarks + $subject->full_marks;
-                                                $totalPassingMarks = $totalPassingMarks + $subject->passing_marks;
-                                                $getStudentMarks = $subject->getStudentsMarks($student->id, Request::get('exam_id'), Request::get('class_id'), $subject->subject_id)->first();
-                                                if (isset($getStudentMarks)) {
-                                                    $totalStudentMarks = $getStudentMarks->class_work + $getStudentMarks->home_work + $getStudentMarks->test_work + $getStudentMarks->exam_work;
-                                                } 
-                                                
-                                                $studentTotalObtained = $studentTotalObtained + $totalStudentMarks;
+                                            @php
+                                            $totalStudentMarks = 0;
+                                            $allTotalSubjectFullMarks = $allTotalSubjectFullMarks + $subject->full_marks;
+                                            $totalPassingMarks = $totalPassingMarks + $subject->passing_marks;
+                                            $getStudentMarks = $subject->getStudentsMarks($student->id, Request::get('exam_id'), Request::get('class_id'), $subject->subject_id)->first();
+                                            if (isset($getStudentMarks)) {
+                                            $totalStudentMarks = $getStudentMarks->class_work + $getStudentMarks->home_work + $getStudentMarks->test_work + $getStudentMarks->exam_work;
+                                            }
+
+                                            $studentTotalObtained = $studentTotalObtained + $totalStudentMarks;
                                             @endphp
                                             <td style="min-width: 350px;">
                                                 <div>
@@ -157,12 +157,11 @@
                                                     <br>
                                                     <b>Passing Marks: </b>{{$subject->passing_marks}}
                                                     <br>
-                                                    @if ($subject->passing_marks <= $totalStudentMarks)
-                                                        <span class="badge badge-success p-2 text-md">PASS</span>
-                                                    @else
+                                                    @if ($subject->passing_marks <= $totalStudentMarks) <span class="badge badge-success p-2 text-md">PASS</span>
+                                                        @else
                                                         <span class="badge badge-danger p-2 text-md">FAIL</span>
                                                         @php $passOrFail = 1; @endphp
-                                                    @endif
+                                                        @endif
                                                 </div>
                                                 @endif
                                             </td>
@@ -179,16 +178,16 @@
                                                 <br>
                                                 <b>Student Obtained Marks:</b> {{$studentTotalObtained}}
                                                 <br>
-                                                @php 
-                                                    $percentage = ($studentTotalObtained * 100) / $allTotalSubjectFullMarks;
+                                                @php
+                                                $percentage = ($studentTotalObtained * 100) / $allTotalSubjectFullMarks;
                                                 @endphp
                                                 <b>Percentage: </b>{{$percentage}}%
                                                 <br>
                                                 <br>
                                                 @if ($passOrFail == 0)
-                                                 <b>Result:</b> <span class="badge badge-success p-2 text-md">PASS</span>
+                                                <b>Result:</b> <span class="badge badge-success p-2 text-md">PASS</span>
                                                 @else
-                                                 <b>Result:</b> <span class="badge badge-danger p-2 text-md">FAIL</span>
+                                                <b>Result:</b> <span class="badge badge-danger p-2 text-md">FAIL</span>
                                                 @endif
                                                 @endif
                                             </td>

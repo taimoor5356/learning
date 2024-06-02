@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('exam_schedules', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->integer('exam_id')->nullable();
+            $table->integer('batch_id')->nullable();
             $table->integer('class_id')->nullable();
             $table->integer('subject_id')->nullable();
             $table->string('exam_date')->nullable();

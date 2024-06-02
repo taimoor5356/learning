@@ -38,7 +38,9 @@ class CreateStudentFormRequest extends FormRequest
         // if ($userType == 1) {
             $rules['class_type'] = 'sometimes';
             $rules['gender'] = 'sometimes';
-            // $rules['qualification'] = 'sometimes';
+            $rules['subject_type'] = 'sometimes';
+            $rules['subjects'] = 'sometimes';
+            $rules['subject_id'] = 'sometimes';
             $rules['class_year'] = 'sometimes';
             $rules['class_program'] = 'sometimes';
             $rules['domicile'] = 'sometimes';

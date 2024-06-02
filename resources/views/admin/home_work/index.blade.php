@@ -40,7 +40,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>Class</th>
+                                        <th>Batch Number</th>
                                         <th>Subject</th>
                                         <th>Homework Date</th>
                                         <th>Submission Date</th>
@@ -55,7 +55,7 @@
                                     @foreach ($records as $key => $record)
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
-                                        <td>{{$record->class?->name}}</td>
+                                        <td>{{$record->batch?->name}}</td>
                                         <td>{{$record->subject?->name}}</td>
                                         <td>{{$record->homework_date}}</td>
                                         <td>{{$record->submission_date}}</td>

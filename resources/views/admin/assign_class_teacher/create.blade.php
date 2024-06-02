@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Assign New Class Teacher</h1>
+                    <h1>Assign Teacher a Subject</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -27,7 +27,7 @@
                     <!-- /.card-header -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Assign New Class Teacher</h3>
+                            <h3 class="card-title">Assign New Teacher a Subject</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->

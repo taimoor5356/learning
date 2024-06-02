@@ -81,7 +81,7 @@
                         <li class="nav-item">
                             <a href="{{url('admin/class/list')}}" class="nav-link @if(Request::segment(2) == 'class') active @endif">
                                 <i class="fas fa-minus nav-icon"></i>
-                                <p>Class</p>
+                                <p>Batch</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -90,12 +90,12 @@
                                 <p>Subject</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{url('admin/class-subject/list')}}" class="nav-link @if(Request::segment(2) == 'class-subject') active @endif">
                                 <i class="fas fa-minus nav-icon"></i>
                                 <p>Assign Subject</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="{{url('admin/class-timetable/list')}}" class="nav-link @if(Request::segment(2) == 'class-timetable') active @endif">
                                 <i class="fas fa-minus nav-icon"></i>

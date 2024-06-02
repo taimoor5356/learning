@@ -80,6 +80,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
+                                        <th>Fees</th>
                                         <th>Type</th>
                                         <th>Status</th>
                                         <th>Created By</th>
@@ -93,6 +94,7 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->name}}</td>
+                                        <td>{{$record->fees}}</td>
                                         <td class="text-capitalize">{{$record->type}}</td>
                                         <td>{{$record->status}}</td>
                                         <td>{{$record->user->name}}</td>

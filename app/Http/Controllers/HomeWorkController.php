@@ -77,6 +77,7 @@ class HomeWorkController extends Controller
         //
         try {
             $homeWork = new HomeWork();
+            $homeWork->batch_id = $request->class_id;
             $homeWork->class_id = $request->class_id;
             $homeWork->subject_id = $request->subject_id;
             $homeWork->homework_date = $request->homework_date;
@@ -135,6 +136,7 @@ class HomeWorkController extends Controller
             if (!isset($homeWork)) {
                 $homeWork = new HomeWork();
             }
+            $homeWork->batch_id = $request->class_id;
             $homeWork->class_id = $request->class_id;
             $homeWork->subject_id = $request->subject_id;
             $homeWork->homework_date = $request->homework_date;

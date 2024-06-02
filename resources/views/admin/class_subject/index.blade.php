@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Class Subjects List (Total: {{$records->total()}})</h1>
+                    <h1>Batch Subjects (Total: {{$records->total()}})</h1>
                 </div>
                 <div class="col-sm-6">
                     <div class="add-new float-sm-right">
@@ -33,13 +33,13 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Search Class Subject</h3>
+                            <h3 class="card-title">Search Batch Subject</h3>
                         </div>
                         <div class="card-body">
                             <form action="">
                                 <div class="form-group row">
                                     <div class="col-2">
-                                        <label for="InputName">Class Name</label>
+                                        <label for="InputName">Batch Name</label>
                                         <input type="text" value="{{Request::get('class_name')}}" name="class_name" class="form-control" id="InputName" placeholder="Enter subject name">
                                     </div>
                                     <div class="col-2">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Class Subjects List</h3>
+                            <h3 class="card-title">Batch Subjects List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
@@ -76,7 +76,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>Class Name</th>
+                                        <th>Batch Name</th>
                                         <th>Subject Name</th>
                                         <th>Status</th>
                                         <th>Created By</th>
@@ -95,8 +95,8 @@
                                         <td>{{$record->user->name}}</td>
                                         <td>{{$record->created_at}}</td>
                                         <td>
-                                            <a href="{{url('admin/class-subject/edit/'.$record->id)}}" class="btn btn-primary">Edit Class Subjects</a>
-                                            <a href="{{url('admin/class-subject/edit-single/'.$record->id)}}" class="btn btn-info">Edit Single Class</a>
+                                            <a href="{{url('admin/class-subject/edit/'.$record->id)}}" class="btn btn-primary">Edit Batch Subjects</a>
+                                            <a href="{{url('admin/class-subject/edit-single/'.$record->id)}}" class="btn btn-info">Edit Single Batch</a>
                                             <a href="{{url('admin/class-subject/delete/'.$record->id)}}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>

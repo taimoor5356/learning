@@ -1,9 +1,9 @@
 <div class="card-body">
     <div class="form-group">
-        <label for="InputClass">Select Class</label>
+        <label for="InputClass">Select Batch</label>
         <select name="class_id" class="form-control" id="InputClass">
-            <option value="">Select Class</option>
-            @foreach($classes as $key => $class)
+            <option value="">Select Batch</option>
+            @foreach($batches as $key => $class)
                 <option value="{{$class->id}}" {{ isset($record) && ($class->id == $record->class_id) ? 'selected' : '' }}>{{$class->name}}</option>
             @endforeach
         </select>

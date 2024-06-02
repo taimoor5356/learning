@@ -25,8 +25,8 @@ class ClassTeacherController extends Controller
     public function create()
     {
         //
-        $data['header_title'] = 'Assign Class Teacher';
-        $data['classes'] = SchoolClass::getClasses()->get();
+        $data['header_title'] = 'Assign Teacher a Subject';
+        $data['batches'] = SchoolClass::getClasses()->get();
         $data['teachers'] = User::getTeachers()->get();
         return view('admin.assign_class_teacher.create', $data);
     }
@@ -49,6 +49,7 @@ class ClassTeacherController extends Controller
                     $getSingleAlreadyAssigned->save(); //remove all save
                 } else {
                     $classTeacher = new ClassTeacher();
+                    $classTeacher->batch_id = $request->class_id;
                     $classTeacher->class_id = $request->class_id;
                     $classTeacher->teacher_id = $teacher;
                     $classTeacher->created_by = Auth::user()->id;

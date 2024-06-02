@@ -39,9 +39,9 @@
                             <form action="">
                                 <div class="form-group row">
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch</label>
                                         <select value="{{Request::get('class_id')}}" name="class_id" class="form-control get-class-id" id="InputClassId">
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch</option>
                                             @foreach ($classes as $class)
                                                 <option value="{{$class->id}}" {{(Request::get('class_id') == $class->id) ? 'selected' : ''}}>{{$class->name}}</option>
                                             @endforeach
@@ -53,7 +53,7 @@
                                             <option value="">Select Subject</option>
                                             @if (!empty($classSubjects))
                                                 @foreach ($classSubjects as $classSubject)
-                                                    <option {{(Request::get('subject_id') == $classSubject->subject_id) ? 'selected' : ''}} value="{{$classSubject->subject_id}}">{{$classSubject->subject->name}}</option>
+                                                    <option {{(Request::get('subject_id') == $classSubject->id) ? 'selected' : ''}} value="{{$classSubject->id}}">{{$classSubject->name}}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -138,7 +138,7 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-                        $('.get-subjects').html(response);
+                        // $('.get-subjects').html(response);
                         // var classSubjects = response.classSubjects;
                         // var _html = '<option value="">Select Subject</option>';
                         // classSubjects.forEach(function (subject) {

@@ -180,6 +180,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         Route::get('/delete/{id}', [StudentDetailController::class, 'destroy'])->middleware('permission:user_delete');
         Route::get('/trashed', [StudentDetailController::class, 'trashed'])->middleware('permission:user_delete');
 
+        // filter for subject types
+        Route::post('select-subject-types', [StudentDetailController::class, 'selectSubjectTypes'])->middleware('permission:user_view');
+
         // Route::get('/list', [StudentDetailController::class, 'index']);
         // Route::get('/create', [StudentDetailController::class, 'create']);
         // Route::post('/store', [StudentDetailController::class, 'store']);
@@ -232,7 +235,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         Route::get('/edit', [UserController::class, 'editPassword']);
     });
 
-    // Class URLs
+    // Batch URLs
     Route::group(['prefix' => 'class', 'middleware' => ['permission:school_class_view']], function () {
         Route::get('/list', [SchoolClassController::class, 'index'])->middleware('permission:school_class_view');
         Route::get('/create', [SchoolClassController::class, 'create'])->middleware('permission:school_class_create');

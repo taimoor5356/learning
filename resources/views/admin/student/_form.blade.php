@@ -78,7 +78,13 @@
         </div>
         <div class="form-group col-3">
             <label for="InputBatchNumber">Enter Batch <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="batch_number" placeholder="Enter batch number" id="InputBatchNumber" value="{{ old('batch_number') ?? (isset($record) ? $record->batch_number : '') }}" required>
+            <select name="batch_number" id="InputBatchNumber" class="form-control">
+                <option value="">Select Batch</option>
+                @foreach ($batches as $batch)
+                <option value="{{$batch->id}}" data-batch-number="{{$batch->name}}" {{ isset($record) ? ($record->batch_number == $batch->id ? 'selected' : '') : (old('batch_number') == $batch->id ? 'selected' : '') }}>{{$batch->name}}</option>
+                @endforeach
+            </select>
+            <!-- <input type="text" class="form-control" name="batch_number" placeholder="Enter batch number" id="InputBatchNumber" value="{{ old('batch_number') ?? (isset($record) ? $record->batch_number : '') }}" required> -->
             <span class="text-danger">{{$errors->first('batch_number')}}</span>
         </div>
         <input type="hidden" id="user_id" value="{{ old('id') ?? (isset($record) ? $record->id : '') }}">
@@ -131,14 +137,66 @@
             <span class="text-danger">{{$errors->first('exam_id')}}</span>
         </div>
         <div class="form-group col-3">
-            <label for="InputClass">Select Class/Subjects <span class="text-danger">*</span></label>
-            <select name="class_id" class="form-control" id="InputClass" required>
-                <option value="" selected>Select Class</option>
-                @foreach($classes as $key => $class)
-                <option data-fee="{{$class->amount}}" value="{{$class->id}}" {{ isset($record) ? ($class->id == $record->class_id ? 'selected' : '') : (old('class_id') == $class->id ? 'selected' : '') }}>{{$class->name}} - (Fee Rs.{{$class->amount}})</option>
-                @endforeach
+            <label for="InputSubjectType">Select Subject Type <span class="text-danger">*</span></label>
+            <select name="subject_type" class="form-control" id="InputSubjectType" required>
+                <option value="" selected>Select Subject Type</option>
+                <option {{ isset($record) ? ($record->subject_type == 'english_essay_and_precis' ? 'selected' : '') : (old('subject_type') == 'english_essay_and_precis' ? 'selected' : '') }} value="english_essay_and_precis" >English Essay & Precis</option>
+                <option {{ isset($record) ? ($record->subject_type == 'compulsory_only' ? 'selected' : '') : (old('subject_type') == 'compulsory_only' ? 'selected' : '') }} value="compulsory_only" >Compulsory Only</option>
+                <option {{ isset($record) ? ($record->subject_type == 'optional_only' ? 'selected' : '') : (old('subject_type') == 'optional_only' ? 'selected' : '') }} value="optional_only" >Optional Subjects</option>
+                <option {{ isset($record) ? ($record->subject_type == 'all' ? 'selected' : '') : (old('subject_type') == 'all' ? 'selected' : '') }} value="all" >All</option>
+                <option {{ isset($record) ? ($record->subject_type == 'custom' ? 'selected' : '') : (old('subject_type') == 'custom' ? 'selected' : '') }} value="custom" >Custom</option>
             </select>
-            <span class="text-danger">{{$errors->first('class_id')}}</span>
+            <span class="text-danger">{{$errors->first('subject_type')}}</span>
+        </div>
+        <div class="form-group col-3">
+            @php 
+                $subjects = isset($record) ? json_decode($record->subjects) : array();
+            @endphp
+            <label for="InputSubject">Select Subjects <span class="text-danger">*</span></label>
+            <select name="subject_id[]" class="form-control select2" multiple id="InputSubject" required>
+                @if (!empty($subjects))
+                @foreach($subjects as $subject)
+                    @php ($subjectFound = \App\Models\Subject::find($subject))
+                    <option value="{{$subjectFound->id ?? ''}}" selected>{{$subjectFound->name ?? ''}}</option>
+                @endforeach
+                @endif
+            </select>
+            <span class="text-danger">{{$errors->first('subject_id')}}</span>
+        </div>
+        <div class="form-group col-3">
+            <label for="InputTotalFee">Total Fee <span class="text-danger">*</span></label>
+            <input readonly type="text" name="total_fee" class="form-control" id="InputTotalFee" value="{{ old('total_fee') ?? (isset($record) ? $record->total_fee : '') }}" placeholder="Total Fee">
+            <span class="text-danger">{{$errors->first('total_fee')}}</span>
+        </div>
+        <div class="form-group col-2">
+            <label for="InputDiscountedAmount">Discounted Amount <span class="text-danger">*</span></label>
+            <input type="number" name="discounted_amount" class="form-control" id="InputDiscountedAmount" value="{{ old('discounted_amount') ?? (isset($record) ? $record->discounted_amount : '') }}" placeholder="Enter discounted amount">
+            <span class="text-danger">{{$errors->first('discounted_amount')}}</span>
+        </div>
+        <div class="form-group col-2">
+            <label for="InputDiscountReason">Discount Reason <span class="text-danger">*</span></label>
+            <input type="text" name="discount_reason" class="form-control" id="InputDiscountReason" value="{{ old('discount_reason') ?? (isset($record) ? $record->discount_reason : '') }}" placeholder="Enter discount reason">
+            <span class="text-danger">{{$errors->first('discount_reason')}}</span>
+        </div>
+        <div class="form-group col-2">
+            <label for="InputAmountToBePaid">Amount to be Paid <span class="text-danger">*</span></label>
+            <input disabled type="text" name="amount_to_be_paid" class="form-control" id="InputAmountToBePaid" value="{{ old('amount_to_be_paid') ?? (isset($record) ? $paid_amount : '') }}">
+            <span class="text-danger">{{$errors->first('amount_to_be_paid')}}</span>
+        </div>
+        <div class="form-group col-2">
+            <label for="InputPaidFee">Paid Fee <span class="text-danger">*</span></label>
+            <input disabled type="text" name="paid_fee" class="form-control" id="InputPaidFee" value="{{ old('paid_fee') ?? (isset($record) ? $paid_amount : '') }}" placeholder="Enter paid fee">
+            <span class="text-danger">{{$errors->first('paid_fee')}}</span>
+        </div>
+        <div class="form-group col-2">
+            <label for="InputRemainingDues">Remaining Dues <span class="text-danger">*</span></label>
+            <input disabled type="text" name="remaining_dues" class="form-control" id="InputRemainingDues" value="{{ old('remaining_dues') ?? (isset($record) ? $remaining_dues : '') }}" placeholder="Remaining Dues">
+            <span class="text-danger">{{$errors->first('remaining_dues')}}</span>
+        </div>
+        <div class="form-group col-2">
+            <label for="InputDueDate">Due Date <span class="text-danger">*</span></label>
+            <input type="date" name="due_date" class="form-control" id="InputDueDate" value="{{ old('due_date') ?? (isset($record) ? $record->due_date : '') }}" placeholder="Due Date">
+            <span class="text-danger">{{$errors->first('due_date')}}</span>
         </div>
         <div class="form-group col-3 InputInterview">
             <label for="InputInterview">Select Interview Type <span class="text-danger">*</span></label>
@@ -170,36 +228,6 @@
                 <option value="third" {{ isset($record) ? ($record->installments == 'third' ? 'selected' : '') : (old('installments') == 'third' ? 'selected' : '') }}>Third</option>
             </select>
             <span class="text-danger">{{$errors->first('status')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputDiscountedAmount">Discounted Amount <span class="text-danger">*</span></label>
-            <input type="number" name="discounted_amount" class="form-control" id="InputDiscountedAmount" value="{{ old('discounted_amount') ?? (isset($record) ? $record->discounted_amount : '') }}" placeholder="Enter discounted amount">
-            <span class="text-danger">{{$errors->first('discounted_amount')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputDiscountReason">Discount Reason <span class="text-danger">*</span></label>
-            <input type="text" name="discount_reason" class="form-control" id="InputDiscountReason" value="{{ old('discount_reason') ?? (isset($record) ? $record->discount_reason : '') }}" placeholder="Enter discount reason">
-            <span class="text-danger">{{$errors->first('discount_reason')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputPaidFee">Paid Fee <span class="text-danger">*</span></label>
-            <input disabled type="text" name="paid_fee" class="form-control" id="InputPaidFee" value="{{ old('paid_fee') ?? (isset($record) ? $paid_amount : '') }}" placeholder="Enter paid fee">
-            <span class="text-danger">{{$errors->first('paid_fee')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputTotalFee">Total Fee <span class="text-danger">*</span></label>
-            <input readonly type="text" name="total_fee" class="form-control" id="InputTotalFee" value="{{ old('total_fee') ?? (isset($record) ? $record->total_fee : '') }}" placeholder="Total Fee">
-            <span class="text-danger">{{$errors->first('total_fee')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputRemainingDues">Remaining Dues <span class="text-danger">*</span></label>
-            <input disabled type="text" name="remaining_dues" class="form-control" id="InputRemainingDues" value="{{ old('remaining_dues') ?? (isset($record) ? $remaining_dues : '') }}" placeholder="Remaining Dues">
-            <span class="text-danger">{{$errors->first('remaining_dues')}}</span>
-        </div>
-        <div class="form-group col-3">
-            <label for="InputDueDate">Due Date <span class="text-danger">*</span></label>
-            <input type="date" name="due_date" class="form-control" id="InputDueDate" value="{{ old('due_date') ?? (isset($record) ? $record->due_date : '') }}" placeholder="Due Date">
-            <span class="text-danger">{{$errors->first('due_date')}}</span>
         </div>
         <div class="form-group col-3">
             <label for="InputFreezeDate">Freeze Date<span class="text-danger">*</span></label>

@@ -85,10 +85,9 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Student Name</th>
-                                        <th>Batch</th>
                                         <th>Class Type</th>
                                         <th>Program</th>
-                                        <th>Class</th>
+                                        <th>Batch Number</th>
                                         <th>Roll Number</th>
                                         <th>Mobile Number</th>
                                         <th>Total Amount</th>
@@ -109,10 +108,9 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->name}}</td>
-                                        <td>{{$record->batch_number}}</td>
                                         <td>{{$record->class_type}}</td>
                                         <td>{{$record->class_program}}</td>
-                                        <td>{{$record->class?->name}}</td>
+                                        <td>{{$record->batch?->name}}</td>
                                         <td>{{$record->roll_number}}</td>
                                         <td>{{$record->mobile_number}}</td>
                                         <td>Rs.{{$record->class?->amount}}</td>

@@ -157,7 +157,6 @@
                                         <th>Email</th>
                                         <th>Admission No</th>
                                         <th>Roll No</th>
-                                        <th>Class</th>
                                         <th>Gender</th>
                                         <th>DOB</th>
                                         <!-- <th>Caste</th>
@@ -178,13 +177,17 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td><img src="{{$record->getProfilePic()}}" height="50px" width="50px" class="rounded-circle" alt=""></td>
-                                        <td>{{$record->batch_number}}</td>
-                                        <td>{{$record->user_type == 3 ? 'Student' : ($record->user_type == '10' ? 'Visitor' : '')}}</td>
+                                        <td>{{$record->batch?->name}}</td>
+                                        <td>
+                                            @if ($record->user_type == 3)
+                                            <span class="badge badge-success">Student</span>
+                                            @elseif ($record->user_type == 10)
+                                            <span class="badge badge-danger">Visitor</span>
+                                            @endif</td>
                                         <td class="text-capitalize">{{$record->name}}</td>
                                         <td>{{$record->email}}</td>
                                         <td class="text-capitalize">{{$record->admission_number}}</td>
                                         <td class="text-capitalize">{{$record->roll_number}}</td>
-                                        <td class="text-capitalize">{{$record->class?->name}}</td>
                                         <td class="text-capitalize">{{$record->gender}}</td>
                                         <td>{{$record->date_of_birth}}</td>
                                         <!-- <td class="text-capitalize">{{$record->caste}}</td>

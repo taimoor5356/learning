@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('class_teachers', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->integer('batch_id')->nullable();
             $table->integer('class_id')->nullable();
             $table->integer('teacher_id')->nullable();
             $table->integer('created_by')->nullable();

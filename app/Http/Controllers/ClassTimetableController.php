@@ -22,8 +22,8 @@ class ClassTimetableController extends Controller
         $data['header_title'] = 'Class Timetable';
         $data['classes'] = SchoolClass::getClasses()->get();
         if (!(empty($request->class_id))) {
-            $data['classSubjects'] = ClassSubject::getSingleClassSubjects($request->class_id)->get();
         }
+        $data['classSubjects'] = Subject::getSubjects()->get();
         $daysOfWeek = DaysOfWeek::getWeekDays();
         $wDays = [];
         foreach ($daysOfWeek as $key => $day) {
@@ -72,6 +72,7 @@ class ClassTimetableController extends Controller
         foreach ($request->timetable as $key => $timeTable) {
             if (!empty($timeTable['week_days_id']) && !empty($timeTable['start_time']) && !empty($timeTable['end_time']) && !empty($timeTable['room_number'])) {
                 $classTimetable = new ClassSubjectTimetable();
+                $classTimetable->batch_id = $request['class_id'];
                 $classTimetable->class_id = $request['class_id'];
                 $classTimetable->subject_id = $request['subject_id'];
                 $classTimetable->week_days_id = $timeTable['week_days_id'];

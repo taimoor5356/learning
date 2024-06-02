@@ -198,7 +198,7 @@ class User extends Authenticatable
     
     static public function getStudentClass($classId)
     {
-        return self::where('user_type', 3)->where('class_id', $classId)->orderBy('id', 'desc');
+        return self::where('user_type', 3)->where('batch_number', $classId)->orderBy('id', 'desc');
     }
 
     
@@ -341,6 +341,11 @@ class User extends Authenticatable
     public function class()
     {
         return $this->belongsTo(SchoolClass::class, 'class_id', 'id');
+    }
+
+    public function batch()
+    {
+        return $this->belongsTo(SchoolClass::class, 'batch_number', 'id');
     }
 
     public function fee()

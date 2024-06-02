@@ -42,6 +42,7 @@ class SubjectController extends Controller
         ]);
         $subject = new Subject();
         $subject->name = trim($request->name);
+        $subject->fees = trim($request->fees);
         $subject->type = $request->type;
         $subject->status = $request->status;
         $subject->created_by = Auth::user()->id;
@@ -84,6 +85,7 @@ class SubjectController extends Controller
         $subject = Subject::getSingleSubject($id);
         if (isset($subject)) {
             $subject->name = trim($request->name);
+            $subject->fees = trim($request->fees);
             $subject->type = $request->type;
             $subject->status = $request->status;
             $subject->created_by = Auth::user()->id;

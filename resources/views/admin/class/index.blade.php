@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Class List (Total: {{$records->total()}})</h1>
+                    <h1>Batch List (Total: {{$records->total()}})</h1>
                 </div>
                 <div class="col-sm-6">
                     <div class="add-new float-sm-right">
@@ -33,7 +33,7 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Search Class</h3>
+                            <h3 class="card-title">Search Batch</h3>
                         </div>
                         <div class="card-body">
                             <form action="">
@@ -71,7 +71,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Class List</h3>
+                            <h3 class="card-title">Batches List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
@@ -80,7 +80,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
-                                        <th>Amount</th>
+                                        <!-- <th>Amount</th> -->
                                         <th>Status</th>
                                         <th>Created By</th>
                                         <th>Created Date</th>
@@ -93,7 +93,7 @@
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->name}}</td>
-                                        <td>Rs.{{$record->amount}}/-</td>
+                                        <!-- <td>Rs.{{$record->amount}}/-</td> -->
                                         <td>{{$record->status}}</td>
                                         <td>{{$record->user->name}}</td>
                                         <td>{{$record->created_at}}</td>

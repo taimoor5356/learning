@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('student_subjects', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('name')->nullable();
-            $table->double('fees', 8,2)->default(0)->nullable();
-            $table->string('type')->nullable();
-            $table->string('status')->default(1);
-            $table->string('created_by')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->integer('batch_id')->nullable();
+            $table->integer('subject_id')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->string('status')->nullable();
             $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('student_subjects');
     }
 };

@@ -27,7 +27,7 @@
                     <!-- /.card-header -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add New Class</h3>
+                            <h3 class="card-title">Add New Batch</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->

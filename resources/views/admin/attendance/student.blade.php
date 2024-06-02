@@ -39,9 +39,9 @@
                             <form action="">
                                 <div class="form-group row">
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch</label>
                                         <select value="{{Request::get('class_id')}}" name="class_id" class="form-control get-class-id" id="getClass" required>
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch</option>
                                             @if (!empty($classes))
                                             @foreach ($classes as $class)
                                             <option value="{{$class->id}}" {{(Request::get('class_id') == $class->id) ? 'selected' : ''}}>{{$class->name}}</option>
@@ -76,6 +76,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sr#</th>
+                                        <th>Batch Number</th>
                                         <th>Student Name</th>
                                         <th>Attendance</th>
                                     </tr>
@@ -93,6 +94,7 @@
                                         @endphp
                                         <tr>
                                             <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}</td>
+                                            <td>{{$student->batch?->name}}</td>
                                             <td>{{$student->name}}</td>
                                             <td>
                                                 <label class="mx-2">

@@ -1,12 +1,12 @@
 <div class="card-body">
     <div class="form-group">
-        <label for="InputName">Class Name *</label>
+        <label for="InputName">Batch Name *</label>
         <input type="text" value="{{ old('name') ?? (isset($record) ? $record->name : '') }}" name="name" class="form-control" id="InputName" placeholder="Enter class name" required>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="InputAmount">Amount (Rs)*</label>
         <input type="number" value="{{ old('amount') ?? (isset($record) ? $record->amount : '') }}" name="amount" class="form-control" id="InputAmount" placeholder="Enter amount" required>
-    </div>
+    </div> -->
     <div class="form-group">
         <label for="InputStatus">Status</label>
         <select name="status" class="form-control" id="InputStatus">

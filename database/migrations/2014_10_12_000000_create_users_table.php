@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->json('qualification')->nullable();
             $table->string('class_year')->nullable();
+            $table->string('subject_type')->nullable();
             $table->string('class_program')->nullable();
             $table->string('domicile')->nullable();
+            $table->json('subjects')->nullable();
 
             // student
             $table->date('batch_starting_date')->nullable();

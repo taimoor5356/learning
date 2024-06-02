@@ -41,9 +41,9 @@
                                         <input type="text" name="roll_number" id="InputStudentRollNumber" class="form-control" value="{{Request::get('roll_number')}}" placeholder="Enter student roll number">
                                     </div>
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch</label>
                                         <select name="class_id" class="form-control" id="InputClassId">
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch</option>
                                             @foreach($classes as $key => $class)
                                                 <option {{Request::get('class_id') == $class->id ? 'selected' : ''}} value="{{$class->id}}" {{ isset($record) && ($class->id == $record->class_id) ? 'selected' : '' }}>{{$class->name}}</option>
                                             @endforeach
@@ -87,7 +87,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>Student Name</th>
                                         <th>Roll No</th>
-                                        <th>Class</th>
+                                        <th>Batch Number</th>
                                         <th>Attendance Status</th>
                                         <th>Marked By</th>
                                         <th>Attendance Date</th>
@@ -100,7 +100,7 @@
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td class="text-capitalize">{{$record->studentTeacherUser?->name}}</td>
                                         <td class="text-capitalize">{{$record->studentTeacherUser?->roll_number}}</td>
-                                        <td class="text-capitalize">{{$record->class?->name}}</td>
+                                        <td class="text-capitalize">{{$record->student->batch?->name}}</td>
                                         <td class="text-capitalize">
                                             {{$record->attendance_status == 1 ? 'Present' : ''}}
                                             {{$record->attendance_status == 2 ? 'Late' : ''}}
