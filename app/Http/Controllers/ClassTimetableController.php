@@ -7,6 +7,7 @@ use App\Models\ClassSubjectTimetable;
 use App\Models\ClassTimetable;
 use App\Models\DaysOfWeek;
 use App\Models\SchoolClass;
+use App\Models\StudentSubject;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -89,7 +90,7 @@ class ClassTimetableController extends Controller
     {
         $data['header_title'] = 'My Timetable';
         $result = [];
-        $getMySubjects = ClassSubject::getSingleClassSubjects(Auth::user()->class_id)->get();
+        $getMySubjects = StudentSubject::getSingleBatchWiseSubjects(Auth::user()->id, Auth::user()->batch_number)->get();
         foreach ($getMySubjects as $key => $mySubject) {
             $dataSubject['subject_name'] = $mySubject->subject->name;
             $daysOfWeek = DaysOfWeek::getWeekDays();
@@ -98,7 +99,7 @@ class ClassTimetableController extends Controller
                 $wData = [];
                 $wData['week_id'] = $day->id;
                 $wData['day_name'] = $day->name;
-                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id, $day->id)->first();
+                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->batch_id, $mySubject->subject_id, $day->id)->first();
                 if (isset($classSubjectsRecord)) {
                     $wData['start_time'] = $classSubjectsRecord->start_time;
                     $wData['end_time'] = $classSubjectsRecord->end_time;

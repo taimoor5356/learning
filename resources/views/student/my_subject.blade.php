@@ -75,7 +75,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>Subject Name</th>
                                         <th>Subject Type</th>
-                                        <th>Class Name</th>
+                                        <th>Batch Number</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -86,7 +86,7 @@
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td class="text-capitalize">{{$record->subject->name}}</td>
                                         <td class="text-capitalize">{{$record->subject->type}}</td>
-                                        <td class="text-capitalize">{{$record->class->name}}</td>
+                                        <td class="text-capitalize">{{$record->batch?->name}}</td>
                                         <td class="text-capitalize">{{$record->subject->status}}</td>
                                     </tr>
                                     @endforeach

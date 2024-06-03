@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ClassSubject;
 use App\Models\ClassTeacher;
+use App\Models\StudentSubject;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -122,8 +123,9 @@ class SubjectController extends Controller
     {
         //
         $data['header_title'] = 'My Subjects list';
-        $classId = Auth::user()->class_id;
-        $data['records'] = ClassSubject::getSingleClassSubjects($classId)->paginate(25);
+        $batchId = Auth::user()->batch_number;
+        $userId = Auth::user()->id;
+        $data['records'] = StudentSubject::getSingleBatchSubjects($userId)->paginate(25);
         return view('student.my_subject', $data);
     }
 }

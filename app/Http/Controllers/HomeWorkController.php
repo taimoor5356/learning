@@ -117,7 +117,7 @@ class HomeWorkController extends Controller
         $data['header_title'] = 'Edit Home Work';
         $data['record'] = HomeWork::getSingleHomeWork($id)->first();
         $data['classes'] = SchoolClass::getClasses()->get();
-        $data['subjects'] = ClassSubject::getSingleClassSubjects($data['record']->class_id)->get();
+        $data['subjects'] = ClassSubject::getSingleClassSubjects($data['record']->batch_id)->get();
         if (isset($data['record'])) {
             return view('admin.home_work.edit', $data);
         } else {
@@ -209,7 +209,7 @@ class HomeWorkController extends Controller
     {
         //
         $data['header_title'] = 'Home Work';
-        $classIds = ClassTeacher::myClassTeacherSubjectsGroup(Auth::user()->id)->pluck('class_id');
+        $classIds = ClassTeacher::myClassTeacherSubjectsGroup(Auth::user()->id)->pluck('batch_id');
         $data['records'] = HomeWork::getAllTeacherHomeWork($classIds)->paginate(25);
         return view('teacher.home_work.index', $data);
     }
@@ -339,7 +339,7 @@ class HomeWorkController extends Controller
     {
         //
         $data['header_title'] = 'Home Work';
-        $data['records'] = HomeWork::getAllStudentHomeWork(Auth::user()->class_id, Auth::user()->id)->paginate(25);
+        $data['records'] = HomeWork::getAllStudentHomeWork(Auth::user()->batch_number, Auth::user()->id)->paginate(25);
         return view('student.home_work.index', $data);
     }
     /**
@@ -401,7 +401,7 @@ class HomeWorkController extends Controller
         $data['header_title'] = 'Edit Home Work';
         $data['record'] = HomeWork::getSingleHomeWork($id)->first();
         $data['classes'] = ClassTeacher::myClassTeacherSubjectsGroup(Auth::user()->id)->get();
-        $data['subjects'] = ClassSubject::getSingleClassSubjects($data['record']->class_id)->get();
+        $data['subjects'] = ClassSubject::getSingleClassSubjects($data['record']->batch_id)->get();
         if (isset($data['record'])) {
             return view('student.home_work.edit', $data);
         } else {
@@ -420,6 +420,7 @@ class HomeWorkController extends Controller
             if (!isset($homeWork)) {
                 $homeWork = new HomeWork();
             }
+            $homeWork->batch_id = $request->class_id;
             $homeWork->class_id = $request->class_id;
             $homeWork->subject_id = $request->subject_id;
             $homeWork->homework_date = $request->homework_date;

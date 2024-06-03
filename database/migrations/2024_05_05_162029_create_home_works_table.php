@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('home_works', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->integer('batch_id');
             $table->integer('class_id');
             $table->integer('subject_id');
             $table->string('homework_date')->nullable();

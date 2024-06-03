@@ -25,7 +25,7 @@
                     @include('_message')
                     @if (!empty($records))
                         @foreach ($records as $record)
-                            <h3 class="card-titless font-weight-bold">Class Name: {{$record['class_name']}}</h3>
+                            <h3 class="card-titless font-weight-bold">Batch Number: {{$record['class_name']}}</h3>
                             @if (isset($record))
                                 @foreach ($record['exam'] as $exam)
                                     @if (isset($exam))

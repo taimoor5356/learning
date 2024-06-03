@@ -184,9 +184,10 @@ class ClassTeacherController extends Controller
     public function myTeacherClassSubjects()
     {
         //
-        $data['header_title'] = 'My Class Subjects list';
+        $data['header_title'] = 'My Subjects list';
         $teacherId = Auth::user()->id;
-        $data['subjects'] = ClassTeacher::getMyClassSubjects($teacherId);
+        $batchId = Auth::user()->batch_id;
+        $data['subjects'] = ClassTeacher::getMyClassSubjects($batchId, $teacherId);
         $data['records'] = ClassTeacher::myClassTeacherSubjects($teacherId)->paginate(25);
         return view('teacher.my_subject', $data);
     }

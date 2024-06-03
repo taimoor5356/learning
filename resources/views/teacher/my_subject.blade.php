@@ -79,7 +79,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>Class Name</th>
+                                        <th>Batch Number</th>
                                         <th>Subject Name</th>
                                         <th>Subject Type</th>
                                         <th>Today Class Timings</th>

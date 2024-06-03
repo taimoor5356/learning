@@ -222,7 +222,7 @@ class User extends Authenticatable
     static public function getTeacherStudents($teacherId)
     {
         $students = self::select('users.*', 'school_classes.name as class_name')
-        ->join('school_classes', 'school_classes.id', '=', 'users.class_id')
+        ->join('school_classes', 'school_classes.id', '=', 'users.batch_number')
         ->join('class_teachers', 'class_teachers.class_id', '=', 'school_classes.id')
         ->where('class_teachers.teacher_id', $teacherId)
         ->where('users.user_type', '=', 3)

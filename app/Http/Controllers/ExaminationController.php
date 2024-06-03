@@ -187,17 +187,18 @@ class ExaminationController extends Controller
     public function studentExamSchedule(Request $request)
     {
         $data['header_title'] = 'My Exams Schedule';
-        $classId = Auth::user()->class_id;
-        $getExamSchedule = ExamSchedule::getSingleClassSchedule($classId)->get();
+        $batchId = Auth::user()->batch_number;
+        $getExamSchedule = ExamSchedule::getSingleClassSchedule($batchId)->get();
         $result = [];
         foreach ($getExamSchedule as $examSchedule) {
             $examData = [];
             $examData['exam_name'] = $examSchedule->exam?->name;
-            $classExamSchedule = ExamSchedule::getSingleExamClassSchedule($examSchedule->exam?->id, $classId)->get();
+            $classExamSchedule = ExamSchedule::getSingleExamClassSchedule($examSchedule->exam?->id, $batchId)->get();
             $subjectResult = [];
             foreach ($classExamSchedule as $key => $classExamScheduleSubject) {
                 $subjectData = [];
                 $subjectData['subject_id'] = $classExamScheduleSubject->subject_id;
+                $subjectData['batch_id'] = $classExamScheduleSubject->batch_id;
                 $subjectData['class_id'] = $classExamScheduleSubject->class_id;
                 $subjectData['subject_name'] = $classExamScheduleSubject->subject?->name;
                 $subjectData['subject_type'] = $classExamScheduleSubject->subject?->type;

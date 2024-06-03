@@ -22,24 +22,25 @@ class CalendarController extends Controller
     {
         //
         $data['header_title'] = 'My Calendar';
-        $data['myTimeTable'] = $this->myStudentTimeTable(Auth::user()->class_id);
-        $data['myExamTimeTable'] = $this->myStudentExamTimeTable(Auth::user()->class_id);
+        $data['myTimeTable'] = $this->myStudentTimeTable(Auth::user()->batch_number);
+        $data['myExamTimeTable'] = $this->myStudentExamTimeTable(Auth::user()->batch_number);
         // $data['records'] = Examination::getExams();
         return view('student.calendar.index', $data);
     }
 
-    public function myStudentExamTimeTable($classId)
+    public function myStudentExamTimeTable($batchId)
     {
-        $getExamSchedule = ExamSchedule::getSingleClassSchedule($classId)->get();
+        $getExamSchedule = ExamSchedule::getSingleClassSchedule($batchId)->get();
         $result = [];
         foreach ($getExamSchedule as $examSchedule) {
             $examData = [];
             $examData['exam_name'] = $examSchedule->exam?->name;
-            $classExamSchedule = ExamSchedule::getSingleExamClassSchedule($examSchedule->exam?->id, $classId)->get();
+            $classExamSchedule = ExamSchedule::getSingleExamClassSchedule($examSchedule->exam?->id, $batchId)->get();
             $subjectResult = [];
             foreach ($classExamSchedule as $key => $classExamScheduleSubject) {
                 $subjectData = [];
                 $subjectData['subject_id'] = $classExamScheduleSubject->subject_id;
+                $subjectData['batch_id'] = $classExamScheduleSubject->batch_id;
                 $subjectData['class_id'] = $classExamScheduleSubject->class_id;
                 $subjectData['subject_name'] = $classExamScheduleSubject->subject?->name;
                 $subjectData['subject_type'] = $classExamScheduleSubject->subject?->type;
@@ -57,10 +58,10 @@ class CalendarController extends Controller
         return $result;
     }
 
-    public function myStudentTimeTable($classId) 
+    public function myStudentTimeTable($batchId) 
     {
         $result = [];
-        $getMySubjects = ClassSubject::getSingleClassSubjects($classId)->get();
+        $getMySubjects = ClassSubject::getSingleClassSubjects($batchId)->get();
         foreach ($getMySubjects as $key => $mySubject) {
             $dataSubject['subject_name'] = $mySubject->subject->name;
             $daysOfWeek = DaysOfWeek::getWeekDays();

@@ -43,7 +43,7 @@
         var myEvents = new Array();
         @foreach ($teacherClassTimeTable as $timeTable)
             myEvents.push({
-                title: "Class: {{$timeTable->class_name}} - {{$timeTable->subject_name}}",
+                title: "Batch Number: {{$timeTable->class_name}} - {{$timeTable->subject_name}}",
                 daysOfWeek: "{{$timeTable->fullcalendar_day}}",
                 startTime: "{{$timeTable->start_time}}",
                 endTime: "{{$timeTable->end_time}}",

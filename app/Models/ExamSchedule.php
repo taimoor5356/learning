@@ -13,8 +13,8 @@ class ExamSchedule extends Model
         return self::with('exam', 'subject')->where('id', $id);
     }
 
-    static public function getSingleClassSchedule($classId) {
-        return ExamSchedule::with('exam', 'subject')->where('class_id', $classId)->groupBy('exam_id')->orderBy('id', 'desc');
+    static public function getSingleClassSchedule($batchId) {
+        return ExamSchedule::with('exam', 'subject')->where('batch_id', $batchId)->groupBy('exam_id')->orderBy('id', 'desc');
     }
 
     static public function getSingleExamClassSchedule($examId, $classId) {

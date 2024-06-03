@@ -138,16 +138,16 @@
                                         <th>Email</th>
                                         <th>Admission No</th>
                                         <th>Roll No</th>
-                                        <th>Class</th>
+                                        <th>Batch Number</th>
                                         <th>Gender</th>
-                                        <th>DOB</th>
+                                        <!-- <th>DOB</th>
                                         <th>Caste</th>
-                                        <th>Religion</th>
+                                        <th>Religion</th> -->
                                         <th>Mobile</th>
                                         <th>Admission Date</th>
-                                        <th>Blood Group</th>
-                                        <th>Height</th>
-                                        <th>Weight</th>
+                                        <!-- <th>Blood Group</th> -->
+                                        <!-- <th>Height</th>
+                                        <th>Weight</th> -->
                                         <th>Created Date</th>
                                     </tr>
                                 </thead>
@@ -161,16 +161,16 @@
                                         <td>{{$record->email}}</td>
                                         <td class="text-capitalize">{{$record->admission_number}}</td>
                                         <td class="text-capitalize">{{$record->roll_number}}</td>
-                                        <td class="text-capitalize">{{$record->class?->name}}</td>
+                                        <td class="text-capitalize">{{$record->class_name}}</td>
                                         <td class="text-capitalize">{{$record->gender}}</td>
-                                        <td>{{$record->date_of_birth}}</td>
-                                        <td class="text-capitalize">{{$record->caste}}</td>
-                                        <td class="text-capitalize">{{$record->religion}}</td>
+                                        <!-- <td>{{$record->date_of_birth}}</td> -->
+                                        <!-- <td class="text-capitalize">{{$record->caste}}</td>
+                                        <td class="text-capitalize">{{$record->religion}}</td> -->
                                         <td>{{$record->mobile_number}}</td>
                                         <td>{{$record->admission_date}}</td>
-                                        <td class="text-capitalize">{{$record->blood_group}}</td>
+                                        <!-- <td class="text-capitalize">{{$record->blood_group}}</td>
                                         <td>{{$record->height}}</td>
-                                        <td>{{$record->weight}}</td>
+                                        <td>{{$record->weight}}</td> -->
                                         <td>{{$record->created_at}}</td>
                                         
                                     </tr>

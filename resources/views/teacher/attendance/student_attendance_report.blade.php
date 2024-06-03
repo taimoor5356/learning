@@ -41,9 +41,9 @@
                                         <input type="text" name="roll_number" id="InputStudentRollNumber" class="form-control" value="{{Request::get('roll_number')}}" placeholder="Enter student roll number">
                                     </div>
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch Number</label>
                                         <select name="class_id" class="form-control" id="InputClassId">
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch Number</option>
                                             @foreach($classes as $key => $class)
                                                 <option {{Request::get('class_id') == $class->class_id ? 'selected' : ''}} value="{{$class->class_id}}" {{ isset($record) && ($class->class_id == $record->class_id) ? 'selected' : '' }}>{{$class->class?->name}}</option>
                                             @endforeach
@@ -87,7 +87,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>Student Name</th>
                                         <th>Roll No</th>
-                                        <th>Class</th>
+                                        <th>Batch Number</th>
                                         <th>Attendance Status</th>
                                         <th>Marked By</th>
                                         <th>Attendance Date</th>

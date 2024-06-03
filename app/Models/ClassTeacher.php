@@ -74,8 +74,8 @@ class ClassTeacher extends Model
         ->groupBy('class_teachers.class_id');
     }
 
-    static public function getMyClassSubjects($teacherId) {
-        return self::with('user', 'teacher', 'class', 'class_subject.subject')->where('teacher_id', $teacherId);
+    static public function getMyClassSubjects($batchId, $teacherId) {
+        return self::with('user', 'teacher', 'class', 'class_subject.subject')->where('batch_id', $batchId)->where('teacher_id', $teacherId);
     }
 
     static public function getMyClassSubjectTimings($classId, $subjectId) {

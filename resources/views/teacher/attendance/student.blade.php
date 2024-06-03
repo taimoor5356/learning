@@ -33,9 +33,9 @@
                             <form action="">
                                 <div class="form-group row">
                                     <div class="col-2">
-                                        <label for="InputClassId">Select Class</label>
+                                        <label for="InputClassId">Select Batch</label>
                                         <select value="{{Request::get('class_id')}}" name="class_id" class="form-control get-class-id" id="getClass" required>
-                                            <option value="">Select Class</option>
+                                            <option value="">Select Batch</option>
                                             @if (!empty($classes))
                                             @foreach ($classes as $class)
                                             <option value="{{$class->class_id}}" {{(Request::get('class_id') == $class->class_id) ? 'selected' : ''}}>{{$class->class?->name}}</option>
