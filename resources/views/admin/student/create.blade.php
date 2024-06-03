@@ -170,7 +170,7 @@
             }
             var batchNumber = $(this).find('option:selected').text();
             var userId = $('#user_id').val();
-            $('#InputRollNo').val(year +'-'+ userId +'-'+ batchNumber);
+            $('#InputRollNo').val(year + userId +'-'+ batchNumber);
         });
         $(document).on('change', '#InputAppliedFor', function() {
             var _this = $(this);
