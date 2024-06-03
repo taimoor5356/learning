@@ -1,7 +1,7 @@
 <div class="card-body">
     <div class="form-group">
-        <label for="InputName">Batch Name *</label>
-        <input type="text" value="{{ old('name') ?? (isset($record) ? $record->name : '') }}" name="name" class="form-control" id="InputName" placeholder="Enter class name" required>
+        <label for="InputName">Batch Number *</label>
+        <input type="text" value="{{ old('name') ?? (isset($record) ? $record->name : '') }}" name="name" class="form-control" id="InputName" placeholder="Enter batch number" required>
     </div>
     <!-- <div class="form-group">
         <label for="InputAmount">Amount (Rs)*</label>
