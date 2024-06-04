@@ -100,6 +100,7 @@
                                         <td>{{$record->user->name}}</td>
                                         <td>{{$record->created_at}}</td>
                                         <td>
+                                            <a href="{{url('admin/lesson-plan/list/'.$record->id)}}" class="btn btn-success">Lesson Plan</a>
                                             <a href="{{url('admin/subject/edit/'.$record->id)}}" class="btn btn-primary">Edit</a>
                                             <a href="{{url('admin/subject/delete/'.$record->id)}}" class="btn btn-danger">Delete</a>
                                         </td>

@@ -50,4 +50,8 @@ class Subject extends Model
     public function class_subject() {
         return $this->belongsTo(ClassSubject::class, 'subject_id', 'id');
     }
+
+    public function lesson_plans() {
+        return $this->hasMany(LessonPlan::class, 'subject_id', 'id');
+    }
 }

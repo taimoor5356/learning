@@ -14,6 +14,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseHeadController;
 use App\Http\Controllers\FeeCollectionController;
 use App\Http\Controllers\HomeWorkController;
+use App\Http\Controllers\LessonPlanController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SchoolClassController;
@@ -273,6 +274,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         // Route::get('/trashed', [SubjectController::class, 'trashed']);
     });
 
+    // Lesson Plan URLs
+    Route::group(['prefix' => 'lesson-plan', 'middleware' => ['permission:school_class_view']], function () {
+        Route::get('/list/{subject_id}', [LessonPlanController::class, 'index'])->middleware('permission:school_class_view');
+        Route::get('/create/{subject_id}', [LessonPlanController::class, 'create'])->middleware('permission:school_class_create');
+        Route::post('/store/{subject_id}', [LessonPlanController::class, 'store'])->middleware('permission:school_class_create');
+        Route::get('/edit/{id}', [LessonPlanController::class, 'edit'])->middleware('permission:school_class_update');
+        Route::post('/update/{id}', [LessonPlanController::class, 'update'])->middleware('permission:school_class_update');
+        Route::get('/delete/{id}', [LessonPlanController::class, 'destroy'])->middleware('permission:school_class_delete');
+        Route::get('/trashed', [LessonPlanController::class, 'trashed'])->middleware('permission:school_class_delete');
+
+        Route::get('/status/{status}/{id}', [LessonPlanController::class, 'statusUpdate'])->middleware('permission:school_class_delete');
+
+        // Route::get('/list', [SubjectController::class, 'index']);
+        // Route::get('/create', [SubjectController::class, 'create']);
+        // Route::post('/store', [SubjectController::class, 'store']);
+        // Route::get('/edit/{id}', [SubjectController::class, 'edit']);
+        // Route::post('/update/{id}', [SubjectController::class, 'update']);
+        // Route::get('/delete/{id}', [SubjectController::class, 'destroy']);
+        // Route::get('/trashed', [SubjectController::class, 'trashed']);
+    });
+
     // Assign Class Subject URLs
     Route::group(['prefix' => 'class-subject', 'middleware' => ['permission:school_class_view']], function () {
         Route::get('/list', [ClassSubjectController::class, 'index'])->middleware('permission:school_class_view');
@@ -480,7 +502,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
         // Route::get('/get-class-subjects', [HomeWorkController::class, 'getClassSubjects']);
     });
 
-    // Homework
+    // Settings
     Route::group(['prefix' => 'settings', 'middleware' => ['permission:setting_view']], function () {
         Route::get('', [SettingController::class, 'index'])->middleware('permission:setting_view');
         Route::post('/update/{id}', [SettingController::class, 'update'])->middleware('permission:setting_update');
