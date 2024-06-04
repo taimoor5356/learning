@@ -157,7 +157,7 @@
                 @if (!empty($subjects))
                 @foreach($subjects as $subject)
                     @php ($subjectFound = \App\Models\Subject::find($subject))
-                    <option value="{{$subjectFound->id ?? ''}}" selected>{{$subjectFound->name ?? ''}}</option>
+                    <option value="{{$subjectFound->id ?? ''}}" selected>@isset($subjectFound) {{$subjectFound->name . ' (' .$subjectFound->fees. ')'}} @endisset</option>
                 @endforeach
                 @endif
             </select>
