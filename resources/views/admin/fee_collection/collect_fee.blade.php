@@ -15,6 +15,9 @@
                 </div>
                 @can('fee_collection_update')
                 <div class="col-sm-6">
+                    <!-- <div class="ml-2 add-new float-sm-right">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#refundFeeModal">Refund</button>
+                    </div> -->
                     <div class="add-new float-sm-right">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFeeModal">Add New</button>
                     </div>
@@ -43,6 +46,7 @@
                                         <th>Batch Number</th>
                                         <th>Total Amount</th>
                                         <th>Paid Amount</th>
+                                        <th>Refund Amount</th>
                                         <th>Remaining Amount</th>
                                         <th>Payment Type</th>
                                         <th>Installment</th>
@@ -61,6 +65,7 @@
                                         <td>{{$record->user?->batch?->name}}</td>
                                         <td>Rs.{{$record->total_amount}}</td>
                                         <td>Rs.{{$record->paid_amount}}</td>
+                                        <td>Rs.{{$record->refund_amount}}</td>
                                         <td>Rs.{{$record->remaining_amount}}</td>
                                         <td>{{$record->payment_type}}</td>
                                         <td>{{$record->installment}}</td>
@@ -111,7 +116,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <label for="">Class Name: {{$user->class?->name}}</label>
+                            <label for="">Batch Number: {{$user->batch?->name}}</label>
                         </div>
                         <br>
                         <br>
@@ -126,12 +131,12 @@
                         <br>
                         <br>
                         <div class="col-12">
-                            <label for="">Paid Amount: Rs.{{$paid_amount}}</label>
+                            <label for="">Paid Amount: Rs.{{$paid_amount - $refunded_amount}}</label>
                         </div>
                         <br>
                         <br>
                         <div class="col-12">
-                            <label for="">Remaining Amount: Rs.{{$user->total_fees - $paid_amount - $user->discounted_amount}}</label>
+                            <label for="">Remaining Amount: Rs.{{$user->total_fees - $paid_amount - $user->discounted_amount + $refunded_amount}}</label>
                         </div>
                         <br>
                         <br>
@@ -144,7 +149,7 @@
                             <select name="payment_type" class="form-control" required>
                                 <option value="">Select Payment Type</option>
                                 <option value="cash_in_hand">Cash in hand</option>
-                                <option value="" disabled>Bank payment</option>
+                                
                             </select>
                         </div>
                         <div class="col-12">
@@ -167,8 +172,76 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="refundFeeModal" tabindex="-1" role="dialog" aria-labelledby="refundFeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{url('admin/fee-collection/refund-fee/'.$id)}}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="refundFeeModalLabel">Refund</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Batch Number: {{$user->batch?->name}}</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
+                            <label for="">Total Amount: Rs.{{$user->total_fees}}</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
+                            <label for="">Total Discount: Rs.{{$user->discounted_amount}}</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
+                            <label for="">Paid Amount: Rs.{{$paid_amount - $refunded_amount}}</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
+                            <label for="">Remaining Amount: Rs.{{$user->total_fees - $paid_amount - $user->discounted_amount + $refunded_amount}}</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
+                            <label for="">Enter Refund Amount</label>
+                            <input type="number" name="amount" class="form-control" placeholder="Enter refund amount" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="">Payment Type</label>
+                            <select name="payment_type" class="form-control" required>
+                                <option value="">Select Payment Type</option>
+                                <option value="cash_in_hand">Cash in hand</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="">Refund Reason</label>
+                            <textarea name="description" class="form-control" placeholder="Enter refund reason"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="">Receipt Number</label>
+                            <input type="text" name="challan_number" class="form-control" placeholder="Enter receipt number">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
                 </div>
             </form>
         </div>

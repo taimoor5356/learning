@@ -58,6 +58,10 @@ class SubmittedFee extends Model
         return self::where('user_id', $userId)->where('class_id', $classid)->sum('paid_amount');
     }
 
+    static public function getStudentRefundedFees($userId, $classid) {
+        return self::where('user_id', $userId)->where('class_id', $classid)->sum('refund_amount');
+    }
+
     public function class() {
         return $this->belongsTo(SchoolClass::class, 'class_id', 'id');
     }

@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('submitted_fees', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->integer('user_id');
+            $table->integer('batch_id');
             $table->integer('class_id');
             $table->double('total_amount', 8,2)->default(0);
             $table->double('paid_amount', 8,2)->default(0);
+            $table->double('refund_amount', 8,2)->default(0);
             $table->double('remaining_amount', 8,2)->default(0);
             $table->string('payment_type')->nullable();
             $table->string('installment')->nullable();
