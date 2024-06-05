@@ -26,6 +26,7 @@ class FeeCollectionController extends Controller
         $data['user'] = User::getSingleUser($id)->first();
         $data['records'] = SubmittedFee::getStudentFees($id)->paginate(25);
         $data['paid_amount'] = SubmittedFee::getStudentPaidFees($id, Auth::user()->batch_number);
+        $data['refunded_amount'] = SubmittedFee::getStudentRefundedFees($id, Auth::user()->batch_number);
         return view('admin.fee_collection.collect_fee', $data);
     }
 
