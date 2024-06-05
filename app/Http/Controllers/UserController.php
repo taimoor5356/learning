@@ -159,6 +159,17 @@ class UserController extends Controller
                 $file->move('public/images/profile/', $fileName);
                 $user->profile_pic = $fileName;
             }
+            if (!empty($request->file('fee_slip'))) {
+                if (!empty($user->fee_slip) && file_exists('public/images/students/' . $user->fee_slip)) {
+                    unlink('public/images/students/' . $user->fee_slip);
+                }
+                $ext = $request->file('fee_slip')->getClientOriginalExtension();
+                $file = $request->file('fee_slip');
+                $randomStr = Str::random(10);
+                $feeSlipFileName = 'stu' . strtolower($randomStr). '.'. $ext;
+                $file->move('public/images/students/', $feeSlipFileName);
+                $user->fee_slip = $feeSlipFileName;
+            }
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }

@@ -3,7 +3,7 @@
         <div class="offset-6"></div>
         <div class="form-group col-3">
             <label for="InputProfilePicture">Profile Picture <span class="text-danger">*</span></label>
-            <input type="file" value="{{ old('profile_pic') ?? (isset($record) ? $record->profile_pic : '') }}" name="profile_pic" class="form-control" id="InputProfilePicture">
+            <input type="file" name="profile_pic" class="form-control" id="InputProfilePicture">
             <span class="text-danger">{{$errors->first('profile_pic')}}</span>
             <div class="row mt-2">
                 <div class="col-12">
@@ -12,12 +12,12 @@
             </div>
         </div>
         <div class="form-group col-3">
-            <label for="InputProfilePicture">Fee Slip <span class="text-danger">*</span></label>
-            <input type="file" value="{{ old('profile_pic') ?? (isset($record) ? $record->profile_pic : '') }}" name="profile_pic" class="form-control" id="InputProfilePicture">
-            <span class="text-danger">{{$errors->first('profile_pic')}}</span>
+            <label for="InputFeeSlipPicture">Fee Slip <span class="text-danger">*</span></label>
+            <input type="file" name="fee_slip" class="form-control" id="InputFeeSlipPicture">
+            <span class="text-danger">{{$errors->first('fee_slip')}}</span>
             <div class="row mt-2">
                 <div class="col-12">
-                    <img src="@isset($record){{$record->getProfilePic()}}@else{{url('public/images/avatar.png')}}@endisset" class="border rounded" width="100px" height="100px" alt="">
+                    <img src="" class="border rounded" width="100px" height="100px" alt="">
                 </div>
             </div>
         </div>
