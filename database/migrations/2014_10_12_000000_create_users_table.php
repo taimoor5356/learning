@@ -103,6 +103,7 @@ return new class extends Migration
             $table->string('otp')->nullable();
             $table->integer('otp_verified')->default(0);
             $table->longText('otp_token')->nullable();
+            $table->integer('student_update_count')->default(0);
 
             $table->string('remember_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();

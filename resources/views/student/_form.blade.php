@@ -96,7 +96,7 @@
                 </div>
                 <div class="form-group col-3">
                     <label for="InputMajorSubjects">Major Subjects <span class="text-danger">*</span></label>
-                    <input type="text" value="{{ old('major_subjects') ?? (isset($record) ? $qualification->major_subjects : '') }}" class="form-control" id="InputMajorSubjects" placeholder="Enter CGPA" name="major_subjects[]">
+                    <input type="text" value="{{ old('major_subjects') ?? (isset($record) ? $qualification->major_subjects : '') }}" class="form-control" id="InputMajorSubjects" placeholder="Enter subjects name" name="major_subjects[]">
                     <span class="text-danger">{{$errors->first('major_subjects')}}</span>
                 </div>
                 <div class="form-group col-2">
@@ -133,7 +133,7 @@
                 </div>
                 <div class="form-group col-3">
                     <label for="InputMajorSubjects">Major Subjects <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="InputMajorSubjects" placeholder="Enter CGPA" name="major_subjects[]">
+                    <input type="text" class="form-control" id="InputMajorSubjects" placeholder="Enter subjects name" name="major_subjects[]">
                     <span class="text-danger">{{$errors->first('major_subjects')}}</span>
                 </div>
                 <div class="form-group col-2">

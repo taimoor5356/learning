@@ -443,7 +443,7 @@
                     <a href="{{url('student/account')}}" class="nav-link @if(Request::segment(2) == 'account') active @endif">
                         <i class="nav-icon far fa-circle"></i>
                         <p>
-                            My Account
+                            My Profile
                         </p>
                     </a>
                 </li>

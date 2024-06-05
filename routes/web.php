@@ -584,6 +584,7 @@ Route::group(['prefix' => 'student'], function () {
         // My Subject
         Route::get('/account', [UserController::class, 'myAccount']);
         Route::post('/update-account', [UserController::class, 'updateMyStudentAccount']);
+        
         Route::group(['prefix' => 'subject'], function () {
             Route::get('/list', [SubjectController::class, 'myStudentSubjects']);
         });

@@ -51,7 +51,11 @@ class UserController extends Controller
         } else if (Auth::user()->user_type == 2) {
             return view('teacher.my_account', $data);
         } else if (Auth::user()->user_type == 3) {
-            return view('student.my_account', $data);
+            if (Auth::user()->student_update_count == 0) {
+                return view('student.my_account', $data);
+            } else {
+                return view('student.my_profile', $data);
+            }
         } else if (Auth::user()->user_type == 4) {
             return view('parent.my_account', $data);
         }
@@ -173,6 +177,7 @@ class UserController extends Controller
                 }
             }
             $user->qualification = json_encode($qualification);
+            $user->student_update_count = 1;
             $user->save(); //remove all save
             return redirect()->back()->with('success', 'Account updated successfully');
         } else {
