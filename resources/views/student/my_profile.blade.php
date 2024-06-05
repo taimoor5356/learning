@@ -205,7 +205,7 @@
                                     <thead class="bg-primary">
                                         <th>Degree</th>
                                         <th>Major Subjects</th>
-                                        <th>CGPA</th>
+                                        <th>CGPA/Percentage</th>
                                         <th>Institute</th>
                                     </thead>
                                     <tbody>
