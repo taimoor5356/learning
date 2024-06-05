@@ -21,6 +21,7 @@ class FeeCollectionController extends Controller
     {
         //
         $id = Auth::user()->id;
+        $data['id'] = Auth::user()->id;
         $data['header_title'] = 'My Fee Details';
         $data['classes'] = SchoolClass::getClasses()->get();
         $data['user'] = User::getSingleUser($id)->first();
