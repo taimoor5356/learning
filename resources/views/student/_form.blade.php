@@ -1,4 +1,5 @@
 <div class="card-body">
+
     <div class="row">
         <div class="offset-6"></div>
         <div class="form-group col-3">
@@ -77,7 +78,7 @@
                 <option value="balochistan" {{ isset($record) ? ($record->domicile == 'balochistan' ? 'selected' : '') : (old('domicile') == 'balochistan' ? 'selected' : '') }}>Balochistan</option>
                 <option value="kpk" {{ isset($record) ? ($record->domicile == 'kpk' ? 'selected' : '') : (old('domicile') == 'kpk' ? 'selected' : '') }}>KPK</option>
             </select>
-            <span class="text-danger">{{$errors->first('class_program')}}</span>
+            <span class="text-danger">{{$errors->first('domicile')}}</span>
         </div>
     </div>
     <hr>
@@ -313,6 +314,9 @@
         </div> -->
     </div>
     <hr>
+    @if (isset($record))
+    @if ($record->class_program == 'examination')
+    <!-- Written Exam Form -->
     <div class="row">
         <div class="col-12">
             <h5 class="my-2 p-2 bg-primary rounded">Written Exam Information
@@ -372,7 +376,9 @@
     <hr>
     <div class="row">
         <div class="form-group col-6">
-        <input type="checkbox" name="rules_regulations_policies" value="1" @isset($record) @if($record->rules_regulations_policies == '1') checked @endif @endisset> <small class="font-weight-bold">All the rules, regulations will follow and policies of institution are acceptable </small>
+            <input type="checkbox" name="rules_regulations_policies" value="1" @isset($record) @if($record->rules_regulations_policies == '1') checked @endif @endisset> <small class="font-weight-bold">All the rules, regulations will follow and policies of institution are acceptable </small>
         </div>
     </div>
+    @endif
+    @endif
 </div>
