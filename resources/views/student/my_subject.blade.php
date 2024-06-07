@@ -84,10 +84,10 @@
                                     @foreach ($records as $key => $record)
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
-                                        <td class="text-capitalize">{{$record->subject->name}}</td>
-                                        <td class="text-capitalize">{{$record->subject->type}}</td>
+                                        <td class="text-capitalize">{{$record->subject?->name}}</td>
+                                        <td class="text-capitalize">{{$record->subject?->type}}</td>
                                         <td class="text-capitalize">{{$record->batch?->name}}</td>
-                                        <td class="text-capitalize">{{$record->subject->status}}</td>
+                                        <td class="text-capitalize">{{$record->subject?->status}}</td>
                                     </tr>
                                     @endforeach
                                     @else
