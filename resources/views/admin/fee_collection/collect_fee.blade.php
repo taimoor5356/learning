@@ -45,6 +45,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>Batch Number</th>
                                         <th>Total Amount</th>
+                                        <th>Discount Amount</th>
                                         <th>Paid Amount</th>
                                         <th>Refund Amount</th>
                                         <th>Remaining Amount</th>
@@ -64,9 +65,10 @@
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
                                         <td>{{$record->user?->batch?->name}}</td>
                                         <td>Rs.{{$record->total_amount}}</td>
+                                        <td>Rs.{{$user->discounted_amount}}</td>
                                         <td>Rs.{{$record->paid_amount}}</td>
                                         <td>Rs.{{$record->refund_amount}}</td>
-                                        <td>Rs.{{$record->remaining_amount}}</td>
+                                        <td>Rs.{{$record->total_amount - $user->discounted_amount - $record->paid_amount}}</td>
                                         <td>{{$record->payment_type}}</td>
                                         <td>{{$record->installment}}</td>
                                         <td>{{$record->challan_number}}</td>

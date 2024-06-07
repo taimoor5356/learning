@@ -173,15 +173,10 @@
             <input type="number" name="discounted_amount" class="form-control" id="InputDiscountedAmount" value="{{ old('discounted_amount') ?? (isset($record) ? $record->discounted_amount : '') }}" placeholder="Enter discounted amount">
             <span class="text-danger">{{$errors->first('discounted_amount')}}</span>
         </div>
-        <div class="form-group col-2">
+        <div class="form-group col-4">
             <label for="InputDiscountReason">Discount Reason <span class="text-danger">*</span></label>
             <input type="text" name="discount_reason" class="form-control" id="InputDiscountReason" value="{{ old('discount_reason') ?? (isset($record) ? $record->discount_reason : '') }}" placeholder="Enter discount reason">
             <span class="text-danger">{{$errors->first('discount_reason')}}</span>
-        </div>
-        <div class="form-group col-2">
-            <label for="InputAmountToBePaid">Amount to be Paid <span class="text-danger">*</span></label>
-            <input disabled type="text" name="amount_to_be_paid" class="form-control" id="InputAmountToBePaid" value="{{ old('amount_to_be_paid') ?? (isset($record) ? $paid_amount : '') }}">
-            <span class="text-danger">{{$errors->first('amount_to_be_paid')}}</span>
         </div>
         <div class="form-group col-2">
             <label for="InputPaidFee">Paid Fee <span class="text-danger">*</span></label>
