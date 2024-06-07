@@ -63,7 +63,7 @@ class CalendarController extends Controller
         $result = [];
         $getMySubjects = ClassSubject::getSingleClassSubjects($batchId)->get();
         foreach ($getMySubjects as $key => $mySubject) {
-            $dataSubject['subject_name'] = $mySubject->subject->name;
+            $dataSubject['subject_name'] = $mySubject->subject?->name;
             $daysOfWeek = DaysOfWeek::getWeekDays();
             $weekDays = [];
             foreach ($daysOfWeek as $day) {

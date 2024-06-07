@@ -92,7 +92,7 @@ class ClassTimetableController extends Controller
         $result = [];
         $getMySubjects = StudentSubject::getSingleBatchWiseSubjects(Auth::user()->id, Auth::user()->batch_number)->get();
         foreach ($getMySubjects as $key => $mySubject) {
-            $dataSubject['subject_name'] = $mySubject->subject->name;
+            $dataSubject['subject_name'] = $mySubject->subject?->name;
             $daysOfWeek = DaysOfWeek::getWeekDays();
             $weekDays = [];
             foreach ($daysOfWeek as $day) {

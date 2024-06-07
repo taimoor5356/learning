@@ -216,6 +216,7 @@ class StudentDetailController extends Controller
             $user->subjects = json_encode($studentSubjects);
             $user->total_fees = $request->total_fee;
             $user->save(); //remove all save
+            StudentSubject::where('user_id', $user->id)->where('batch_id', $request->batch_number)->forceDelete();
             foreach ($studentSubjects as $key => $subject) {
                 $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->batch_number, $subject);
                 if (!empty($getSingleAlreadyAssigned)) {
