@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="add-new float-sm-right">
-                                    <a target="_blank" href="{{url('student/examinations/print?exam_id='.$record['exam_id'].'&student_id='.Auth::user()->id)}}" class="btn btn-sm btn-primary">Print</a>
+                                    <!-- <a target="_blank" href="{{url('student/examinations/print?exam_id='.$record['exam_id'].'&student_id='.Auth::user()->id)}}" class="btn btn-sm btn-primary">Print</a> -->
                                 </div>
                             </div>
                         </div>
