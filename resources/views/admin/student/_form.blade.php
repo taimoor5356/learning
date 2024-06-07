@@ -532,7 +532,7 @@
             <select disabled id="InputClassType" class="form-control">
                 <option value="">Select Class Type</option>
                 <option value="on_campus" {{ isset($record) ? ($record->class_type == 'on_campus' ? 'selected' : '') : (old('class_type') == 'on_campus' ? 'selected' : '') }}>On Campus</option>
-                <option value="online" {{ isset($record) ? ($record->class_type == 'online' ? 'selected' : '') : (old('class_type') == 'online' ? 'selected' : '') }}>Onlie</option>
+                <option value="online" {{ isset($record) ? ($record->class_type == 'online' ? 'selected' : '') : (old('class_type') == 'online' ? 'selected' : '') }}>Online</option>
             </select>
             <span class="text-danger">{{$errors->first('class_type')}}</span>
         </div>
