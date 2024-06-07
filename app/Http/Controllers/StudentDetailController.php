@@ -303,4 +303,16 @@ class StudentDetailController extends Controller
             return response()->json(array('subjects' => $subjects->get()));
         }
     }
+
+    public function updateApproval($id)
+    {
+        $user = User::where('id', $id)->first();
+        if (isset($user)) {
+            $user->student_update_count = 0;
+            $user->save();
+            return redirect()->back()->with('success', 'Updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
+    }   
 }

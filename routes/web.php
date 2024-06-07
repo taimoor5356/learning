@@ -183,6 +183,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
 
         // filter for subject types
         Route::post('select-subject-types', [StudentDetailController::class, 'selectSubjectTypes'])->middleware('permission:user_view');
+        Route::get('approval-for-update/{id}', [StudentDetailController::class, 'updateApproval'])->middleware('permission:user_view');
 
         // Route::get('/list', [StudentDetailController::class, 'index']);
         // Route::get('/create', [StudentDetailController::class, 'create']);

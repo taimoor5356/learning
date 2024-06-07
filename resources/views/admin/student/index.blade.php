@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                     @include('_message')
                     <!-- /.card -->
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Search Student</h3>
@@ -59,7 +59,7 @@
                                         <select name="class_id" class="form-control" id="InputClass">
                                             <option value="">Select Class</option>
                                             @foreach($classes as $key => $class)
-                                                <option value="{{$class->id}}" {{(Request::get('class_id') == $class->id) ? 'selected' : ''}}>{{$class->name}}</option>
+                                            <option value="{{$class->id}}" {{(Request::get('class_id') == $class->id) ? 'selected' : ''}}>{{$class->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -146,72 +146,76 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0" style="overflow: auto;">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Profile Pic</th>
-                                        <th>Batch Number</th>
-                                        <th>User Type</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Admission No</th>
-                                        <th>Roll No</th>
-                                        <th>Gender</th>
-                                        <th>DOB</th>
-                                        <!-- <th>Caste</th>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Profile Pic</th>
+                                            <th>Batch Number</th>
+                                            <th>User Type</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Admission No</th>
+                                            <th>Roll No</th>
+                                            <th>Gender</th>
+                                            <th>DOB</th>
+                                            <!-- <th>Caste</th>
                                         <th>Religion</th> -->
-                                        <th>Mobile</th>
-                                        <th>Admission Date</th>
-                                        <!-- <th>Blood Group</th>
+                                            <th>Mobile</th>
+                                            <th>Admission Date</th>
+                                            <!-- <th>Blood Group</th>
                                         <th>Height</th>
                                         <th>Weight</th> -->
-                                        <th>Status</th>
-                                        <th>Created Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($records->total() > 0)
-                                    @foreach ($records as $key => $record)
-                                    <tr>
-                                        <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
-                                        <td><img src="{{$record->getProfilePic()}}" height="50px" width="50px" class="rounded-circle" alt=""></td>
-                                        <td>{{$record->batch?->name}}</td>
-                                        <td>
-                                            @if ($record->user_type == 3)
-                                            <span class="badge badge-success">Student</span>
-                                            @elseif ($record->user_type == 10)
-                                            <span class="badge badge-danger">Visitor</span>
-                                            @endif</td>
-                                        <td class="text-capitalize">{{$record->name}}</td>
-                                        <td>{{$record->email}}</td>
-                                        <td class="text-capitalize">{{$record->admission_number}}</td>
-                                        <td class="text-capitalize">{{$record->roll_number}}</td>
-                                        <td class="text-capitalize">{{$record->gender}}</td>
-                                        <td>{{$record->date_of_birth}}</td>
-                                        <!-- <td class="text-capitalize">{{$record->caste}}</td>
+                                            <th>Status</th>
+                                            <th>Created Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($records->total() > 0)
+                                        @foreach ($records as $key => $record)
+                                        <tr>
+                                            <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
+                                            <td><img src="{{$record->getProfilePic()}}" height="50px" width="50px" class="rounded-circle" alt=""></td>
+                                            <td>{{$record->batch?->name}}</td>
+                                            <td>
+                                                @if ($record->user_type == 3)
+                                                <span class="badge badge-success">Student</span>
+                                                @elseif ($record->user_type == 10)
+                                                <span class="badge badge-danger">Visitor</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-capitalize">{{$record->name}}</td>
+                                            <td>{{$record->email}}</td>
+                                            <td class="text-capitalize">{{$record->admission_number}}</td>
+                                            <td class="text-capitalize">{{$record->roll_number}}</td>
+                                            <td class="text-capitalize">{{$record->gender}}</td>
+                                            <td>{{$record->date_of_birth}}</td>
+                                            <!-- <td class="text-capitalize">{{$record->caste}}</td>
                                         <td class="text-capitalize">{{$record->religion}}</td> -->
-                                        <td>{{$record->mobile_number}}</td>
-                                        <td>{{$record->admission_date}}</td>
-                                        <!-- <td class="text-capitalize">{{$record->blood_group}}</td>
+                                            <td>{{$record->mobile_number}}</td>
+                                            <td>{{$record->admission_date}}</td>
+                                            <!-- <td class="text-capitalize">{{$record->blood_group}}</td>
                                         <td>{{$record->height}}</td>
                                         <td>{{$record->weight}}</td> -->
-                                        <td class="text-capitalize {{($record->status == 1) ? 'text-success' : 'text-danger'}}">{{($record->status == 1) ? 'Active' : 'In Active'}}</td>
-                                        <td>{{$record->created_at}}</td>
-                                        <td style="min-width: 200px;">
-                                            <a href="{{url('admin/student/edit/'.$record->id)}}" class="btn btn-primary">Edit</a>
-                                            <a href="{{url('admin/student/delete/'.$record->id)}}" class="btn btn-danger">Delete</a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @else
-                                    <tr>
-                                        <td colspan="100%" class="text-center">No Record Found</td>
-                                    </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                                            <td class="text-capitalize {{($record->status == 1) ? 'text-success' : 'text-danger'}}">{{($record->status == 1) ? 'Active' : 'In Active'}}</td>
+                                            <td>{{$record->created_at}}</td>
+                                            <td style="min-width: 300px;">
+                                                <a href="{{url('admin/student/edit/'.$record->id)}}" class="btn btn-primary">Edit</a>
+                                                <a href="{{url('admin/student/approval-for-update/'.$record->id)}}" class="btn btn-success">Edit Approval</a>
+                                                <a href="{{url('admin/student/delete/'.$record->id)}}" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td colspan="100%" class="text-center">No Record Found</td>
+                                        </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
