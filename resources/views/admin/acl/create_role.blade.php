@@ -147,9 +147,6 @@
                     if (response.status == true) {
                         alert(response.message);
                         window.location.reload();
-                        // $('#toast').html(response.message);
-                        // $('#toast').css('background-color', 'green');
-                        // $('#toast').fadeIn().delay(3000).fadeOut();
                     } else {
                         alert(response.message);
                         return false;

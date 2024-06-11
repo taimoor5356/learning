@@ -40,7 +40,13 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="form-group col-5">
+                                    <div class="form-group col-12 d-flex justify-content-end">
+                                        <a href="{{ url('public/files/prospectus.pdf') }}" type="button" class="btn btn-primary text-white p-3" download="prospectus.pdf" target="_blank" id="InputDownloadProspectus">Download Prospectus</a>
+                                        <span class="text-danger">{{$errors->first('name')}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
                                         <label for="InputClassType">Class Type <span class="text-danger">*</span></label>
                                         <select name="class_type" id="InputClassType" class="form-control" required>
                                             <option value="">Select Class Type</option>
@@ -49,7 +55,7 @@
                                         </select>
                                         <span class="text-danger">{{$errors->first('class_type')}}</span>
                                     </div>
-                                    <div class="form-group col-5">
+                                    <div class="form-group col-6">
                                         <label for="InputClassProgram">Select Class Program <span class="text-danger">*</span></label>
                                         <select class="form-control" id="InputClassProgram" name="class_program" required>
                                             <option value="">Select Class</option>
@@ -60,11 +66,6 @@
                                             <option value="others" {{ isset($record) ? ($record->class_program == 'others' ? 'selected' : '') : (old('class_program') == 'others' ? 'selected' : '') }}>Others</option>
                                         </select>
                                         <span class="text-danger">{{$errors->first('class_program')}}</span>
-                                    </div>
-                                    <div class="form-group col-2 d-flex justify-content-end">
-                                        <br>
-                                        <button type="button" class="btn btn-primary" id="InputDownloadProspectus">Download Prospectus</button>
-                                        <span class="text-danger">{{$errors->first('name')}}</span>
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="InputFullName">Full Name <span class="text-danger">*</span></label>
@@ -92,7 +93,7 @@
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="InputQualification">Qualification <span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ old('qualification') ?? (isset($record) ? $record->qualification : '') }}" class="form-control" id="InputQualification" placeholder="Enter qualification" name="qualification" >
+                                        <input type="text" value="{{ old('qualification') ?? (isset($record) ? $record->qualification : '') }}" class="form-control" id="InputQualification" placeholder="Enter qualification" name="qualification">
                                         <span class="text-danger">{{$errors->first('qualification')}}</span>
                                     </div>
                                     <div class="form-group col-12">
