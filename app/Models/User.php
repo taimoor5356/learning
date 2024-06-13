@@ -119,7 +119,9 @@ class User extends Authenticatable
             $students = $students->where('email', 'LIKE', '%' . Request::get('email') . '%');
         }
         if (!empty(Request::get('batch_number'))) {
-            $students = $students->where('batch_number', '=', Request::get('batch_number'));
+            $students = $students->whereHas('batch', function ($q) {
+                $q->where('name', 'LIKE', '%' . Request::get('batch_number') . '%');
+            });
         }
         if (!empty(Request::get('admission_number'))) {
             $students = $students->where('admission_number', 'LIKE', '%' . Request::get('admission_number') . '%');
