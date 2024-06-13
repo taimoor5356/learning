@@ -131,8 +131,8 @@
             <select name="applied_for" class="form-control" id="InputAppliedFor" required>
                 <option value="">Applying for</option>
                 <option value="written_exam" {{ isset($record) ? ($record->applied_for == 'written_exam' ? 'selected' : '') : (old('applied_for') == 'written_exam' ? 'selected' : '') }}>Written Exam</option>
-                <option value="interview" {{ isset($record) ? ($record->interview == 'class' ? 'selected' : '') : (old('interview') == 'class' ? 'selected' : '') }}>Interview</option>
-                <option value="examination" {{ isset($record) ? ($record->examination == 'class' ? 'selected' : '') : (old('examination') == 'class' ? 'selected' : '') }}>Examination</option>
+                <option value="interview" {{ isset($record) ? ($record->applied_for == 'class' ? 'selected' : '') : (old('interview') == 'class' ? 'selected' : '') }}>Interview</option>
+                <option value="examination" {{ isset($record) ? ($record->applied_for == 'class' ? 'selected' : '') : (old('examination') == 'class' ? 'selected' : '') }}>Examination</option>
             </select>
             <span class="text-danger">{{$errors->first('exam_id')}}</span>
         </div>
