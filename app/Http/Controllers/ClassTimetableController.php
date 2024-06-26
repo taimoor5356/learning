@@ -20,36 +20,39 @@ class ClassTimetableController extends Controller
     public function index(Request $request)
     {
         //
-        $data['header_title'] = 'Class Timetable';
+        $data['header_title'] = 'Subject Timetable';
         $data['classes'] = SchoolClass::getClasses()->get();
         if (!(empty($request->class_id))) {
         }
         $data['classSubjects'] = Subject::getSubjects()->get();
-        $daysOfWeek = DaysOfWeek::getWeekDays();
-        $wDays = [];
-        foreach ($daysOfWeek as $key => $day) {
-            $wData = [];
-            $wData['week_id'] = $day->id;
-            $wData['week_name'] = $day->name;
-            if (!(empty($request->class_id)) && !(empty($request->subject_id))) {
-                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($request->class_id, $request->subject_id, $day->id)->first();
+        $subjectDaysData = [];
+        foreach ($data['classSubjects']  as $key => $subject) {
+            $subjectData = [];
+            $subjectData['subject_id'] = $subject->id;
+            $subjectData['subject_name'] = $subject->name;
+            if (!(empty($request->class_id))) {
+                // $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($request->class_id, $request->subject_id, $day->id)->first();
+                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($request->class_id, $subject->id)->first();
                 if (isset($classSubjectsRecord)) {
-                    $wData['start_time'] = $classSubjectsRecord->start_time;
-                    $wData['end_time'] = $classSubjectsRecord->end_time;
-                    $wData['room_number'] = $classSubjectsRecord->room_number;
+                    $subjectData['date'] = $classSubjectsRecord->date;
+                    $subjectData['start_time'] = $classSubjectsRecord->start_time;
+                    $subjectData['end_time'] = $classSubjectsRecord->end_time;
+                    $subjectData['room_number'] = $classSubjectsRecord->room_number;
                 } else {
-                    $wData['start_time'] = '';
-                    $wData['end_time'] = '';
-                    $wData['room_number'] = '';
+                    $subjectData['date'] = '';
+                    $subjectData['start_time'] = '';
+                    $subjectData['end_time'] = '';
+                    $subjectData['room_number'] = '';
                 }
             } else {
-                $wData['start_time'] = '';
-                $wData['end_time'] = '';
-                $wData['room_number'] = '';
+                $subjectData['date'] = '';
+                $subjectData['start_time'] = '';
+                $subjectData['end_time'] = '';
+                $subjectData['room_number'] = '';
             }
-            $wDays[] = $wData;
+            $subjectDaysData[] = $subjectData;
         }
-        $data['weekDays'] = $wDays;
+        $data['subjectDaysData'] = $subjectDaysData;
         $data['records'] = SchoolClass::getClasses()->paginate(25);
         return view('admin.timetable.index', $data);
     }
@@ -69,21 +72,21 @@ class ClassTimetableController extends Controller
     public function insertOrUpdate(Request $request)
     {
         // delete if already assigned
-        ClassSubjectTimetable::alreadyAssignedClassTimetable($request['class_id'], $request['subject_id'])->delete();
         foreach ($request->timetable as $key => $timeTable) {
-            if (!empty($timeTable['week_days_id']) && !empty($timeTable['start_time']) && !empty($timeTable['end_time']) && !empty($timeTable['room_number'])) {
+            ClassSubjectTimetable::alreadyAssignedClassTimetable($request['class_id'], $timeTable['subject_id'])->delete();
+            if (!empty($timeTable['subject_id']) && !empty($timeTable['date']) && !empty($timeTable['start_time']) && !empty($timeTable['end_time']) && !empty($timeTable['room_number'])) {
                 $classTimetable = new ClassSubjectTimetable();
+                $classTimetable->date = $timeTable['date'];
                 $classTimetable->batch_id = $request['class_id'];
                 $classTimetable->class_id = $request['class_id'];
-                $classTimetable->subject_id = $request['subject_id'];
-                $classTimetable->week_days_id = $timeTable['week_days_id'];
+                $classTimetable->subject_id = $timeTable['subject_id'];
                 $classTimetable->start_time = $timeTable['start_time'];
                 $classTimetable->end_time = $timeTable['end_time'];
                 $classTimetable->room_number = $timeTable['room_number'];
                 $classTimetable->save(); //remove all save
             }
         }
-        return redirect()->back()->with('success', 'Class Timetable Updated Successfully');
+        return redirect()->back()->with('success', 'Subject Timetable Updated Successfully');
     }
 
     public function myStudentTimetable(Request $request)
@@ -92,27 +95,22 @@ class ClassTimetableController extends Controller
         $result = [];
         $getMySubjects = StudentSubject::getSingleBatchWiseSubjects(Auth::user()->id, Auth::user()->batch_number)->get();
         foreach ($getMySubjects as $key => $mySubject) {
-            $dataSubject['subject_name'] = $mySubject->subject?->name;
-            $daysOfWeek = DaysOfWeek::getWeekDays();
-            $weekDays = [];
-            foreach ($daysOfWeek as $day) {
-                $wData = [];
-                $wData['week_id'] = $day->id;
-                $wData['day_name'] = $day->name;
-                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->batch_id, $mySubject->subject_id, $day->id)->first();
-                if (isset($classSubjectsRecord)) {
-                    $wData['start_time'] = $classSubjectsRecord->start_time;
-                    $wData['end_time'] = $classSubjectsRecord->end_time;
-                    $wData['room_number'] = $classSubjectsRecord->room_number;
-                } else {
-                    $wData['start_time'] = '';
-                    $wData['end_time'] = '';
-                    $wData['room_number'] = '';
-                }
-                $weekDays[] = $wData;
+            $subjectData = [];
+            $subjectData['subject_id'] = $mySubject->subject?->id;
+            $subjectData['subject_name'] = $mySubject->subject?->name;
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->batch_id, $mySubject->subject_id)->first();
+            if (isset($classSubjectsRecord)) {
+                $subjectData['date'] = $classSubjectsRecord->date;
+                $subjectData['start_time'] = $classSubjectsRecord->start_time;
+                $subjectData['end_time'] = $classSubjectsRecord->end_time;
+                $subjectData['room_number'] = $classSubjectsRecord->room_number;
+            } else {
+                $subjectData['date'] = '';
+                $subjectData['start_time'] = '';
+                $subjectData['end_time'] = '';
+                $subjectData['room_number'] = '';
             }
-            $dataSubject['week_days'] = $weekDays;
-            $result[] = $dataSubject;
+            $result[] = $subjectData;
         }
         $data['records'] = $result;
         return view('student.timetable.index', $data);
@@ -122,29 +120,24 @@ class ClassTimetableController extends Controller
     {
         $data['header_title'] = 'My Timetable';
         $result = [];
-        $getMySubjects = ClassSubject::getSingleClassSubjects(Auth::user()->class_id)->get();
+        $getMySubjects = ClassSubject::getSingleClassSubjects(Auth::user()->batch_number)->get();
         foreach ($getMySubjects as $key => $mySubject) {
-            $dataSubject['subject_name'] = $mySubject->subject->name;
-            $daysOfWeek = DaysOfWeek::getWeekDays();
-            $weekDays = [];
-            foreach ($daysOfWeek as $day) {
-                $wData = [];
-                $wData['week_id'] = $day->id;
-                $wData['day_name'] = $day->name;
-                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id, $day->id)->first();
-                if (isset($classSubjectsRecord)) {
-                    $wData['start_time'] = $classSubjectsRecord->start_time;
-                    $wData['end_time'] = $classSubjectsRecord->end_time;
-                    $wData['room_number'] = $classSubjectsRecord->room_number;
-                } else {
-                    $wData['start_time'] = '';
-                    $wData['end_time'] = '';
-                    $wData['room_number'] = '';
-                }
-                $weekDays[] = $wData;
+            $subjectData = [];
+            $subjectData['subject_id'] = $mySubject->subject?->id;
+            $subjectData['subject_name'] = $mySubject->subject?->name;
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id)->first();
+            if (isset($classSubjectsRecord)) {
+                $subjectData['date'] = $classSubjectsRecord->date;
+                $subjectData['start_time'] = $classSubjectsRecord->start_time;
+                $subjectData['end_time'] = $classSubjectsRecord->end_time;
+                $subjectData['room_number'] = $classSubjectsRecord->room_number;
+            } else {
+                $subjectData['date'] = '';
+                $subjectData['start_time'] = '';
+                $subjectData['end_time'] = '';
+                $subjectData['room_number'] = '';
             }
-            $dataSubject['week_days'] = $weekDays;
-            $result[] = $dataSubject;
+            $result[] = $subjectData;
         }
         $data['records'] = $result;
         return view('teacher.timetable.index', $data);
@@ -154,25 +147,27 @@ class ClassTimetableController extends Controller
         $data['header_title'] = 'My Timetable';
         $data['className'] = SchoolClass::getSingleClass($classId)->name;
         $data['subjectName'] = Subject::getSingleSubject($subjectId)->name;
-        $daysOfWeek = DaysOfWeek::getWeekDays();
-        $weekDays = [];
-        foreach ($daysOfWeek as $day) {
+        // $daysOfWeek = DaysOfWeek::getWeekDays();
+        // $weekDays = [];
+        // foreach ($daysOfWeek as $day) {
             $wData = [];
-            $wData['week_id'] = $day->id;
-            $wData['day_name'] = $day->name;
-            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($classId, $subjectId, $day->id)->first();
+        //     $wData['week_id'] = $day->id;
+        //     $wData['day_name'] = $day->name;
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($classId, $subjectId)->first();
             if (isset($classSubjectsRecord)) {
+                $wData['date'] = $classSubjectsRecord->date;
                 $wData['start_time'] = $classSubjectsRecord->start_time;
                 $wData['end_time'] = $classSubjectsRecord->end_time;
                 $wData['room_number'] = $classSubjectsRecord->room_number;
             } else {
+                $wData['data'] = '';
                 $wData['start_time'] = '';
                 $wData['end_time'] = '';
                 $wData['room_number'] = '';
             }
             $result[] = $wData;
-        }
-        $dataSubject['week_days'] = $weekDays;
+        // }
+        // $dataSubject['week_days'] = $weekDays;
         $data['records'] = $result;
         return view('teacher.timetable.index', $data);
     }

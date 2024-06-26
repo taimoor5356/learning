@@ -63,24 +63,19 @@ class CalendarController extends Controller
         $result = [];
         $getMySubjects = ClassSubject::getSingleClassSubjects($batchId)->get();
         foreach ($getMySubjects as $key => $mySubject) {
-            $dataSubject['subject_name'] = $mySubject->subject?->name;
-            $daysOfWeek = DaysOfWeek::getWeekDays();
-            $weekDays = [];
-            foreach ($daysOfWeek as $day) {
-                $wData = [];
-                $wData['week_id'] = $day->id;
-                $wData['day_name'] = $day->name;
-                $wData['fullcalendar_day'] = $day->fullcalendar_day;
-                $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id, $day->id)->first();
-                if (isset($classSubjectsRecord)) {
-                    $wData['start_time'] = $classSubjectsRecord->start_time;
-                    $wData['end_time'] = $classSubjectsRecord->end_time;
-                    $wData['room_number'] = $classSubjectsRecord->room_number;
-                    $weekDays[] = $wData;
-                }
+            $subjectData = [];
+            $subjectData['subject_name'] = $mySubject->subject?->name;
+            $subjectDetails = [];
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id)->first();
+            if (isset($classSubjectsRecord)) {
+                $subjectData['date'] = $classSubjectsRecord->date;
+                $subjectData['start_time'] = Carbon::parse($classSubjectsRecord->start_time)->format('h:i a');
+                $subjectData['end_time'] = Carbon::parse($classSubjectsRecord->end_time)->format('h:i a');
+                $subjectData['room_number'] = $classSubjectsRecord->room_number;
+                $subjectDetails[] = $subjectData;
             }
-            $dataSubject['week_days'] = $weekDays;
-            $result[] = $dataSubject;
+            $subjectData['subject'] = $subjectDetails;
+            $result[] = $subjectData;
         }
         return $result;
     }

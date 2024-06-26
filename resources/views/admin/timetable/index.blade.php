@@ -47,7 +47,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <!-- <div class="col-2">
                                         <label for="InputSubjectId">Select Subject</label>
                                         <select value="{{Request::get('subject_id')}}" name="subject_id" class="form-control get-subjects" id="InputSubjectId">
                                             <option value="">Select Subject</option>
@@ -57,7 +57,7 @@
                                                 @endforeach
                                             @endif
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="col-2" style="margin-top: 32px;">
                                         <button type="submit" class="btn btn-primary">Search</button>
                                         <a href="{{url('admin/class-timetable/list')}}" class="btn btn-success">Clear All</a>
@@ -82,20 +82,23 @@
                             <div class="card-body p-0">
                                 <table class="table table-striped">
                                     <thead>
-                                        <th>Week</th>
+                                        <!-- <th>Week</th> -->
+                                        <th>Subject</th>
+                                        <th>Date</th>
                                         <th>Start time</th>
                                         <th>End time</th>
                                         <th>Room number</th>
                                     </thead>
                                     <tbody>
-                                        @if (!empty(Request::get('class_id')) && !empty(Request::get('subject_id')))
+                                        @if (!empty(Request::get('class_id')))
                                             @php $i = 1; @endphp
-                                            @foreach ($weekDays as $day)
+                                            @foreach ($subjectDaysData as $subject)
                                                 <tr>
-                                                    <th><input type="hidden" name="timetable[{{$i}}][week_days_id]" value="{{$day['week_id']}}">{{$day['week_name']}}</th>
-                                                    <td><input type="time" name="timetable[{{$i}}][start_time]" value="{{$day['start_time']}}" class="form-control"></td>
-                                                    <td><input type="time" name="timetable[{{$i}}][end_time]" value="{{$day['end_time']}}" class="form-control"></td>
-                                                    <td><input type="text" name="timetable[{{$i}}][room_number]" value="{{$day['room_number']}}" class="form-control w-50"></td>
+                                                    <td><input type="hidden" name="timetable[{{$i}}][subject_id]" value="{{$subject['subject_id']}}">{{$subject['subject_name']}}</td>
+                                                    <td><input type="date" name="timetable[{{$i}}][date]" class="form-control" value="{{$subject['date']}}"></td>
+                                                    <td><input type="time" name="timetable[{{$i}}][start_time]" value="{{$subject['start_time']}}" class="form-control"></td>
+                                                    <td><input type="time" name="timetable[{{$i}}][end_time]" value="{{$subject['end_time']}}" class="form-control"></td>
+                                                    <td><input type="text" name="timetable[{{$i}}][room_number]" value="{{$subject['room_number']}}" class="form-control w-50"></td>
                                                 </tr>
                                             @php $i++; @endphp
                                             @endforeach

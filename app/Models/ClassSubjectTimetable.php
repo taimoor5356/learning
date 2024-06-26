@@ -14,8 +14,13 @@ class ClassSubjectTimetable extends Model
         return self::where('class_id', $classId)->where('subject_id', $subjectId);
     }
 
-    static public function getClassSubjectRecord($classId, $subjectId, $dayId)
+    // static public function getClassSubjectRecord($classId, $subjectId, $dayId)
+    // {
+    //     return self::where('class_id', $classId)->where('subject_id', $subjectId)->where('week_days_id', $dayId);
+    // }
+
+    static public function getClassSubjectRecord($classId, $subjectId)
     {
-        return self::where('class_id', $classId)->where('subject_id', $subjectId)->where('week_days_id', $dayId);
+        return self::where('class_id', $classId)->where('subject_id', $subjectId);
     }
 }

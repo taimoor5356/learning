@@ -23,36 +23,37 @@
                 <!-- /.col -->
                 <div class="col-md-12">
                     @include('_message')
-                    @foreach ($records as $record)
                     <div class="card">
                             <div class="card-header">
-                                <h5 class="card-titless font-weight-bold">{{$record['subject_name']}}</h5>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <table class="table table-striped table-bordered">
                                     <thead>
-                                        <th>Week</th>
+                                        <th>Subject</th>
+                                        <th>Date</th>
                                         <th>Start time</th>
                                         <th>End time</th>
                                         <th>Room number</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($record['week_days'] as $weekDay)
-                                            <tr>
-                                                <td>{{$weekDay['day_name']}}</td>
-                                                <td>{{!empty($weekDay['start_time']) ? \Carbon\Carbon::parse($weekDay['start_time'])->format('h:i a') : 'No class'}}</td>
-                                                <td>{{!empty($weekDay['end_time']) ? \Carbon\Carbon::parse($weekDay['end_time'])->format('h:i a') : 'No class'}}</td>
-                                                <td>{{!empty($weekDay['room_number']) ? $weekDay['room_number'] : 'No class'}}</td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach ($records as $record)
+                                        <tr>
+                                            <td>
+                                                {{$record['subject_name']}}
+                                            </td>
+                                            <td>{{$record['date']}}</td>
+                                            <td>{{!empty($record['start_time']) ? \Carbon\Carbon::parse($record['start_time'])->format('h:i a') : 'No class'}}</td>
+                                            <td>{{!empty($record['end_time']) ? \Carbon\Carbon::parse($record['end_time'])->format('h:i a') : 'No class'}}</td>
+                                            <td>{{!empty($record['room_number']) ? $record['room_number'] : 'No class'}}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         <!-- /.card-body -->
                     </div>
                     <hr>
-                    @endforeach
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->

@@ -42,13 +42,12 @@
     $(document).ready(function() {
         var myEvents = new Array();
         @foreach($myTimeTable as $timeTable)
-            @foreach($timeTable['week_days'] as $day)
+            @foreach($timeTable['subject'] as $subject)
                 myEvents.push({
-                    title: "Subject: {{$timeTable['subject_name']}}",
-                    daysOfWeek:[{{$day['fullcalendar_day']}}],
-                    startTime: "{{$day['start_time']}}",
-                    endTime: "{{$day['end_time']}}",
-                    url: "{{url('student/class-timetable/list')}}"
+                    title: "Subject: {{$timeTable['subject_name']}} | ({{$subject['start_time']}} to {{$subject['end_time']}}) | Room: {{$subject['room_number']}}",
+                    url: "{{url('student/class-timetable/list')}}",
+                    start:  "{{$subject['date']}}",
+                    end: "{{$subject['date']}}"
                 });
             @endforeach
         @endforeach
