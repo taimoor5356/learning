@@ -9,9 +9,9 @@ class ClassSubjectTimetable extends Model
 {
     use HasFactory;
 
-    static public function alreadyAssignedClassTimetable($classId, $subjectId)
+    static public function alreadyAssignedClassTimetable($classId, $subjectId, $date)
     {
-        return self::where('class_id', $classId)->where('subject_id', $subjectId);
+        return self::where('class_id', $classId)->where('subject_id', $subjectId)->where('date', $date);
     }
 
     // static public function getClassSubjectRecord($classId, $subjectId, $dayId)

@@ -95,10 +95,10 @@
                                             @foreach ($subjectDaysData as $subject)
                                                 <tr>
                                                     <td><input type="hidden" name="timetable[{{$i}}][subject_id]" value="{{$subject['subject_id']}}">{{$subject['subject_name']}}</td>
-                                                    <td><input type="date" name="timetable[{{$i}}][date]" class="form-control" value="{{$subject['date']}}"></td>
-                                                    <td><input type="time" name="timetable[{{$i}}][start_time]" value="{{$subject['start_time']}}" class="form-control"></td>
-                                                    <td><input type="time" name="timetable[{{$i}}][end_time]" value="{{$subject['end_time']}}" class="form-control"></td>
-                                                    <td><input type="text" name="timetable[{{$i}}][room_number]" value="{{$subject['room_number']}}" class="form-control w-50"></td>
+                                                    <td><input type="date" name="timetable[{{$i}}][date]" class="form-control" value=""></td>
+                                                    <td><input type="time" name="timetable[{{$i}}][start_time]" value="" class="form-control"></td>
+                                                    <td><input type="time" name="timetable[{{$i}}][end_time]" value="" class="form-control"></td>
+                                                    <td><input type="text" name="timetable[{{$i}}][room_number]" value="" class="form-control w-50"></td>
                                                 </tr>
                                             @php $i++; @endphp
                                             @endforeach

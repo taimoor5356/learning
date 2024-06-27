@@ -42,7 +42,7 @@
     $(document).ready(function() {
         var myEvents = new Array();
         @foreach($myTimeTable as $timeTable)
-            @foreach($timeTable['subject'] as $subject)
+            @foreach($timeTable['dates'] as $subject)
                 myEvents.push({
                     title: "Subject: {{$timeTable['subject_name']}} | ({{$subject['start_time']}} to {{$subject['end_time']}}) | Room: {{$subject['room_number']}}",
                     url: "{{url('student/class-timetable/list')}}",

@@ -9,6 +9,7 @@ use App\Models\DaysOfWeek;
 use App\Models\SchoolClass;
 use App\Models\StudentSubject;
 use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,7 +74,7 @@ class ClassTimetableController extends Controller
     {
         // delete if already assigned
         foreach ($request->timetable as $key => $timeTable) {
-            ClassSubjectTimetable::alreadyAssignedClassTimetable($request['class_id'], $timeTable['subject_id'])->delete();
+            ClassSubjectTimetable::alreadyAssignedClassTimetable($request['class_id'], $timeTable['subject_id'], $timeTable['date'])->delete();
             if (!empty($timeTable['subject_id']) && !empty($timeTable['date']) && !empty($timeTable['start_time']) && !empty($timeTable['end_time']) && !empty($timeTable['room_number'])) {
                 $classTimetable = new ClassSubjectTimetable();
                 $classTimetable->date = $timeTable['date'];
@@ -92,24 +93,30 @@ class ClassTimetableController extends Controller
     public function myStudentTimetable(Request $request)
     {
         $data['header_title'] = 'My Timetable';
+        
         $result = [];
+
         $getMySubjects = StudentSubject::getSingleBatchWiseSubjects(Auth::user()->id, Auth::user()->batch_number)->get();
-        foreach ($getMySubjects as $key => $mySubject) {
-            $subjectData = [];
-            $subjectData['subject_id'] = $mySubject->subject?->id;
-            $subjectData['subject_name'] = $mySubject->subject?->name;
-            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->batch_id, $mySubject->subject_id)->first();
-            if (isset($classSubjectsRecord)) {
-                $subjectData['date'] = $classSubjectsRecord->date;
-                $subjectData['start_time'] = $classSubjectsRecord->start_time;
-                $subjectData['end_time'] = $classSubjectsRecord->end_time;
-                $subjectData['room_number'] = $classSubjectsRecord->room_number;
-            } else {
-                $subjectData['date'] = '';
-                $subjectData['start_time'] = '';
-                $subjectData['end_time'] = '';
-                $subjectData['room_number'] = '';
+        
+        foreach ($getMySubjects as $mySubject) {
+            $subjectData = [
+                'subject_name' => $mySubject->subject?->name,
+                'dates' => []
+            ];
+            
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->batch_id, $mySubject->subject_id)->get();
+            
+            foreach ($classSubjectsRecord as $subjectRecord) {
+                $subjectDetail = [
+                    'date' => $subjectRecord->date,
+                    'start_time' => Carbon::parse($subjectRecord->start_time)->format('h:i a'),
+                    'end_time' => Carbon::parse($subjectRecord->end_time)->format('h:i a'),
+                    'room_number' => $subjectRecord->room_number,
+                ];
+                
+                $subjectData['dates'][] = $subjectDetail;
             }
+            
             $result[] = $subjectData;
         }
         $data['records'] = $result;

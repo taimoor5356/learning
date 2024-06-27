@@ -61,22 +61,31 @@ class CalendarController extends Controller
     public function myStudentTimeTable($batchId) 
     {
         $result = [];
+
         $getMySubjects = ClassSubject::getSingleClassSubjects($batchId)->get();
-        foreach ($getMySubjects as $key => $mySubject) {
-            $subjectData = [];
-            $subjectData['subject_name'] = $mySubject->subject?->name;
-            $subjectDetails = [];
-            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id)->first();
-            if (isset($classSubjectsRecord)) {
-                $subjectData['date'] = $classSubjectsRecord->date;
-                $subjectData['start_time'] = Carbon::parse($classSubjectsRecord->start_time)->format('h:i a');
-                $subjectData['end_time'] = Carbon::parse($classSubjectsRecord->end_time)->format('h:i a');
-                $subjectData['room_number'] = $classSubjectsRecord->room_number;
-                $subjectDetails[] = $subjectData;
+        
+        foreach ($getMySubjects as $mySubject) {
+            $subjectData = [
+                'subject_name' => $mySubject->subject?->name,
+                'dates' => []
+            ];
+            
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id)->get();
+            
+            foreach ($classSubjectsRecord as $subjectRecord) {
+                $subjectDetail = [
+                    'date' => $subjectRecord->date,
+                    'start_time' => Carbon::parse($subjectRecord->start_time)->format('h:i a'),
+                    'end_time' => Carbon::parse($subjectRecord->end_time)->format('h:i a'),
+                    'room_number' => $subjectRecord->room_number,
+                ];
+                
+                $subjectData['dates'][] = $subjectDetail;
             }
-            $subjectData['subject'] = $subjectDetails;
+            
             $result[] = $subjectData;
         }
+        
         return $result;
     }
 
