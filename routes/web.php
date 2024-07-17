@@ -27,6 +27,7 @@ use App\Http\Controllers\ZoomClassController;
 use App\Models\Suggestions;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['prefix' => '/'], function () {
+    Route::get('run-artisan', function () {
+        Artisan::call('migrate');
+        return 'Artisan command executed successfully';
+    });
     Route::get('/carousel', function () {
         return view('carousel');
     });
