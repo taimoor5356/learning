@@ -88,6 +88,7 @@
                                         <th>Start time</th>
                                         <th>End time</th>
                                         <th>Room number</th>
+                                        <th>Show Details</th>
                                     </thead>
                                     <tbody>
                                         @if (!empty(Request::get('class_id')))
@@ -99,6 +100,7 @@
                                                     <td><input type="time" name="timetable[{{$i}}][start_time]" value="" class="form-control"></td>
                                                     <td><input type="time" name="timetable[{{$i}}][end_time]" value="" class="form-control"></td>
                                                     <td><input type="text" name="timetable[{{$i}}][room_number]" value="" class="form-control w-50"></td>
+                                                    <td><a href="{{url('admin/class-timetable/'.Request::get('class_id').'/'.$subject['subject_id'])}}" class="btn btn-primary">View Details</a></td>
                                                 </tr>
                                             @php $i++; @endphp
                                             @endforeach

@@ -41,23 +41,27 @@
 <script>
     $(document).ready(function() {
         var myEvents = new Array();
-        @foreach ($teacherClassTimeTable as $timeTable)
-            myEvents.push({
-                title: "Batch Number: {{$timeTable->class_name}} - {{$timeTable->subject_name}}",
-                daysOfWeek: "{{$timeTable->fullcalendar_day}}",
-                startTime: "{{$timeTable->start_time}}",
-                endTime: "{{$timeTable->end_time}}",
-            });
+        @foreach($teacherClassTimeTable as $timeTable)
+            @foreach($timeTable['dates'] as $subject)
+                myEvents.push({
+                    title: "Subject: {{$timeTable['subject_name']}} | ({{$subject['start_time']}} to {{$subject['end_time']}}) | Room: {{$subject['room_number']}}",
+                    url: "{{url('student/class-timetable/list')}}",
+                    start:  "{{$subject['date']}}",
+                    end: "{{$subject['date']}}"
+                });
+            @endforeach
         @endforeach
-        @foreach($teacherExamClassTimeTable as $exam)
-            myEvents.push({
-                title: "Exam: {{$exam['exam_name']}} | {{$exam['subject_name']}} ({{$exam['start_time']}} to {{$exam['end_time']}})",
-                start:  "{{$exam['exam_date']}}",
-                end: "{{$exam['exam_date']}}",
-                color: '#dc3545',
-                textColor: 'white',
-                url: "{{url('student/examinations/scheduled-exams')}}"
-            });
+        @foreach($teacherExamClassTimeTable as $examTimeTable)
+            @foreach($examTimeTable['exam'] as $exam)
+                myEvents.push({
+                    title: "Exam: {{$examTimeTable['exam_name']}} | {{$exam['subject_name']}} ({{$exam['start_time']}} to {{$exam['end_time']}})",
+                    start:  "{{$exam['exam_date']}}",
+                    end: "{{$exam['exam_date']}}",
+                    color: '#dc3545',
+                    textColor: 'white',
+                    url: "{{url('student/examinations/scheduled-exams')}}"
+                });
+            @endforeach
         @endforeach
         var calendarId = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarId, {

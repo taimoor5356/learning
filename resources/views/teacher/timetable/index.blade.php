@@ -32,7 +32,7 @@
                             <div class="card-body p-0">
                                 <table class="table table-striped table-bordered">
                                     <thead>
-                                        <th>Week</th>
+                                        <th>Date</th>
                                         <th>Start time</th>
                                         <th>End time</th>
                                         <th>Room number</th>
@@ -40,7 +40,7 @@
                                     <tbody>
                                         @foreach ($records as $weekDay)
                                             <tr>
-                                                <td>{{$weekDay['day_name']}}</td>
+                                                <td>{{$weekDay['date']}}</td>
                                                 <td>{{!empty($weekDay['start_time']) ? \Carbon\Carbon::parse($weekDay['start_time'])->format('h:i a') : 'No class'}}</td>
                                                 <td>{{!empty($weekDay['end_time']) ? \Carbon\Carbon::parse($weekDay['end_time'])->format('h:i a') : 'No class'}}</td>
                                                 <td>{{!empty($weekDay['room_number']) ? $weekDay['room_number'] : 'No class'}}</td>

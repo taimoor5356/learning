@@ -92,21 +92,21 @@
                                     @foreach ($records as $key => $record)
                                     <tr>
                                         <td>{{ ($records->currentPage() - 1) * $records->perPage() + $loop->iteration }}</td>
-                                        <td class="text-capitalize">{{$record->class_name}}</td>
-                                        <td class="text-capitalize">{{$record->subject_name}}</td>
-                                        <td class="text-capitalize">{{$record->class_subject?->subject?->type}}</td>
+                                        <td class="text-capitalize">{{$record->batch?->name}}</td>
+                                        <td class="text-capitalize">{{$record->subject?->name}}</td>
+                                        <td class="text-capitalize">{{$record->subject?->type}}</td>
                                         <td>
-                                            @if(!is_null($record->getMyClassSubjectTimings($record->new_class_id, $record->new_subject_id)))
-                                                {{\Carbon\Carbon::parse($record->getMyClassSubjectTimings($record->new_class_id, $record->new_subject_id)->start_time)->format('h:i a')}} - {{\Carbon\Carbon::parse($record->getMyClassSubjectTimings($record->new_class_id, $record->new_subject_id)->end_time)->format('h:i a')}} 
+                                            @if(!is_null($record->getMyClassSubjectTimings($record->batch_id, $record->subject_id)))
+                                                {{\Carbon\Carbon::parse($record->getMyClassSubjectTimings($record->batch_id, $record->subject_id)->start_time)->format('h:i a')}} - {{\Carbon\Carbon::parse($record->getMyClassSubjectTimings($record->batch_id, $record->subject_id)->end_time)->format('h:i a')}} 
                                                 <br>
-                                                Room No: {{$record->getMyClassSubjectTimings($record->new_class_id, $record->new_subject_id)->room_number}}
+                                                Room No: {{$record->getMyClassSubjectTimings($record->batch_id, $record->subject_id)->room_number}}
                                             @else 
                                                 No class 
                                             @endif
                                         </td>
                                         <td class="text-capitalize">{{($record->created_at)}}</td>
                                         <td>
-                                            <a href="{{url('teacher/subject/class-timetable/'.$record->new_class_id.'/'.$record->new_subject_id)}}" class="btn btn-primary">My Timetable</a>
+                                            <a href="{{url('teacher/subject/class-timetable/'.$record->batch_id.'/'.$record->subject_id)}}" class="btn btn-primary">My Timetable</a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassTeacher;
 use App\Models\SchoolClass;
 use App\Models\Subject;
+use App\Models\TeacherSubject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -188,7 +189,7 @@ class ClassTeacherController extends Controller
         $teacherId = Auth::user()->id;
         $batchId = Auth::user()->batch_id;
         $data['subjects'] = ClassTeacher::getMyClassSubjects($batchId, $teacherId);
-        $data['records'] = ClassTeacher::myClassTeacherSubjects($teacherId)->paginate(25);
+        $data['records'] = TeacherSubject::getSingleTeacherWiseSubjects($teacherId)->paginate(25);
         return view('teacher.my_subject', $data);
     }
 }

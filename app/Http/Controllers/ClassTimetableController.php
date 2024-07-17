@@ -32,7 +32,6 @@ class ClassTimetableController extends Controller
             $subjectData['subject_id'] = $subject->id;
             $subjectData['subject_name'] = $subject->name;
             if (!(empty($request->class_id))) {
-                // $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($request->class_id, $request->subject_id, $day->id)->first();
                 $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($request->class_id, $subject->id)->first();
                 if (isset($classSubjectsRecord)) {
                     $subjectData['date'] = $classSubjectsRecord->date;
@@ -56,6 +55,17 @@ class ClassTimetableController extends Controller
         $data['subjectDaysData'] = $subjectDaysData;
         $data['records'] = SchoolClass::getClasses()->paginate(25);
         return view('admin.timetable.index', $data);
+    }
+
+    public function showSingleSubjectTimetable($batchId, $subjectId)
+    {
+        $data['header_title'] = 'Subject Timetable';
+
+        $data['record'] = Subject::getSingleSubject($subjectId);
+        $data['records'] = ClassSubjectTimetable::getSingleSubjectBatchWiseTimetable($batchId, $subjectId)->get();
+        
+
+        return view('admin.timetable.show_single', $data);
     }
 
     public function getClassSubjects(Request $request)

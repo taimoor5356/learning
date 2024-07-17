@@ -322,6 +322,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'is_active']], func
     // Timetable
     Route::group(['prefix' => 'class-timetable', 'middleware' => ['permission:school_class_view']], function () {
         Route::get('/list', [ClassTimetableController::class, 'index'])->middleware('permission:school_class_view');
+        Route::get('/{batch_id}/{subject_id}', [ClassTimetableController::class, 'showSingleSubjectTimetable'])->middleware('permission:school_class_view');
         Route::get('/create', [ClassTimetableController::class, 'create'])->middleware('permission:school_class_create');
         Route::post('/store', [ClassTimetableController::class, 'store'])->middleware('permission:school_class_create');
         Route::get('/edit/{id}', [ClassTimetableController::class, 'edit'])->middleware('permission:school_class_update');

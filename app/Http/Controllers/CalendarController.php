@@ -93,9 +93,70 @@ class CalendarController extends Controller
     {
         //
         $data['header_title'] = 'My Calendar';
-        $data['teacherClassTimeTable'] = ClassTeacher::getTeacherCalendarData(Auth::user()->id);
-        $data['teacherExamClassTimeTable'] = ClassTeacher::getTeacherExamCalendarData(Auth::user()->id);
+        $data['teacherClassTimeTable'] = $this->myTeacherTimeTable(Auth::user()->batch_number);
+        $data['teacherExamClassTimeTable'] = $this->myTeacherExamTimeTable(Auth::user()->batch_number);
         return view('teacher.calendar.index', $data);
+    }
+
+    public function myTeacherTimeTable($batchId) 
+    {
+        $result = [];
+
+        $getMySubjects = ClassSubject::getSingleClassSubjects($batchId)->get();
+        
+        foreach ($getMySubjects as $mySubject) {
+            $subjectData = [
+                'subject_name' => $mySubject->subject?->name,
+                'dates' => []
+            ];
+            
+            $classSubjectsRecord = ClassSubjectTimetable::getClassSubjectRecord($mySubject->class_id, $mySubject->subject_id)->get();
+            
+            foreach ($classSubjectsRecord as $subjectRecord) {
+                $subjectDetail = [
+                    'date' => $subjectRecord->date,
+                    'start_time' => Carbon::parse($subjectRecord->start_time)->format('h:i a'),
+                    'end_time' => Carbon::parse($subjectRecord->end_time)->format('h:i a'),
+                    'room_number' => $subjectRecord->room_number,
+                ];
+                
+                $subjectData['dates'][] = $subjectDetail;
+            }
+            
+            $result[] = $subjectData;
+        }
+        
+        return $result;
+    }
+
+    public function myTeacherExamTimeTable($batchId)
+    {
+        $getExamSchedule = ExamSchedule::getSingleClassSchedule($batchId)->get();
+        $result = [];
+        foreach ($getExamSchedule as $examSchedule) {
+            $examData = [];
+            $examData['exam_name'] = $examSchedule->exam?->name;
+            $classExamSchedule = ExamSchedule::getSingleExamClassSchedule($examSchedule->exam?->id, $batchId)->get();
+            $subjectResult = [];
+            foreach ($classExamSchedule as $key => $classExamScheduleSubject) {
+                $subjectData = [];
+                $subjectData['subject_id'] = $classExamScheduleSubject->subject_id;
+                $subjectData['batch_id'] = $classExamScheduleSubject->batch_id;
+                $subjectData['class_id'] = $classExamScheduleSubject->class_id;
+                $subjectData['subject_name'] = $classExamScheduleSubject->subject?->name;
+                $subjectData['subject_type'] = $classExamScheduleSubject->subject?->type;
+                $subjectData['exam_date'] = $classExamScheduleSubject->exam_date;
+                $subjectData['start_time'] = Carbon::parse($classExamScheduleSubject->start_time)->format('h:i a');
+                $subjectData['end_time'] = Carbon::parse($classExamScheduleSubject->end_time)->format('h:i a');
+                $subjectData['room_number'] = $classExamScheduleSubject->room_number;
+                $subjectData['full_marks'] = $classExamScheduleSubject->full_marks;
+                $subjectData['passing_marks'] = $classExamScheduleSubject->passing_marks;
+                $subjectResult[] = $subjectData;
+            }
+            $examData['exam'] = $subjectResult;
+            $result[] = $examData;
+        }
+        return $result;
     }
 
     /**

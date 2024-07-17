@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassSubject;
 use App\Models\SchoolClass;
+use App\Models\Subject;
 use App\Models\TeacherDetail;
+use App\Models\TeacherSubject;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -31,7 +35,8 @@ class TeacherController extends Controller
     {
         //
         $data['header_title'] = 'Add New Teacher Detail';
-        $data['classes'] = SchoolClass::getClasses()->get();
+        $data['batches'] = SchoolClass::getClasses()->get();
+        $data['subjects'] = Subject::get();
         return view('admin.teacher.create', $data);
     }
 
@@ -58,12 +63,14 @@ class TeacherController extends Controller
             'marital_status' => ['required', Rule::in(['married', 'un_married'])],
             'status' => ['required', Rule::in([0, 1])],
             'blood_group' => ['required', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])],
+            'batch_number' => ['required']
         ]);
         $user = new User();
         $user->name = trim($request->name);
         $user->email = trim($request->email);
         $user->password = Hash::make($request->password);
         $user->status = trim($request->status);
+        $user->batch_number = trim($request->batch_number);
         $user->gender = trim($request->gender);
         $user->admission_date = trim($request->admission_date);
         $user->date_of_birth = trim($request->date_of_birth);
@@ -82,11 +89,41 @@ class TeacherController extends Controller
             $ext = $request->file('profile_pic')->getClientOriginalExtension();
             $file = $request->file('profile_pic');
             $randomStr = Str::random(10);
-            $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
+            $fileName = 'stu' . strtolower($randomStr) . '.' . $ext;
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
+        $studentSubjects = $request->subject_id;
+        $user->subjects = json_encode($studentSubjects);
         $user->save(); //remove all save
+        foreach ($studentSubjects as $key => $subject) {
+            $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->batch_number, $subject);
+            if (!empty($getSingleAlreadyAssigned)) {
+                $getSingleAlreadyAssigned->status == 1;
+                $getSingleAlreadyAssigned->save(); //remove all save
+            } else {
+                $class_subject = new ClassSubject();
+                $class_subject->batch_id = $request->batch_number;
+                $class_subject->class_id = $request->batch_number;
+                $class_subject->subject_id = $subject;
+                $class_subject->created_by = Auth::user()->id;
+                $class_subject->status = 1;
+                $class_subject->save(); //remove all save
+            }
+            $alreadyAssignedSubject = TeacherSubject::alreadyAssigned($user->id, $request->batch_number, $subject);
+            if (!empty($alreadyAssignedSubject)) {
+                $alreadyAssignedSubject->status == 1;
+                $alreadyAssignedSubject->save(); //remove all save
+            } else {
+                $studentSubject = new TeacherSubject();
+                $studentSubject->user_id = $user->id;
+                $studentSubject->batch_id = $request->batch_number;
+                $studentSubject->subject_id = $subject;
+                $studentSubject->created_by = Auth::user()->id;
+                $studentSubject->status = 1;
+                $studentSubject->save(); //remove all save
+            }
+        }
 
         return redirect('admin/teacher/list')->with('success', 'Teacher added successfully');
     }
@@ -107,7 +144,8 @@ class TeacherController extends Controller
         //
         $data['header_title'] = 'Edit Teacher Detail';
         $data['record'] = User::getSingleUser($id)->first();
-        $data['classes'] = SchoolClass::getClasses()->get();
+        $data['batches'] = SchoolClass::getClasses()->get();
+        $data['subjects'] = Subject::get();
         return view('admin.teacher.edit', $data);
     }
 
@@ -119,7 +157,7 @@ class TeacherController extends Controller
         //
         request()->validate([
             'name' => ['required', 'string', 'regex:/^[^\d]+$/'], // This regex disallows any digits
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'gender' => ['required', Rule::in(['male', 'female'])],
             'date_of_birth' => 'required',
             'admission_date' => 'required',
@@ -127,6 +165,7 @@ class TeacherController extends Controller
             'permanent_address' => 'required',
             'qualification' => 'required',
             'work_experience' => 'required',
+            'batch_number' => 'required',
             'note' => 'required',
             'mobile_number' => 'required|min_digits:10|max_digits:15',
             'marital_status' => ['required', Rule::in(['married', 'un_married'])],
@@ -140,6 +179,7 @@ class TeacherController extends Controller
             $user->password = Hash::make($request->password);
         }
         $user->status = trim($request->status);
+        $user->batch_number = trim($request->batch_number);
         $user->gender = trim($request->gender);
         $user->date_of_birth = trim($request->date_of_birth);
         $user->admission_date = trim($request->admission_date);
@@ -154,17 +194,47 @@ class TeacherController extends Controller
         $user->marital_status = trim($request->marital_status);
         $user->blood_group = trim($request->blood_group);
         if (!empty($request->file('profile_pic'))) {
-            if (file_exists('public/images/profile/'.$user->profile_pic)) {
-                        unlink('public/images/profile/'.$user->profile_pic);
-                    }
+            if (file_exists('public/images/profile/' . $user->profile_pic)) {
+                unlink('public/images/profile/' . $user->profile_pic);
+            }
             $ext = $request->file('profile_pic')->getClientOriginalExtension();
             $file = $request->file('profile_pic');
             $randomStr = Str::random(10);
-            $fileName = 'stu' . strtolower($randomStr). '.'. $ext;
+            $fileName = 'stu' . strtolower($randomStr) . '.' . $ext;
             $file->move('public/images/profile/', $fileName);
             $user->profile_pic = $fileName;
         }
+        $studentSubjects = $request->subject_id;
+        $user->subjects = json_encode($studentSubjects);
         $user->save(); //remove all save
+        foreach ($studentSubjects as $key => $subject) {
+            $getSingleAlreadyAssigned = ClassSubject::getSingleAlreadyAssigned($request->batch_number, $subject);
+            if (!empty($getSingleAlreadyAssigned)) {
+                $getSingleAlreadyAssigned->status == 1;
+                $getSingleAlreadyAssigned->save(); //remove all save
+            } else {
+                $class_subject = new ClassSubject();
+                $class_subject->batch_id = $request->batch_number;
+                $class_subject->class_id = $request->batch_number;
+                $class_subject->subject_id = $subject;
+                $class_subject->created_by = Auth::user()->id;
+                $class_subject->status = 1;
+                $class_subject->save(); //remove all save
+            }
+            $alreadyAssignedSubject = TeacherSubject::alreadyAssigned($user->id, $request->batch_number, $subject);
+            if (!empty($alreadyAssignedSubject)) {
+                $alreadyAssignedSubject->status == 1;
+                $alreadyAssignedSubject->save(); //remove all save
+            } else {
+                $studentSubject = new TeacherSubject();
+                $studentSubject->user_id = $user->id;
+                $studentSubject->batch_id = $request->batch_number;
+                $studentSubject->subject_id = $subject;
+                $studentSubject->created_by = Auth::user()->id;
+                $studentSubject->status = 1;
+                $studentSubject->save(); //remove all save
+            }
+        }
 
         return redirect('admin/teacher/list')->with('success', 'Teacher details updated successfully');
     }

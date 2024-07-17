@@ -14,13 +14,17 @@ class ClassSubjectTimetable extends Model
         return self::where('class_id', $classId)->where('subject_id', $subjectId)->where('date', $date);
     }
 
-    // static public function getClassSubjectRecord($classId, $subjectId, $dayId)
-    // {
-    //     return self::where('class_id', $classId)->where('subject_id', $subjectId)->where('week_days_id', $dayId);
-    // }
+    static function getSingleSubjectBatchWiseTimetable($batchId, $subjectId) {
+        return self::where('batch_id', $batchId)->where('subject_id', $subjectId);
+    }
 
     static public function getClassSubjectRecord($classId, $subjectId)
     {
         return self::where('class_id', $classId)->where('subject_id', $subjectId);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class,'subject_id','id');
     }
 }

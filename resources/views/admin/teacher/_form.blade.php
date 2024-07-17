@@ -1,6 +1,35 @@
 <div class="card-body">
     <div class="row">
         <div class="form-group col-4">
+            <label for="InputBatchNumber">Enter Batch <span class="text-danger">*</span></label>
+            <select name="batch_number" id="InputBatchNumber" class="form-control">
+                <option value="">Select Batch</option>
+                @foreach ($batches as $batch)
+                <option value="{{$batch->id}}" data-batch-number="{{$batch->name}}" {{ isset($record) ? ($record->batch_number == $batch->id ? 'selected' : '') : (old('batch_number') == $batch->id ? 'selected' : '') }}>{{$batch->name}}</option>
+                @endforeach
+            </select>
+            <!-- <input type="text" class="form-control" name="batch_number" placeholder="Enter batch number" id="InputBatchNumber" value="{{ old('batch_number') ?? (isset($record) ? $record->batch_number : '') }}" required> -->
+            <span class="text-danger">{{$errors->first('batch_number')}}</span>
+        </div>
+        <div class="form-group col-3">
+            <label for="InputSubject">Select Subjects <span class="text-danger">*</span></label>
+            <select name="subject_id[]" class="form-control select2" multiple id="InputSubject" required>
+                @if (!empty($subjects))
+                @foreach($subjects as $subject)
+                    @php 
+                        $assignedSubjects = isset($record) && $record->subjects ? json_decode($record->subjects, true) : [];
+                    @endphp
+                    <option value="{{$subject->id ?? ''}}" @if(in_array($subject->id, $assignedSubjects)) selected @endif>
+                        @isset($subject) {{$subject->name . ' (' .$subject->fees. ')'}} @endisset
+                    </option>
+                @endforeach
+                @endif
+            </select>
+            <span class="text-danger">{{$errors->first('subject_id')}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-4">
             <label for="InputFullName">Full Name <span class="text-danger">*</span></label>
             <input type="text" value="{{ old('name') ?? (isset($record) ? $record->name : '') }}" name="name" class="form-control" id="InputFullName" placeholder="Enter full name" required>
             <span class="text-danger">{{$errors->first('name')}}</span>
