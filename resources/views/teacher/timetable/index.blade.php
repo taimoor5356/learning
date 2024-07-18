@@ -58,6 +58,7 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+<!-- -->
 </div>
 @endsection
 @section('script')
