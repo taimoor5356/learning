@@ -192,7 +192,6 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
                 <p class="mb-1">
                     <a href="{{url('')}}">Login</a>
                 </p>
